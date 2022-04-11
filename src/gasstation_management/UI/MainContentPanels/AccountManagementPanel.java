@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gasstation_management.UI;
+package gasstation_management.UI.MainContentPanels;
 
 /**
  *
  * @author nguye
  */
-public class SideMenuPanel extends javax.swing.JPanel {
+public class AccountManagementPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form SideMenuPanel
+     * Creates new form AccountManagementPanel
      */
-    public SideMenuPanel() {
+    public AccountManagementPanel() {
         initComponents();
     }
 
