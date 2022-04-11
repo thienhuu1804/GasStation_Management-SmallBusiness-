@@ -5,6 +5,11 @@
  */
 package gasstation_management;
 
+import gasstation_management.UI.MainPanel;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 /**
  *
  * @author nguye
@@ -15,9 +20,18 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        //test test
-        // master change
+        // Create mainframe
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        MainPanel pnlMain = new MainPanel();
+        //Làm gì thì add giao diện đó vào pnlMain
+
+        frame.setSize(pnlMain.getPreferredSize());
+        frame.setLocationRelativeTo(null);
+        frame.add(pnlMain);
+        frame.setVisible(true);
     }
-    
+
 }
