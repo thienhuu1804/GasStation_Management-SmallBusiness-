@@ -21,17 +21,19 @@ public class Main {
      */
     public static void main(String[] args) {
         // Create mainframe
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-
-        MainPanel pnlMain = new MainPanel();
-        //Làm gì thì add giao diện đó vào pnlMain
-
-        frame.setSize(pnlMain.getPreferredSize());
-        frame.setLocationRelativeTo(null);
-        frame.add(pnlMain);
-        frame.setVisible(true);
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        frame.setLayout(new BorderLayout());
+//
+//        MainPanel pnlMain = new MainPanel();
+//        //Làm gì thì add giao diện đó vào pnlMain
+//
+//        frame.setSize(pnlMain.getPreferredSize());
+//        frame.setLocationRelativeTo(null);
+//        frame.add(pnlMain);
+//        frame.setVisible(true);
+        DBConnect connector = new DBConnect();
+        System.out.println(connector.getHeaders("nhanvien"));;
     }
 
 }
