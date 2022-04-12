@@ -7,6 +7,7 @@ package gasstation_management;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -25,8 +26,8 @@ public class DBConnect {
     Connection conn = null;
 
     String server = "localhost:3306";
-    String dbName = "FuelManagement";
-    String userName = "FuelAdmin";
+    String dbName = "fuelmanagement";
+    String userName = "root";
     String pass = "";
 
     public DBConnect() {
@@ -71,6 +72,7 @@ public class DBConnect {
             String url = "jdbc:mysql://" + server + "/" + dbName;
             conn = DriverManager.getConnection(url, userName, pass);
             stm = conn.createStatement();
+            System.err.println("Ket noi thanh cong");
 //            JOptionPane.showMessageDialog(null, "Ket noi database " + dbName + " thanh cong");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,5 +153,61 @@ public class DBConnect {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "-- ERROR! Không thể đóng kết nối tới " + dbName);
         }
+    }
+    public String[][] getInforPowerOfAllAccount() throws SQLException
+    {
+        int count;
+        String[][] result = new String[0][3];
+
+        PreparedStatement selectStatement1 = conn.prepareStatement("select distinct tendangnhap from taikhoan_quyen");
+        PreparedStatement selectStatement = conn.prepareStatement("select id,tendangnhap,maquyen from taikhoan_quyen");
+        ResultSet rs = selectStatement.executeQuery();
+        count =1;
+            while (rs.next()) { // will traverse through all rows
+                ArrayList<String> list = new ArrayList<String>();
+                int iD = rs.getInt("id");
+                String tenDangNhap = rs.getString("tendangnhap");
+                String maquyen = rs.getString("maquyen");
+                list.add(Integer.toString(iD));
+                list.add(tenDangNhap);
+                list.add(maquyen);
+                String[] arr = new String[list.size()];
+                list.toArray(arr);
+                String[][] result2 = new String[count][3];
+                for(int i=0;i<count-1;i++)      
+                {
+                    for(int j=0;j<3;j++)
+                    {
+                        result2[i][j] = result[i][j];
+                    }
+                }
+                for(int k=0;k<3;k++)
+                {
+                    result2[count-1][k]=arr[k];
+                }
+                count++;
+                result=result2;
+                }
+            return result;
+
+//           
+
+    } 
+     public ArrayList getPowerOfAccount(String loginName) throws SQLException
+    {
+        
+        ArrayList<String> list = new ArrayList<String>();
+        PreparedStatement selectStatement1 = conn.prepareStatement("select distinct tendangnhap from taikhoan_quyen");
+        PreparedStatement selectStatement = conn.prepareStatement("select id,tendangnhap,maquyen from taikhoan_quyen");
+        ResultSet rs = selectStatement.executeQuery();
+            while (rs.next()) {
+                // will traverse through all rows
+                String maquyen = rs.getString("maquyen");
+                list.add(maquyen);
+                
+            }
+     return list;       
+//   
+
     }
 }
