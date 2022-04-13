@@ -5,6 +5,7 @@
  */
 package gasstation_management;
 
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class DBConnect {
 
-    Statement stm = null;
+//    Statement stm = null;
     ResultSet rs = null;
     Connection conn = null;
 
@@ -33,7 +36,7 @@ public class DBConnect {
         checkDriver();
         setupConnection();
     }
-    
+
     public DBConnect(String dbName) {
         checkDriver();
         server = "localhost:3306";
@@ -66,22 +69,23 @@ public class DBConnect {
         setupConnection();
     }
 
-    public void setupConnection() {
+    public boolean setupConnection() {
         try {
             String url = "jdbc:mysql://" + server + "/" + dbName;
             conn = DriverManager.getConnection(url, userName, pass);
-            stm = conn.createStatement();
+            return conn.isValid(1000);
 //            JOptionPane.showMessageDialog(null, "Ket noi database " + dbName + " thanh cong");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Khong the ket noi toi " + dbName);
+            return false;
         }
     }
 
-    public ResultSet sqlQry(String qry) {
+    public ResultSet sqlQry(PreparedStatement stm) {
         if (checkConnection()) {
             try {
-                rs = stm.executeQuery(qry);
+                rs = stm.executeQuery();
 //                JOptionPane.showMessageDialog(null, "Thuc thi Query thanh cong !!");
                 return rs;
             } catch (SQLException e) {
@@ -92,10 +96,10 @@ public class DBConnect {
         return null;
     }
 
-    public Boolean sqlUpdate(String qry) {
+    public Boolean sqlUpdate(PreparedStatement stm) {
         if (checkConnection()) {
             try {
-                stm.executeUpdate(qry);
+                stm.executeUpdate();
 //                JOptionPane.showMessageDialog(null, "Thuc thi Update thanh cong !!");
                 return true;
             } catch (SQLException e) {
@@ -110,7 +114,8 @@ public class DBConnect {
         ArrayList<String> headers = new ArrayList<>();
         if (checkConnection()) {
             try {
-                rs = sqlQry("SELECT * FROM " + tableName+";");
+                Statement stm = conn.createStatement();
+                rs = stm.executeQuery("SELECT 1 FROM " + tableName + ";");
                 ResultSetMetaData rsMetaData = rs.getMetaData();
                 for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
                     headers.add(rsMetaData.getColumnName(i));
@@ -123,10 +128,12 @@ public class DBConnect {
     }
 
     public Boolean checkConnection() {
-        if (conn == null || stm == null) {
+        try {
+            return !conn.isClosed();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        return true;
     }
 
     public void checkDriver() {
@@ -137,14 +144,15 @@ public class DBConnect {
             JOptionPane.showMessageDialog(null, "Khong tim thay Driver mysql !!");
         }
     }
+    
+    public Connection getConnection(){
+        return conn;
+    }
 
     public void closeConnect() {
         try {
             if (conn != null) {
                 conn.close();
-            }
-            if (stm != null) {
-                stm.close();
             }
 //            System.out.println("Success! Đóng kết nối tới '" + dbName + "' thành công.");
         } catch (SQLException e) {
