@@ -4,6 +4,7 @@
  */
 package gasstation_management.UI;
 
+import gasstation_management.BUS.QuanLyQuyen_Bus;
 import gasstation_management.DBConnect;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,48 +28,19 @@ import javax.swing.table.JTableHeader;
  * @author Vuong
  */
 public class AccountPower_management extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form AccountPower_management
      */
     public AccountPower_management() throws SQLException {
         initComponents();
-        DBConnect cn = new DBConnect();
-        String[][] arr = new String[0][0];
-        arr = cn.getInforPowerOfAllAccount();
-        String[] data = {"Id","Tendangnhap","Maquyen"};
-        DefaultTableModel model = new DefaultTableModel(arr,data);
-
-        JTable table = new JTable(model);
-
-        table.setPreferredScrollableViewportSize(new Dimension(450,63));
-        table.setFillsViewportHeight(true);
- 
-        JScrollPane js=new JScrollPane(table);
-//        table.setBounds(100,100,100,20);
-        js.setBounds (100,200,300, 70);
-        js.setVisible(true);
-        setTitle("Table");
-        setSize(500, 500);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add(js);  
-//  getRootPane().setWindowDecorationStyle(JPLAIN_DIALOG);
-        
-//     
-//        JComboBox Jcm = new JComboBox(arrPower);
-//        JTable tb = new JTable()
-    }
-    public void powerModify(String NamePower,String[] arr)
-    {
-       DBConnect db = new DBConnect();
-       ArrayList powerlist = new ArrayList();
-       
+        QuanLyQuyen_Bus qlb = new QuanLyQuyen_Bus();
+        String[] powerList = {"tendangnhap","maquyen"};
+        setTable(qlb.ShowListAccount(),powerList);
         
     }
-    
     public static void main(String[] args) throws SQLException {
-         java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     new AccountPower_management().setVisible(true);
@@ -77,8 +49,9 @@ public class AccountPower_management extends javax.swing.JFrame {
                 }
             }
         });
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,32 +62,83 @@ public class AccountPower_management extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Sửa Quyền");
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setForeground(new java.awt.Color(255, 0, 0));
+        jButton1.setText("SuaQuyen");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        table.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table.setMaximumSize(new java.awt.Dimension(100, 20));
+        table.setMinimumSize(new java.awt.Dimension(60, 40));
+        table.setRowHeight(30);
+        table.setRowMargin(3);
+        jScrollPane2.setViewportView(table);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(145, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(235, 235, 235))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(93, 93, 93))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(215, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(230, 230, 230))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(348, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(jButton1)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,13 +146,19 @@ public class AccountPower_management extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-                    JOptionPane.showMessageDialog(null, "Khong the ket noi toi ");
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void setTable(String[][] dataRow,String[] dataCol)
+    {
+       DefaultTableModel model= new DefaultTableModel(dataRow,dataCol);
+        table.setModel(model);
+        table.getColumnModel().getColumn(0).setWidth(10);
+      
+    }
     /**
-//     * @param args the command line arguments
-//     */
+     * // * @param args the command line arguments //
+     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -164,5 +194,9 @@ public class AccountPower_management extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
