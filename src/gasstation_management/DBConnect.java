@@ -154,45 +154,15 @@ public class DBConnect {
             JOptionPane.showMessageDialog(null, "-- ERROR! Không thể đóng kết nối tới " + dbName);
         }
     }
-    public String[][] getInforPowerOfAllAccount() throws SQLException
+    public ResultSet getInforPowerOfAllAccount(String qry) throws SQLException
     {
         int count;
-        String[][] result = new String[0][3];
-
-        PreparedStatement selectStatement1 = conn.prepareStatement("select distinct tendangnhap from taikhoan_quyen");
-        PreparedStatement selectStatement = conn.prepareStatement("select id,tendangnhap,maquyen from taikhoan_quyen");
+        String[][] result= new String[0][3];
+        PreparedStatement selectStatement = conn.prepareStatement(qry);
         ResultSet rs = selectStatement.executeQuery();
-        count =1;
-            while (rs.next()) { // will traverse through all rows
-                ArrayList<String> list = new ArrayList<String>();
-                int iD = rs.getInt("id");
-                String tenDangNhap = rs.getString("tendangnhap");
-                String maquyen = rs.getString("maquyen");
-                list.add(Integer.toString(iD));
-                list.add(tenDangNhap);
-                list.add(maquyen);
-                String[] arr = new String[list.size()];
-                list.toArray(arr);
-                String[][] result2 = new String[count][3];
-                for(int i=0;i<count-1;i++)      
-                {
-                    for(int j=0;j<3;j++)
-                    {
-                        result2[i][j] = result[i][j];
-                    }
-                }
-                for(int k=0;k<3;k++)
-                {
-                    result2[count-1][k]=arr[k];
-                }
-                count++;
-                result=result2;
-                }
-            return result;
-
+        return rs;
+    }
 //           
-
-    } 
      public ArrayList getPowerOfAccount(String loginName) throws SQLException
     {
         
@@ -208,6 +178,6 @@ public class DBConnect {
             }
      return list;       
 //   
-
     }
+
 }
