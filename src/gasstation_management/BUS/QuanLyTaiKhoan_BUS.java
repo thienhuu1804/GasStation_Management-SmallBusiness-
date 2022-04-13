@@ -5,11 +5,14 @@
  */
 package gasstation_management.BUS;
 
+import com.mysql.jdbc.PreparedStatement;
+import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DTO.TaiKhoan;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +22,19 @@ import java.util.logging.Logger;
  * @author nguye
  */
 public class QuanLyTaiKhoan_BUS {
+
+    ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
+    QuanLyTaiKhoan_DAO qltkDAO = new QuanLyTaiKhoan_DAO();
+
+    public ArrayList<TaiKhoan> search(String criterias) {
+        ArrayList<TaiKhoan> result = qltkDAO.getDanhSachTaiKhoan();
+        return result;
+    }
+    
+    public ArrayList<TaiKhoan> getDanhSachTaiKhoan() {
+        ArrayList<TaiKhoan> result = qltkDAO.getDanhSachTaiKhoan();
+        return result;
+    }
 
     public String getHashedPwd(String inputPwd) {
         SecureRandom random = new SecureRandom();
