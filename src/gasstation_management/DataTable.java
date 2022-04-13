@@ -82,9 +82,9 @@ public class DataTable extends JPanel {
     }
 
     public void setHeaders(DBConnect c, String tbName) {
-        ArrayList<String> headers = new ArrayList(); // really ><
-        headers = c.getHeaders(tbName);// hay lam ong :v mat thoi gian vl
-        tbModel.setColumnIdentifiers(headers.toArray()); // ctrl z éo được 
-        tb.setModel(tbModel); // cái nút vàng bên trái đâu // so dong dau ? :V
+        ArrayList<String> headers = new ArrayList();
+        headers = c.getHeaders(tbName);
+        tbModel.setColumnIdentifiers(headers.toArray()); 
+        tb.setModel(tbModel); 
     }
 }
