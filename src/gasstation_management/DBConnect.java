@@ -67,16 +67,18 @@ public class DBConnect {
         setupConnection();
     }
 
-    public void setupConnection() {
+    public boolean setupConnection() {
         try {
             String url = "jdbc:mysql://" + server + "/" + dbName;
             conn = DriverManager.getConnection(url, userName, pass);
-            stm = conn.createStatement();
+//            stm = conn.createStatement();
             System.err.println("Ket noi thanh cong");
+             return conn.isValid(1000);
 //            JOptionPane.showMessageDialog(null, "Ket noi database " + dbName + " thanh cong");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Khong the ket noi toi " + dbName);
+            return false;
         }
     }
 
@@ -139,7 +141,9 @@ public class DBConnect {
             JOptionPane.showMessageDialog(null, "Khong tim thay Driver mysql !!");
         }
     }
-
+ public Connection getConnection(){
+        return conn;
+    }
     public void closeConnect() {
         try {
             if (conn != null) {
@@ -154,30 +158,30 @@ public class DBConnect {
             JOptionPane.showMessageDialog(null, "-- ERROR! Không thể đóng kết nối tới " + dbName);
         }
     }
-    public ResultSet getInforPowerOfAllAccount(String qry) throws SQLException
-    {
-        int count;
-        String[][] result= new String[0][3];
-        PreparedStatement selectStatement = conn.prepareStatement(qry);
-        ResultSet rs = selectStatement.executeQuery();
-        return rs;
-    }
-//           
-     public ArrayList getPowerOfAccount(String loginName) throws SQLException
-    {
-        
-        ArrayList<String> list = new ArrayList<String>();
-        PreparedStatement selectStatement1 = conn.prepareStatement("select distinct tendangnhap from taikhoan_quyen");
-        PreparedStatement selectStatement = conn.prepareStatement("select id,tendangnhap,maquyen from taikhoan_quyen");
-        ResultSet rs = selectStatement.executeQuery();
-            while (rs.next()) {
-                // will traverse through all rows
-                String maquyen = rs.getString("maquyen");
-                list.add(maquyen);
-                
-            }
-     return list;       
-//   
-    }
+//    public ResultSet getInforPowerOfAllAccount(String qry) throws SQLException
+//    {
+//        int count;
+//        String[][] result= new String[0][3];
+//        PreparedStatement selectStatement = conn.prepareStatement(qry);
+//        ResultSet rs = selectStatement.executeQuery();
+//        return rs;
+//    }
+////           
+//     public ArrayList getPowerOfAccount(String loginName) throws SQLException
+//    {
+//        
+//        ArrayList<String> list = new ArrayList<String>();
+//        PreparedStatement selectStatement1 = conn.prepareStatement("select distinct tendangnhap from taikhoan_quyen");
+//        PreparedStatement selectStatement = conn.prepareStatement("select id,tendangnhap,maquyen from taikhoan_quyen");
+//        ResultSet rs = selectStatement.executeQuery();
+//            while (rs.next()) {
+//                // will traverse through all rows
+//                String maquyen = rs.getString("maquyen");
+//                list.add(maquyen);
+//                
+//            }
+//     return list;       
+////   
+//    }
 
 }
