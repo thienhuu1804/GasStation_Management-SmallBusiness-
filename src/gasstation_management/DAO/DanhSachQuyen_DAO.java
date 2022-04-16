@@ -37,7 +37,7 @@ public static ArrayList<DanhSachQuyen_DTO> QuyenAll()
         try {
            
             PreparedStatement stm = conn.getConnection().prepareStatement("select * from quyen");
-            rs = conn.sqlQry((com.mysql.jdbc.PreparedStatement) stm);
+            rs = conn.sqlQry(stm);
             while(rs.next())
             {
                 DanhSachQuyen_DTO q= new DanhSachQuyen_DTO();
