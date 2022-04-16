@@ -106,7 +106,7 @@ public class QuanLyQuyen_Dao {
     { 
         ArrayList<String> powerList = new ArrayList();
         try {
-                    PreparedStatement stm = conn.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhooanquyen.mauquyen=quyen.maquyen and taikhoan_quyen.tendangnhap ='"+tendangnhap+"'");
+                    PreparedStatement stm = conn.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhoan_quyen.maquyen=quyen.maquyen and taikhoan_quyen.tendangnhap ='"+tendangnhap+"'");
             rs = stm.executeQuery();
             while(rs.next())
             {
