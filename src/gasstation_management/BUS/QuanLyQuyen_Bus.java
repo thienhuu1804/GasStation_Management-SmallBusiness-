@@ -9,6 +9,7 @@ package gasstation_management.BUS;
 import gasstation_management.DAO.QuanLyQuyen_Dao;
 import gasstation_management.UI.AccountPower_management;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 /**
@@ -16,16 +17,27 @@ import java.sql.SQLException;
  * @author Vuong
  */
 public class QuanLyQuyen_Bus {
+   
+    QuanLyQuyen_Dao qld = new QuanLyQuyen_Dao();
    public QuanLyQuyen_Bus()
     {
         
         
     }
+   // Hiển thị thông tin quyền tài khoản ra bảng table
     public String[][] ShowListAccount() throws SQLException
     {
         
-      QuanLyQuyen_Dao ql = new QuanLyQuyen_Dao();
-      String[][] str = ql.LoadDataAccount();
+      String[][] str = qld.LoadDataAccount();
       return str;
+    }
+    // Lấy tất cã quyền của tài khoản đã được chọn 
+    public ArrayList PowerListAccountSelected(int indexRow) {
+        
+       String[][] str = qld.LoadDataAccount();
+       String tendangnhap;
+       tendangnhap = str[indexRow][0];
+       return qld.getAllPowerOfAccount(tendangnhap); // Trả về mảng quyền của một tài khoản được chọn       
+            
     }
 }

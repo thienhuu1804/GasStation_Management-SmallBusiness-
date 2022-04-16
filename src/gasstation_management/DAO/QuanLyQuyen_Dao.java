@@ -6,16 +6,19 @@ package gasstation_management.DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.*;
-
-
-
 import gasstation_management.DBConnect;
+import gasstation_management.DTO.TaiKhoan;
+import gasstation_management.DTO.TaiKhoan_Quyen;
+
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Vuong
  */
+//
 public class QuanLyQuyen_Dao {
 
     DBConnect conn = new DBConnect();
@@ -24,6 +27,30 @@ public class QuanLyQuyen_Dao {
         
         
     }
+    // Lấy tất cã dữ liệu từ bảng taikhoan_quyen
+     public ArrayList loadDataAccount2()
+    {
+        ArrayList<TaiKhoan_Quyen> powerList = new ArrayList<>();
+        try {
+            PreparedStatement stm = conn.getConnection().prepareStatement("select id,tendangnhap,maquyen,ngaysua from taikhoan_quyen");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                TaiKhoan_Quyen tkq = new TaiKhoan_Quyen();
+                tkq.setId(rs.getInt("id"));
+                tkq.setTendangnhap(rs.getString("tendangnhap"));
+                tkq.setMaquyen(rs.getString("maquyen"));
+                tkq.setNgaysua(rs.getString("ngaysua"));
+                powerList.add(tkq);
+            }
+            return powerList;
+                  
+        }
+        catch (Exception e) {
+            return null;
+        }        
+        
+    }
+    // mảng tất cã quyền của tất cã tài khoản
     public String[][] LoadDataAccount()
     {
         int count;
@@ -73,4 +100,28 @@ public class QuanLyQuyen_Dao {
             return null;
         }
         }
+   
+    // lấy tất cả quyền của một tài khoản nhất định
+    public ArrayList getAllPowerOfAccount(String tendangnhap)
+    { 
+        ArrayList<String> powerList = new ArrayList();
+        try {
+                    PreparedStatement stm = conn.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhooanquyen.mauquyen=quyen.maquyen and taikhoan_quyen.tendangnhap ='"+tendangnhap+"'");
+            rs = stm.executeQuery();
+            while(rs.next())
+            {
+               String moTaQuyen = rs.getString("motaquyen");
+               powerList.add(moTaQuyen);
+            }
+            return powerList;
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyQuyen_Dao.class.getName()).log(Level.SEVERE, null, ex);
+                    return null;
+        }
+    }
+    // Cập nhật quyền của một tài khoản
+    public void updateAccountPower(String str)
+    {
+        
+    }
 }
