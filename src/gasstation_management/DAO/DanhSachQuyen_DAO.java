@@ -40,9 +40,9 @@ public static ArrayList<DanhSachQuyen_DTO> QuyenAll()
             rs = conn.sqlQry((com.mysql.jdbc.PreparedStatement) stm);
             while(rs.next())
             {
-                String maQuyen = rs.getString("maquyen");
-                String moTaQuyen = rs.getString("motaquyen");
-                DanhSachQuyen_DTO q= new DanhSachQuyen_DTO(maQuyen, moTaQuyen);
+                DanhSachQuyen_DTO q= new DanhSachQuyen_DTO();
+                q.setMaQuyen (rs.getString("maquyen"));
+                q.setMoTaQuyen (rs.getString("motaquyen"));
                 dsq.add(q);
             }
             rs.close();
