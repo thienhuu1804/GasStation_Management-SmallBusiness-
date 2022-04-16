@@ -20,9 +20,9 @@ USE `fuelmanagement`;
 CREATE TABLE IF NOT EXISTS `gia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `masp` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `ngayapdung` datetime NOT NULL,
+  `ngayapdung` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `gia` int(11) NOT NULL DEFAULT 0,
-  `ngayketthuc` datetime DEFAULT '0000-00-00 00:00:00',
+  `ngayketthuc` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Unique_Pair` (`masp`,`ngayapdung`) USING BTREE,
   CONSTRAINT `FK_gia_sanpham` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`masp`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `hoadon` (
   `mahd` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `matrubom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `masp` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `ngaytao` datetime NOT NULL,
+  `ngaytao` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `soluong` float NOT NULL,
   `tongtien` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`mahd`),
@@ -75,8 +75,10 @@ CREATE TABLE IF NOT EXISTS `nhanvien` (
   PRIMARY KEY (`manv`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table fuelmanagement.nhanvien: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.nhanvien: ~1 rows (approximately)
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
+INSERT INTO `nhanvien` (`manv`, `tennv`, `sdt`, `diachi`, `cmnd`, `trangthai`) VALUES
+	('nv1', 'Nguyễn Văn A', '0909090909', 'abcdc', '073215648', 'Active');
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.phieunhap
@@ -85,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `phieunhap` (
   `masp` varchar(50) CHARACTER SET utf8 NOT NULL,
   `manv` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `mancc` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `ngaytao` datetime NOT NULL,
+  `ngaytao` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `soluong` int(11) NOT NULL DEFAULT 0,
   `gianhap` int(11) NOT NULL DEFAULT 0,
   `tongtien` varchar(1000) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
@@ -109,8 +111,13 @@ CREATE TABLE IF NOT EXISTS `quyen` (
   PRIMARY KEY (`maquyen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.quyen: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.quyen: ~4 rows (approximately)
 /*!40000 ALTER TABLE `quyen` DISABLE KEYS */;
+INSERT INTO `quyen` (`maquyen`, `motaquyen`) VALUES
+	('q1', 'tài khoản và quyền'),
+	('q2', 'bán hàng'),
+	('q3', 'kho hàng'),
+	('q4', 'thống kê báo cáo');
 /*!40000 ALTER TABLE `quyen` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.sanpham
@@ -130,15 +137,17 @@ CREATE TABLE IF NOT EXISTS `taikhoan` (
   `tendangnhap` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `manv` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `matkhau` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `ngaytao` datetime NOT NULL,
+  `ngaytao` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `trangthai` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`tendangnhap`),
   KEY `FK__nhanvien` (`manv`),
   CONSTRAINT `FK__nhanvien` FOREIGN KEY (`manv`) REFERENCES `nhanvien` (`manv`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.taikhoan: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.taikhoan: ~1 rows (approximately)
 /*!40000 ALTER TABLE `taikhoan` DISABLE KEYS */;
+INSERT INTO `taikhoan` (`tendangnhap`, `manv`, `matkhau`, `ngaytao`, `trangthai`) VALUES
+	('nv1', 'nv1', '123456', '2022-04-16 19:52:25', 'Active');
 /*!40000 ALTER TABLE `taikhoan` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.taikhoan_quyen
@@ -146,16 +155,18 @@ CREATE TABLE IF NOT EXISTS `taikhoan_quyen` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tendangnhap` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `maquyen` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `ngaysua` datetime NOT NULL,
+  `ngaysua` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `FK__taikhoan` (`tendangnhap`),
   KEY `FK__quyen` (`maquyen`),
   CONSTRAINT `FK__quyen` FOREIGN KEY (`maquyen`) REFERENCES `quyen` (`maquyen`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK__taikhoan` FOREIGN KEY (`tendangnhap`) REFERENCES `taikhoan` (`tendangnhap`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.taikhoan_quyen: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.taikhoan_quyen: ~1 rows (approximately)
 /*!40000 ALTER TABLE `taikhoan_quyen` DISABLE KEYS */;
+INSERT INTO `taikhoan_quyen` (`id`, `tendangnhap`, `maquyen`, `ngaysua`) VALUES
+	(1, 'nv1', 'q2', '2022-04-16 19:52:25');
 /*!40000 ALTER TABLE `taikhoan_quyen` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.trubom
