@@ -36,9 +36,11 @@ public class AccountPower_management extends javax.swing.JFrame {
 
     public AccountPower_management() throws SQLException {
         initComponents();
-        String[] powerList = {"tendangnhap","maquyen"};
+        String[] powerList = {"tendangnhap","maquyen"};  // Hiển thị thông tin bản quyền của các tài khoản
         setTable(qlb.ShowListAccount(),powerList);
-        
+        jCheckBox1.setVisible(false);
+        jCheckBox2.setVisible(false);
+        jCheckBox3.setVisible(false);
     }
     public static void main(String[] args) throws SQLException {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -106,6 +108,11 @@ public class AccountPower_management extends javax.swing.JFrame {
         jScrollPane2.setViewportView(table);
 
         jCheckBox1.setText("jCheckBox1");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox2.setText("jCheckBox2");
 
@@ -116,33 +123,31 @@ public class AccountPower_management extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox1)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(175, 175, 175)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
-                        .addComponent(jCheckBox3)))
-                .addGap(113, 113, 113))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(291, 291, 291)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jCheckBox2)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jCheckBox3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(291, 291, 291)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
-                .addGap(12, 12, 12)
+                .addGap(124, 124, 124)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBox3))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,8 +159,9 @@ public class AccountPower_management extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(325, 325, 325))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,8 +177,13 @@ public class AccountPower_management extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 //        (table.getSelectedRow());
+          resetCheckBox();
           DisplayAccountCheckBox(table.getSelectedRow());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     public void setTable(String[][] dataRow,String[] dataCol)
     {
@@ -181,20 +192,43 @@ public class AccountPower_management extends javax.swing.JFrame {
         table.getColumnModel().getColumn(0).setWidth(10);
       
     }
+    // cài lại các nút chọn quyền
+    public void resetCheckBox()
+    {
+        jCheckBox1.setVisible(true);
+        jCheckBox2.setVisible(true);
+        jCheckBox3.setVisible(true);
+        jCheckBox1.setSelected(false);
+        jCheckBox2.setSelected(false);
+        jCheckBox3.setSelected(false);
+    }
+    
     // Hiển thị bảng chỉnh sửa quyền tài khoản
      private void DisplayAccountCheckBox(int indexRow) {
          ArrayList list = new ArrayList();
         jCheckBox1.setText("deptrai");
         jCheckBox2.setText("hathay");
         jCheckBox3.setText("dagioi");
+        String[] power = {"deptrai","hathay",};
         list = qlb.PowerListAccountSelected(indexRow);  // Đã lấy được các quyền của tài khoản được chọn
         // Hiển thị đã chọn trên các nút checkbox
-        for(int i=0;3;i++)
+         System.out.println(list);
+        for(int i=0;i<list.size();i++)
         {
-             if(list.get(i).equals("deptrai") || list.get(i).equals("deptrai") || list.get(i).equals("deptrai"))
+             if(list.get(i).equals("deptrai"))
                      {
+                         jCheckBox1.setSelected(true);
                      }
-             
+         if(list.get(i).equals("hathay"))
+                     {
+                         jCheckBox2.setSelected(true);
+                     }
+        if(list.get(i).equals("dagioi"))
+                     {
+                         jCheckBox3.setSelected(true);
+                     }
+                     
+               
         }
 
      }
