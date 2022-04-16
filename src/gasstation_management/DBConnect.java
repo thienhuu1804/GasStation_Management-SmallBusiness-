@@ -5,6 +5,7 @@
  */
 package gasstation_management;
 
+import com.mysql.jdbc.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -25,8 +28,8 @@ public class DBConnect {
     Connection conn = null;
 
     String server = "localhost:3306";
-    String dbName = "FuelManagement";
-    String userName = "FuelAdmin";
+    String dbName = "fuelmanagement";
+    String userName = "root";
     String pass = "";
 
     public DBConnect() {
@@ -71,17 +74,18 @@ public class DBConnect {
             String url = "jdbc:mysql://" + server + "/" + dbName;
             conn = DriverManager.getConnection(url, userName, pass);
             stm = conn.createStatement();
-//            JOptionPane.showMessageDialog(null, "Ket noi database " + dbName + " thanh cong");
+            JOptionPane.showMessageDialog(null, "Ket noi database " + dbName + " thanh cong");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Khong the ket noi toi " + dbName);
         }
     }
+  
 
-    public ResultSet sqlQry(String qry) {
+    public ResultSet sqlQry(PreparedStatement stm) {
         if (checkConnection()) {
             try {
-                rs = stm.executeQuery(qry);
+                 stm.executeQuery();
 //                JOptionPane.showMessageDialog(null, "Thuc thi Query thanh cong !!");
                 return rs;
             } catch (SQLException e) {
@@ -110,7 +114,8 @@ public class DBConnect {
         ArrayList<String> headers = new ArrayList<>();
         if (checkConnection()) {
             try {
-                rs = sqlQry("SELECT * FROM " + tableName+";");
+                Statement stm = conn.createStatement();
+                rs = stm.executeQuery("SELECT 1 FROM " + tableName + ";");
                 ResultSetMetaData rsMetaData = rs.getMetaData();
                 for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
                     headers.add(rsMetaData.getColumnName(i));

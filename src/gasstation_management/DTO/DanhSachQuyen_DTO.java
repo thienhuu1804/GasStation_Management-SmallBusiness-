@@ -17,12 +17,6 @@ public class DanhSachQuyen_DTO {
         this.moTaQuyen = moTaQuyen;
     }
 
-    public DanhSachQuyen_DTO() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-   
-
     public String getMaQuyen() {
         return MaQuyen;
     }
