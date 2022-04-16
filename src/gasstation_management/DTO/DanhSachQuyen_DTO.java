@@ -9,13 +9,11 @@ package gasstation_management.DTO;
  * @author admin
  */
 public class DanhSachQuyen_DTO {
-    String MaQuyen;
-    String moTaQuyen;
+    private String MaQuyen;
+    private String moTaQuyen;
 
-    public DanhSachQuyen_DTO(String MaQuyen, String moTaQuyen) {
-        this.MaQuyen = MaQuyen;
-        this.moTaQuyen = moTaQuyen;
-    }
+   
+
 
     public String getMaQuyen() {
         return MaQuyen;
@@ -34,4 +32,3 @@ public class DanhSachQuyen_DTO {
     }
 
 }
-//can mot khoa day do DATA tu SQL len JTABLE lam tren 3 lop
