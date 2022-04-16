@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class DanhSachQuyen_BUS {
 
-    public  ArrayList<DanhSachQuyen_DTO> QuyenAll(){
+    public static ArrayList<DanhSachQuyen_DTO> QuyenAll(){
         return DanhSachQuyen_DAO.QuyenAll();
     }
 
