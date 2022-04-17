@@ -32,7 +32,7 @@ public class QuanLyTaiKhoan_BUS {
     }
     
     public ArrayList<TaiKhoan> timKiemTheoTrangThai(String tenDangNhap) {
-        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTenDangNhap(tenDangNhap);
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTrangThai(tenDangNhap);
         return result;
     }
     
