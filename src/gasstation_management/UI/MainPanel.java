@@ -5,6 +5,9 @@
  */
 package gasstation_management.UI;
 
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author nguye
@@ -16,6 +19,18 @@ public class MainPanel extends javax.swing.JPanel {
      */
     public MainPanel() {
         initComponents();
+    }
+
+    public JPanel getPnlMainContent() {
+        return pnlMainContent;
+    }
+
+    public JPanel getPnlAccountInfo() {
+        return pnlAccountInfo;
+    }
+
+    public JScrollPane getPnlSideMenu() {
+        return pnlSideMenu;
     }
 
     /**
