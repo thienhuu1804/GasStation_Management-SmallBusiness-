@@ -63,6 +63,7 @@ public class QuanLyTaiKhoan_DAO {
         try {
             String sql = "select * from taikhoan where tendangnhap=?";
             PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1, tenDangNhap);
             rs = db.sqlQry(stm);
             if (rs != null) {
                 while (rs.next()) {
@@ -76,7 +77,8 @@ public class QuanLyTaiKhoan_DAO {
                 }
             }
         } catch (SQLException ex) {
-//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("exx");
+            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             db.closeConnection();
         }
@@ -89,6 +91,7 @@ public class QuanLyTaiKhoan_DAO {
         try {
             String sql = "select * from taikhoan where trangthai=?";
             PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1, trangThai);
             rs = db.sqlQry(stm);
             if (rs != null) {
                 while (rs.next()) {
