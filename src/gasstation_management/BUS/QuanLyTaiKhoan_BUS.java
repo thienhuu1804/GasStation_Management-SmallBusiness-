@@ -24,16 +24,20 @@ import java.util.logging.Logger;
 public class QuanLyTaiKhoan_BUS {
 
     ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
-    QuanLyTaiKhoan_DAO qltkDAO = new QuanLyTaiKhoan_DAO();
+    QuanLyTaiKhoan_DAO quanLyTaiKhoan_DAO = new QuanLyTaiKhoan_DAO();
 
     public ArrayList<TaiKhoan> search(String criterias) {
-        ArrayList<TaiKhoan> result = qltkDAO.getDanhSachTaiKhoan();
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.getDanhSachTaiKhoan();
         return result;
     }
     
     public ArrayList<TaiKhoan> getDanhSachTaiKhoan() {
-        ArrayList<TaiKhoan> result = qltkDAO.getDanhSachTaiKhoan();
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.getDanhSachTaiKhoan();
         return result;
+    }
+    
+    public boolean addTaiKhoan(TaiKhoan tk){
+        return quanLyTaiKhoan_DAO.addTaiKhoan(tk);
     }
 
     public String getHashedPwd(String inputPwd) {

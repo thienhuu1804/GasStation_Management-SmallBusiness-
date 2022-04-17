@@ -27,15 +27,15 @@ import java.util.logging.Logger;
  */
 public class QuanLyTaiKhoan_DAO {
 
-    ArrayList<TaiKhoan> list_Account = new ArrayList<>();
-    DBConnect conn = new DBConnect();
+    ArrayList<TaiKhoan> dstk = new ArrayList<>();
+    DBConnect db = new DBConnect();
     ResultSet rs = null;
 
     public ArrayList<TaiKhoan> getDanhSachTaiKhoan() {
         ArrayList<TaiKhoan> result = new ArrayList<>();
         try {
-            PreparedStatement stm = conn.getConnection().prepareStatement("select * from taikhoan");
-            rs = conn.sqlQry(stm);
+            PreparedStatement stm = db.getConnection().prepareStatement("select * from taikhoan");
+            rs = db.sqlQry(stm);
             if (rs != null) {
                 while (rs.next()) {
                     TaiKhoan temp = new TaiKhoan();
@@ -50,6 +50,23 @@ public class QuanLyTaiKhoan_DAO {
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        dstk = result;
         return result;
+    }
+    
+    public boolean addTaiKhoan(TaiKhoan tk){
+        try {
+            String sql = "insert into taikhoan (?,?,?,?,?)";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1, tk.getTenDangNhap());
+            stm.setString(2, tk.getMaNV());
+            stm.setString(3, tk.getMatKhau());
+            stm.setString(4, tk.getNgayTao().toString());
+            stm.setString(5, tk.getTrangThai());
+            return db.sqlUpdate(stm);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 }
