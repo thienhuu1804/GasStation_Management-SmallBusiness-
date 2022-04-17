@@ -28,6 +28,7 @@ public class QuanLyQuyenTaiKhoan_DAO {
 
     public ArrayList<QuyenTaiKhoan> getDanhSachQuyenTaiKhoan() {
         ArrayList<QuyenTaiKhoan> result = new ArrayList<>();
+        db.setupConnection();
         try {
             PreparedStatement stm = db.getConnection().prepareStatement("select * from taikhoan_quyen");
             rs = db.sqlQry(stm);
@@ -43,12 +44,15 @@ public class QuanLyQuyenTaiKhoan_DAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            db.closeConnection();
         }
         return result;
     }
 
     public boolean addQuyenTaiKhoan(QuyenTaiKhoan quyen) {
         boolean success = false;
+        db.setupConnection();
         try {
             PreparedStatement stm = db.getConnection().prepareStatement("insert into taikhoan_quyen (?,?,?,?,?)");
             stm.setInt(1, 0);
@@ -59,6 +63,30 @@ public class QuanLyQuyenTaiKhoan_DAO {
 
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyQuyenTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            db.closeConnection();
+        }
+        return success;
+    }
+    
+    public boolean addDanhSachQuyenTaiKhoan(ArrayList<QuyenTaiKhoan> danhSachQuyenTaiKhoan){
+        for(QuyenTaiKhoan quyen: danhSachQuyenTaiKhoan){
+            addQuyenTaiKhoan(quyen);
+        }
+        return true;
+    }
+    
+    public boolean removeAllQuyenTaiKhoan(String tenDangNhap){
+        boolean success = false;
+        db.setupConnection();
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement("delete * from taikhoan_quyen where tendangnhap=?");
+            stm.setString(1, tenDangNhap);
+            success = db.sqlUpdate(stm);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyQuyenTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            db.closeConnection();
         }
         return success;
     }
