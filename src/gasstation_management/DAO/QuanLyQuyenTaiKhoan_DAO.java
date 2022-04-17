@@ -7,7 +7,6 @@ package gasstation_management.DAO;
 
 import gasstation_management.DBConnect;
 //import gasstation_management.DTO.QuyenTaiKhoan;
-import gasstation_management.DTO.TaiKhoan;
 import gasstation_management.DTO.TaiKhoan_Quyen;
 import static gasstation_management.Main.DATETIME_FORMATTER;
 import java.sql.PreparedStatement;
@@ -126,28 +125,12 @@ public class QuanLyQuyenTaiKhoan_DAO {
     }
     // Cập nhật quyền của một tài khoản
     public void UpdateAccountPower_Dao(ArrayList result, String text) {
+        
+        
+        
+        
  }
-//    public ArrayList<QuyenTaiKhoan> getDanhSachQuyenTaiKhoan() {
-//        ArrayList<QuyenTaiKhoan> result = new ArrayList<>();
-//        try {
-//            PreparedStatement stm = db.getConnection().prepareStatement("select * from taikhoan_quyen");
-//            rs = db.sqlQry(stm);
-//            if (rs != null) {
-//                while (rs.next()) {
-//                    QuyenTaiKhoan temp = new QuyenTaiKhoan();
-//                    temp.setId(rs.getInt(1));
-//                    temp.setTenDangNhap(rs.getString(2));
-//                    temp.setMaQuyen(rs.getString(3));
-//                    temp.setNgaySua(LocalDateTime.parse(rs.getString(4), DATETIME_FORMATTER));
-//                    result.add(temp);
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return result;
-//    }
-//
+
 //    public boolean addQuyenTaiKhoan(QuyenTaiKhoan quyen) {
 //        boolean success = false;
 //        try {
