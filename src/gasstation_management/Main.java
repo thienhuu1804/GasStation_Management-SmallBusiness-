@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,9 +6,13 @@
  */
 package gasstation_management;
 
+import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
+import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
+import gasstation_management.DTO.TaiKhoan;
 import gasstation_management.UI.MainPanel;
-import gasstation_management.UI.DanhSachQuyen_GUI;
 import java.awt.BorderLayout;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -20,22 +25,24 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // Create mainframe
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+    public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        MainPanel pnlMain = new MainPanel();
-        //Làm gì thì add giao diện đó vào pnlMain
-        DanhSachQuyen_GUI pnlQuyen = new DanhSachQuyen_GUI();
-        
-        frame.setSize(pnlMain.getPreferredSize());
-        frame.setLocationRelativeTo(null);
-        frame.add(pnlMain);
-        frame.setVisible(true);
-        DBConnect connector = new DBConnect();
-        System.out.println(connector.getHeaders("quyen"));
+    public static void main(String[] args) {
+
+        // Create mainframe
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//        frame.setLayout(new BorderLayout());
+//
+//        MainPanel pnlMain = new MainPanel();
+//        //Làm gì thì add giao diện đó vào pnlMain
+//
+//        frame.setSize(pnlMain.getPreferredSize());
+//        frame.setLocationRelativeTo(null);
+//        frame.add(pnlMain);
+//        frame.setVisible(true);
+        QuanLyTaiKhoan_BUS qltk = new QuanLyTaiKhoan_BUS();
+        System.out.println(qltk.search("none").get(0).getMaNV());
 
     }
 
