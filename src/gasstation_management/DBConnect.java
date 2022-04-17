@@ -32,7 +32,7 @@ public class DBConnect {
 
     String server = "localhost:3306";
     String dbName = "fuelmanagement";
-    String userName = "root";
+    String userName = "FuelAdmin";
     String pass = "";
 
     public DBConnect() {
@@ -95,8 +95,8 @@ public class DBConnect {
 //                JOptionPane.showMessageDialog(null, "Thuc thi Query thanh cong !!");
                 return rs;
             } catch (SQLException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Loi thuc thi query !!");
+//                e.printStackTrace();
+//                JOptionPane.showMessageDialog(null, "Loi thuc thi query !!");
             }
         }
         return null;
@@ -155,7 +155,7 @@ public class DBConnect {
         return conn;
     }
 
-    public void closeConnect() {
+    public void closeConnection() {
         try {
             if (conn != null) {
                 conn.close();

@@ -6,13 +6,19 @@
 package gasstation_management.UI.MainContentPanels;
 
 import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
+import gasstation_management.BUS.QuanLyQuyen_BUS;
 import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
+import gasstation_management.DTO.Quyen;
 import gasstation_management.DTO.QuyenTaiKhoan;
 import gasstation_management.DTO.TaiKhoan;
 import gasstation_management.DataTable;
 import static gasstation_management.Main.DATETIME_FORMATTER;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -23,32 +29,101 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
     /**
      * Creates new form AccountManagementPanel
      */
-    ArrayList<TaiKhoan> dstk = new ArrayList<>();
-    ArrayList<QuyenTaiKhoan> ds_quyen_taikhoan = new ArrayList<>();
-    
+    ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
+    ArrayList<QuyenTaiKhoan> danhSachQuyenTaiKhoan = new ArrayList<>();
+    ArrayList<Quyen> danhSachQuyen = new ArrayList<>();
+
     QuanLyTaiKhoan_BUS quanLyTaiKhoan = new QuanLyTaiKhoan_BUS();
     QuanLyQuyenTaiKhoan_BUS quanLyQuyenTaiKhoan = new QuanLyQuyenTaiKhoan_BUS();
-    
+    QuanLyQuyen_BUS quanLyQuyen = new QuanLyQuyen_BUS();
+
+    DataTable table = new DataTable();
+
     public PrivilegeManagementPanel() {
         initComponents();
+        cbLoaiTimKiem.removeAllItems();
+        cbLoaiTimKiem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setTableData();
+            }
+        });
+        txtTiemKiem.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                setTableData();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                setTableData();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                setTableData();
+            }
+        });
+        cbLoaiTimKiem.addItem("Tất cả");
         cbLoaiTimKiem.addItem("Theo tên tài khoản");
         cbLoaiTimKiem.addItem("Theo trạng thái");
-        DataTable table = new DataTable();
-        table.setHeaders(new String[]{"Tên tài khoản","Quyền hạn", "Trạng thái", "Ngày sửa đổi gần nhất"});
-        
-        dstk = quanLyTaiKhoan.getDanhSachTaiKhoan();
-        ds_quyen_taikhoan = quanLyQuyenTaiKhoan.getDanhSachQuyenTaiKhoan();
-        for (TaiKhoan taiKhoan : dstk) {
+        table.setHeaders(new String[]{"Tên tài khoản", "Quyền hạn", "Trạng thái", "Ngày sửa đổi gần nhất"});
+        table.setSize(table.getPreferredSize());
+
+        setTableData();
+        // Dòng này chỉnh tỉ lệ các cột
+        table.setJTableColumnsWidth(table.getWidth(), new double[]{1, 6, 1, 2});
+        scrollTable.add(table);
+    }
+
+    public void setTableData() {
+        int selected = cbLoaiTimKiem.getSelectedIndex();
+        table.clear();
+        danhSachQuyenTaiKhoan = quanLyQuyenTaiKhoan.getDanhSachQuyenTaiKhoan();
+        danhSachQuyen = quanLyQuyen.QuyenAll();
+        if (selected == 0) {
+            danhSachTaiKhoan = quanLyTaiKhoan.getDanhSachTaiKhoan();
+        } else {
+            System.out.println("????");
+        }
+        if (selected == 1) {
+            danhSachTaiKhoan = quanLyTaiKhoan.timKiemTheoTenDangNhap(txtTiemKiem.getText());
+        }
+        if (selected == 2) {
+            danhSachTaiKhoan = quanLyTaiKhoan.timKiemTheoTrangThai(txtTiemKiem.getText());
+        }
+
+        // Setdata vào table
+        for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
+            ArrayList<String> dsQuyen = new ArrayList<>();
+            String chuoiQuyen = "";
+            String ngaySuaGanNhat = "";
+            for (QuyenTaiKhoan quyen : danhSachQuyenTaiKhoan) {
+                if (taiKhoan.getTenDangNhap().equalsIgnoreCase(quyen.getTenDangNhap())) {
+                    dsQuyen.add(quyen.getMaQuyen());
+                    ngaySuaGanNhat = quyen.getNgaySua().format(DATETIME_FORMATTER);
+                }
+            }
+            for (String x : dsQuyen) {
+                for (Quyen q : danhSachQuyen) {
+                    if (x.equalsIgnoreCase(q.getMaQuyen())) {
+                        chuoiQuyen += q.getMoTaQuyen() + ", ";
+                    }
+                }
+            }
+            chuoiQuyen = chuoiQuyen.substring(0, chuoiQuyen.length() - 2);
+
             Vector row = new Vector();
             row.add(taiKhoan.getTenDangNhap());
-            row.add(taiKhoan.getMatKhau());
+            row.add(chuoiQuyen);
             row.add(taiKhoan.getTrangThai());
-            row.add(taiKhoan.getNgayTao().format(DATETIME_FORMATTER));
+            row.add(ngaySuaGanNhat);
             table.addRow(row);
         }
-        scrollTable.add(table);
+    }
 
-        
+    public void timTheoTenDangNhap() {
+
     }
 
     /**
@@ -62,7 +137,7 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
 
         scrollTable = new java.awt.ScrollPane();
         btnSuaQuyen = new javax.swing.JButton();
-        txtTenTaiKhoan = new javax.swing.JTextField();
+        txtTiemKiem = new javax.swing.JTextField();
         cbLoaiTimKiem = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(710, 546));
@@ -74,11 +149,10 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        txtTenTaiKhoan.setText("Tên tài khoản");
-        txtTenTaiKhoan.setBorder(javax.swing.BorderFactory.createTitledBorder("Tên tài khoản"));
-        txtTenTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+        txtTiemKiem.setBorder(javax.swing.BorderFactory.createTitledBorder("Tên tài khoản"));
+        txtTiemKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenTaiKhoanActionPerformed(evt);
+                txtTiemKiemActionPerformed(evt);
             }
         });
 
@@ -91,13 +165,13 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(cbLoaiTimKiem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(btnSuaQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
@@ -109,7 +183,7 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbLoaiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
@@ -120,9 +194,9 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTenTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenTaiKhoanActionPerformed
+    private void txtTiemKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTiemKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenTaiKhoanActionPerformed
+    }//GEN-LAST:event_txtTiemKiemActionPerformed
 
     private void btnSuaQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaQuyenActionPerformed
         // TODO add your handling code here:
@@ -133,6 +207,6 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSuaQuyen;
     private javax.swing.JComboBox<String> cbLoaiTimKiem;
     private java.awt.ScrollPane scrollTable;
-    private javax.swing.JTextField txtTenTaiKhoan;
+    private javax.swing.JTextField txtTiemKiem;
     // End of variables declaration//GEN-END:variables
 }

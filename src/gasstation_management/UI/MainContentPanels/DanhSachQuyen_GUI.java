@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package gasstation_management.UI;
+package gasstation_management.UI.MainContentPanels;
 
-import gasstation_management.BUS.DanhSachQuyen_BUS;
+import gasstation_management.BUS.QuanLyQuyen_BUS;
 import gasstation_management.DBConnect;
-import gasstation_management.DTO.DanhSachQuyen_DTO;
+import gasstation_management.DTO.Quyen;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +23,7 @@ public class DanhSachQuyen_GUI extends javax.swing.JPanel {
     /**
      * Creates new form PowerList
      */
+    QuanLyQuyen_BUS danhSachQuyen_BUS = new QuanLyQuyen_BUS();
     public DanhSachQuyen_GUI() {
         initComponents();
         loadQuyenAll();
@@ -80,9 +81,9 @@ public class DanhSachQuyen_GUI extends javax.swing.JPanel {
  public void loadQuyenAll(){
         String[] header = {"Quyen","Mo Ta Quyen"};
         DefaultTableModel dtm = new DefaultTableModel(header,0);
-        ArrayList<DanhSachQuyen_DTO> arr = new ArrayList<DanhSachQuyen_DTO>();
-        arr = DanhSachQuyen_BUS.QuyenAll();
-        DanhSachQuyen_DTO quyen = new DanhSachQuyen_DTO();
+        ArrayList<Quyen> arr = new ArrayList<Quyen>();
+        arr = danhSachQuyen_BUS.QuyenAll();
+        Quyen quyen = new Quyen();
         for(int i = 0; i < arr.size(); i++){
             quyen = arr.get(i);            
             String MaQuyen = quyen.getMaQuyen();

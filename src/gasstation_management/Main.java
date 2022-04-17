@@ -10,8 +10,9 @@ import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
 import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
 import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DTO.TaiKhoan;
+import gasstation_management.UI.MainContentPanels.DanhSachQuyen_GUI;
 import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
-import gasstation_management.UI.MainPanel;
+import gasstation_management.UI.Shared.MainPanel;
 import java.awt.BorderLayout;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -42,8 +43,10 @@ public class Main {
         //Làm gì thì add giao diện đó vào pnlMain
         PrivilegeManagementPanel privPanel = new PrivilegeManagementPanel();
         privPanel.setSize(privPanel.getPreferredSize());
+//        DanhSachQuyen_GUI test = new DanhSachQuyen_GUI();
+//        test.setSize(test.getPreferredSize());
+
         pnlMain.getPnlMainContent().add(privPanel);
-        
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);

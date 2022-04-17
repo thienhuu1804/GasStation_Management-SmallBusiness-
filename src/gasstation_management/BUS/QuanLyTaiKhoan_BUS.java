@@ -26,8 +26,13 @@ public class QuanLyTaiKhoan_BUS {
     ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
     QuanLyTaiKhoan_DAO quanLyTaiKhoan_DAO = new QuanLyTaiKhoan_DAO();
 
-    public ArrayList<TaiKhoan> search(String criterias) {
-        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.getDanhSachTaiKhoan();
+    public ArrayList<TaiKhoan> timKiemTheoTenDangNhap(String tenDangNhap) {
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTenDangNhap(tenDangNhap);
+        return result;
+    }
+    
+    public ArrayList<TaiKhoan> timKiemTheoTrangThai(String tenDangNhap) {
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTenDangNhap(tenDangNhap);
         return result;
     }
     

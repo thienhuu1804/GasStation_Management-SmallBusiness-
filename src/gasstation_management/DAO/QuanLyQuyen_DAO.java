@@ -6,8 +6,8 @@ package gasstation_management.DAO;
 
 import java.sql.PreparedStatement;
 import gasstation_management.DBConnect;
-import gasstation_management.DTO.DanhSachQuyen_DTO;
-import gasstation_management.UI.DanhSachQuyen_GUI;
+import gasstation_management.DTO.Quyen;
+import gasstation_management.UI.MainContentPanels.DanhSachQuyen_GUI;
 import java.awt.List;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
@@ -15,43 +15,36 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author admin
  */
-public class DanhSachQuyen_DAO {
+public class QuanLyQuyen_DAO {
 
-    
+    DBConnect conn = new DBConnect();
+    ResultSet rs = null;
+    public QuanLyQuyen_DAO() {
+    }
 
-
-
-public DanhSachQuyen_DAO(){
-}
-public static ArrayList<DanhSachQuyen_DTO> QuyenAll()
-    {
-        ArrayList<DanhSachQuyen_DTO> listQuyen = new ArrayList<>();
-        DBConnect conn = new DBConnect();
-        ResultSet rs = null;
-        ArrayList<DanhSachQuyen_DTO> dsq = new ArrayList<>();
+    public ArrayList<Quyen> QuyenAll() {
+        ArrayList<Quyen> listQuyen = new ArrayList<>();
+        ArrayList<Quyen> dsq = new ArrayList<>();
+        conn.setupConnection();
         try {
-           
             PreparedStatement stm = conn.getConnection().prepareStatement("select * from quyen");
             rs = conn.sqlQry(stm);
-            while(rs.next())
-            {
-                DanhSachQuyen_DTO q= new DanhSachQuyen_DTO();
-                q.setMaQuyen (rs.getString("maquyen"));
-                q.setMoTaQuyen (rs.getString("motaquyen"));
+            while (rs.next()) {
+                Quyen q = new Quyen();
+                q.setMaQuyen(rs.getString("maquyen"));
+                q.setMoTaQuyen(rs.getString("motaquyen"));
                 dsq.add(q);
             }
-            rs.close();
-            conn.closeConnect();
-            
         } catch (SQLException ex) {
-           
+            ex.printStackTrace();
+        } finally {
+            conn.closeConnection();
         }
-        
+
         return dsq;
     }
 }

@@ -4,20 +4,20 @@
  */
 package gasstation_management.BUS;
 
-import gasstation_management.DAO.DanhSachQuyen_DAO;
-import gasstation_management.DTO.DanhSachQuyen_DTO;
+import gasstation_management.DAO.QuanLyQuyen_DAO;
+import gasstation_management.DTO.Quyen;
 import java.util.ArrayList;
 
 /**
  *
  * @author admin
  */
-public class DanhSachQuyen_BUS {
+public class QuanLyQuyen_BUS {
 
-    public static ArrayList<DanhSachQuyen_DTO> QuyenAll(){
-        return DanhSachQuyen_DAO.QuyenAll();
+    QuanLyQuyen_DAO danhSachQuyen_DAO = new QuanLyQuyen_DAO();
+
+    public ArrayList<Quyen> QuyenAll() {
+        return danhSachQuyen_DAO.QuyenAll();
     }
 
 }
-    
-
