@@ -5,7 +5,7 @@
  */
 package gasstation_management.BUS;
 
-import com.mysql.jdbc.PreparedStatement;
+//import java.sql.PreparedStatement;
 import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DTO.TaiKhoan;
 import java.nio.charset.StandardCharsets;
