@@ -5,6 +5,7 @@
  */
 package gasstation_management;
 
+
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +16,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -28,8 +31,8 @@ public class DBConnect {
     Connection conn = null;
 
     String server = "localhost:3306";
-    String dbName = "FuelManagement";
-    String userName = "FuelAdmin";
+    String dbName = "fuelmanagement";
+    String userName = "root";
     String pass = "";
 
     public DBConnect() {
@@ -73,14 +76,17 @@ public class DBConnect {
         try {
             String url = "jdbc:mysql://" + server + "/" + dbName;
             conn = DriverManager.getConnection(url, userName, pass);
+
             return conn.isValid(1000);
 //            JOptionPane.showMessageDialog(null, "Ket noi database " + dbName + " thanh cong");
+
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Khong the ket noi toi " + dbName);
             return false;
         }
     }
+  
 
     public ResultSet sqlQry(PreparedStatement stm) {
         if (checkConnection()) {
