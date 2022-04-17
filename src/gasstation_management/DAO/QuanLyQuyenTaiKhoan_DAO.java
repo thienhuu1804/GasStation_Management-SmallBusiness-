@@ -119,7 +119,7 @@ public class QuanLyQuyenTaiKhoan_DAO {
             }
             return powerList;
         } catch (SQLException ex) {
-            Logger.getLogger(QuanLyQuyen_Dao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuanLyQuyenTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
                     return null;
         }
     }
