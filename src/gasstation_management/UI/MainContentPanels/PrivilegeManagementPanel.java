@@ -83,8 +83,6 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
         danhSachQuyen = quanLyQuyen.QuyenAll();
         if (selected == 0) {
             danhSachTaiKhoan = quanLyTaiKhoan.getDanhSachTaiKhoan();
-        } else {
-            System.out.println("????");
         }
         if (selected == 1) {
             danhSachTaiKhoan = quanLyTaiKhoan.timKiemTheoTenDangNhap(txtTiemKiem.getText());
