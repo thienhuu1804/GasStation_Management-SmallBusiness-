@@ -20,15 +20,15 @@ public class DataTable extends JPanel {
 
     public DataTable() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(950, 300));
+//        setPreferredSize(new Dimension(950, 300));
 
         tb = new JTable();
         tbModel = new DefaultTableModel();
         pane = new JScrollPane(tb);
 
         tb.setFillsViewportHeight(true);
-        tb.setFont(new Font("Segoe UI", 0, 16));
-        tb.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        tb.setFont(new Font("Segoe UI", 0, 12));
+        tb.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tb.setRowHeight(40);
 
         // color

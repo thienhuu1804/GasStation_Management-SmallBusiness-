@@ -33,6 +33,7 @@ public class QuanLyTaiKhoan_DAO {
 
     public ArrayList<TaiKhoan> getDanhSachTaiKhoan() {
         ArrayList<TaiKhoan> result = new ArrayList<>();
+        db.setupConnection();
         try {
             PreparedStatement stm = db.getConnection().prepareStatement("select * from taikhoan");
             rs = db.sqlQry(stm);
@@ -49,12 +50,71 @@ public class QuanLyTaiKhoan_DAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.closeConnection();
         }
         dstk = result;
         return result;
     }
-    
-    public boolean addTaiKhoan(TaiKhoan tk){
+
+    public ArrayList<TaiKhoan> timKiemTheoTenDangNhap(String tenDangNhap) {
+        db.setupConnection();
+        ArrayList<TaiKhoan> result = new ArrayList<>();
+        try {
+            String sql = "select * from taikhoan where tendangnhap=?";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1, tenDangNhap);
+            rs = db.sqlQry(stm);
+            if (rs != null) {
+                while (rs.next()) {
+                    TaiKhoan temp = new TaiKhoan();
+                    temp.setTenDangNhap(rs.getString(1));
+                    temp.setMaNV(rs.getString(2));
+                    temp.setMatKhau(rs.getString(3));
+                    temp.setNgayTao(LocalDateTime.parse(rs.getString(4), DATETIME_FORMATTER));
+                    temp.setTrangThai(rs.getString(5));
+                    result.add(temp);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("exx");
+            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.closeConnection();
+        }
+        dstk = result;
+        return result;
+    }
+        public ArrayList<TaiKhoan> timKiemTheoTrangThai(String trangThai) {
+        db.setupConnection();
+        ArrayList<TaiKhoan> result = new ArrayList<>();
+        try {
+            String sql = "select * from taikhoan where trangthai=?";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1, trangThai);
+            rs = db.sqlQry(stm);
+            if (rs != null) {
+                while (rs.next()) {
+                    TaiKhoan temp = new TaiKhoan();
+                    temp.setTenDangNhap(rs.getString(1));
+                    temp.setMaNV(rs.getString(2));
+                    temp.setMatKhau(rs.getString(3));
+                    temp.setNgayTao(LocalDateTime.parse(rs.getString(4), DATETIME_FORMATTER));
+                    temp.setTrangThai(rs.getString(5));
+                    result.add(temp);
+                }
+            }
+        } catch (SQLException ex) {
+//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            db.closeConnection();
+        }
+        dstk = result;
+        return result;
+    }
+
+    public boolean addTaiKhoan(TaiKhoan tk) {
+        db.setupConnection();
         try {
             String sql = "insert into taikhoan (?,?,?,?,?)";
             PreparedStatement stm = db.getConnection().prepareStatement(sql);
@@ -67,6 +127,8 @@ public class QuanLyTaiKhoan_DAO {
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        } finally {
+            db.closeConnection();
         }
     }
 }

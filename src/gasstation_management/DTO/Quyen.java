@@ -8,12 +8,10 @@ package gasstation_management.DTO;
  *
  * @author admin
  */
-public class DanhSachQuyen_DTO {
+public class Quyen {
+
     private String MaQuyen;
     private String moTaQuyen;
-
-   
-
 
     public String getMaQuyen() {
         return MaQuyen;
