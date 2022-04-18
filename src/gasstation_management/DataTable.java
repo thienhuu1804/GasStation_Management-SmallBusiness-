@@ -58,7 +58,10 @@ public class DataTable extends JPanel {
     public JTable getTable() {
         return tb;
     }
-
+   public int getIndexRow()
+    {
+        return tb.getSelectedRow();
+    }
     public DefaultTableModel getModel() {
         return tbModel;
     }

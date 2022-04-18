@@ -6,9 +6,17 @@
 package gasstation_management.BUS;
 
 import gasstation_management.DAO.QuanLyQuyenTaiKhoan_DAO;
+import gasstation_management.DTO.Quyen;
+import gasstation_management.DTO.QuyenTaiKhoan;
+import gasstation_management.DTO.TaiKhoan;
+import gasstation_management.DAO.QuanLyQuyen_DAO;
+import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
+
+import static gasstation_management.Main.DATETIME_FORMATTER;
 import java.sql.SQLException;
 //import gasstation_management.DTO.QuyenTaiKhoan;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  *
@@ -22,35 +30,67 @@ public class QuanLyQuyenTaiKhoan_BUS {
 //        return quanLyTaiKhoan_DAO.getDanhSachQuyenTaiKhoan();
 //    }
     
-     QuanLyQuyenTaiKhoan_DAO qld = new QuanLyQuyenTaiKhoan_DAO();
+     QuanLyQuyenTaiKhoan_DAO quanLyQuyenTaiKhoan_DAO = new QuanLyQuyenTaiKhoan_DAO();
+        ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
+        ArrayList<Quyen> danhSachQuyen = new ArrayList<>();
+        QuanLyTaiKhoan_DAO quanlytaikhoan_Dao = new QuanLyTaiKhoan_DAO();
    public QuanLyQuyenTaiKhoan_BUS()
     {
         
         
     }
-   // Hiển thị thông tin quyền tài khoản ra bảng table
-    public String[][] ShowListAccount() throws SQLException
-    {
+    public void DisplayAccountCheckBox(int selectedRow) {
         
-      String[][] str = qld.LoadDataAccount();
-      return str;
-    }
-    // Hàm lấy tên của một tài khoản
-    public String getLoginName(int indexRow)
-    {
-           String[][] str = qld.LoadDataAccount();  // Mảng quyền của tất cã tài khoản
-           return str[indexRow][0];
-    }
-    // Lấy tất cã quyền của tài khoản đã được chọn 
-    public ArrayList PowerListAccountSelected(int indexRow) {
         
-       String tendangnhap;
-       tendangnhap = getLoginName(indexRow);
-       return qld.getAllPowerOfAccount(tendangnhap); // Trả về mảng quyền của một tài khoản được chọn       
-            
+        
     }
-    // update quyền của tài khoản lên database
-    public void UpdateAccountPower_Bus(ArrayList result, String text) {
-        qld.UpdateAccountPower_Dao(result,text);
+    
+    public ArrayList getDanhSanhtaiKhoanDaCongQuyen(int selected,String getTextOftxtTimKiem){
+        ArrayList<QuyenTaiKhoan> danhSachQuyenTaiKhoan = new ArrayList<>();
+        danhSachQuyenTaiKhoan = quanLyQuyenTaiKhoan_DAO.getDanhSachQuyenTaiKhoan();
+        QuanLyQuyen_DAO quanLyQuyen = new QuanLyQuyen_DAO();
+        danhSachQuyen = quanLyQuyen.QuyenAll();
+        if (selected == 0) {
+            danhSachTaiKhoan = quanlytaikhoan_Dao.getDanhSachTaiKhoan();
+        }
+        if (selected == 1) {
+            danhSachTaiKhoan = quanlytaikhoan_Dao.timKiemTheoTenDangNhap(getTextOftxtTimKiem);
+        }
+        if (selected == 2){
+            danhSachTaiKhoan = quanlytaikhoan_Dao.timKiemTheoTrangThai(getTextOftxtTimKiem);
+        }
+         // Setdata vào table
+         ArrayList arrlist = new ArrayList<>();
+        for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
+            ArrayList<String> dsQuyen = new ArrayList<>();
+            String chuoiQuyen = "";
+            String ngaySuaGanNhat = "";
+            for (QuyenTaiKhoan quyen : danhSachQuyenTaiKhoan) {
+                if (taiKhoan.getTenDangNhap().equalsIgnoreCase(quyen.getTenDangNhap())) {
+                    dsQuyen.add(quyen.getMaQuyen());
+                    ngaySuaGanNhat = quyen.getNgaySua().format(DATETIME_FORMATTER);
+                }
+            }
+            for (String x : dsQuyen) {
+                for (Quyen q : danhSachQuyen) {
+                    if (x.equalsIgnoreCase(q.getMaQuyen())) {
+                        chuoiQuyen += q.getMoTaQuyen() + ", ";
+                    }
+                }
+            }
+            chuoiQuyen = chuoiQuyen.substring(0, chuoiQuyen.length() - 2);
+            Vector data = new Vector();
+                data.add(taiKhoan.getTenDangNhap());
+                data.add(chuoiQuyen);
+                data.add(taiKhoan.getTrangThai());
+                data.add(ngaySuaGanNhat);
+                arrlist.add(data);
+        }
+        return arrlist;
+    }
+
+    // lấy tên tài khoản dựa vào dòng được chọn từ bản
+    public ArrayList PrivilegeListAccountSelected(int indexRow) {
+           return null;
     }
 }
