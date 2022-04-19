@@ -15,7 +15,7 @@ public class QuyenTaiKhoan {
     public int id;
     public String tenDangNhap;
     public String maQuyen;
-    public LocalDateTime ngaySua;
+    public String ngaySua;
     
     public int getId() {
         return id;
@@ -41,11 +41,11 @@ public class QuyenTaiKhoan {
         this.maQuyen = maQuyen;
     }
 
-    public LocalDateTime getNgaySua() {
+    public String getNgaySua() {
         return ngaySua;
     }
 
-    public void setNgaySua(LocalDateTime ngaySua) {
+    public void setNgaySua(String ngaySua) {
         this.ngaySua = ngaySua;
     }
     

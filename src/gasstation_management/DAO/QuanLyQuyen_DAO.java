@@ -47,4 +47,20 @@ public class QuanLyQuyen_DAO {
 
         return dsq;
     }
+    
+public String getMaQuyen(String privilegeName)
+{
+    String name = null;
+         try {
+            PreparedStatement stm = conn.getConnection().prepareStatement("select maquyen from quyen where motaquyen='"+privilegeName+"'");
+            rs =  stm.executeQuery();
+                while (rs.next()) {
+                      name= rs.getString("maquyen");
+                }
+                return name;
+        }catch (SQLException ex)
+        {
+          return null;  
+        }
+}
 }
