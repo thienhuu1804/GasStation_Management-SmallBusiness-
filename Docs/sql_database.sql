@@ -26,10 +26,14 @@ CREATE TABLE IF NOT EXISTS `gia` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `Unique_Pair` (`masp`,`ngayapdung`) USING BTREE,
   CONSTRAINT `FK_gia_sanpham` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`masp`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.gia: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.gia: ~2 rows (approximately)
 /*!40000 ALTER TABLE `gia` DISABLE KEYS */;
+INSERT INTO `gia` (`id`, `masp`, `ngayapdung`, `gia`, `ngayketthuc`) VALUES
+	(0, 'A90', '17:05:10 11-02-2022', 15000, NULL),
+	(6, 'A95', '17:05:10 11-02-2022', 15000, NULL),
+	(7, 'DO005', '17:05:10 11-02-2022', 15000, NULL);
 /*!40000 ALTER TABLE `gia` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.hoadon
@@ -60,8 +64,10 @@ CREATE TABLE IF NOT EXISTS `nhacungcap` (
   PRIMARY KEY (`mancc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.nhacungcap: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.nhacungcap: ~1 rows (approximately)
 /*!40000 ALTER TABLE `nhacungcap` DISABLE KEYS */;
+INSERT INTO `nhacungcap` (`mancc`, `tenncc`, `diachi`, `sdt`) VALUES
+	('NCC1', 'Vinamilk', 'HCM', '0909009');
 /*!40000 ALTER TABLE `nhacungcap` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.nhanvien
@@ -75,10 +81,11 @@ CREATE TABLE IF NOT EXISTS `nhanvien` (
   PRIMARY KEY (`manv`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table fuelmanagement.nhanvien: ~1 rows (approximately)
+-- Dumping data for table fuelmanagement.nhanvien: ~2 rows (approximately)
 /*!40000 ALTER TABLE `nhanvien` DISABLE KEYS */;
 INSERT INTO `nhanvien` (`manv`, `tennv`, `sdt`, `diachi`, `cmnd`, `trangthai`) VALUES
-	('nv1', 'Nguyễn Văn A', '0909090909', 'abcdc', '073215648', 'Active');
+	('nv1', 'Nguyễn Văn A', '0909090909', 'abcdc', '073215648', 'Active'),
+	('nv2', 'Nguyễn Văn b', '0909090909', 'abcdc', '073215648', 'Active');
 /*!40000 ALTER TABLE `nhanvien` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.phieunhap
@@ -100,8 +107,10 @@ CREATE TABLE IF NOT EXISTS `phieunhap` (
   CONSTRAINT `FK_phieunhap_sanpham` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`masp`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.phieunhap: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.phieunhap: ~1 rows (approximately)
 /*!40000 ALTER TABLE `phieunhap` DISABLE KEYS */;
+INSERT INTO `phieunhap` (`mapn`, `masp`, `manv`, `mancc`, `ngaytao`, `soluong`, `gianhap`, `tongtien`) VALUES
+	('PN1', 'A90', 'nv2', 'NCC1', '', 600, 15000, '9000000');
 /*!40000 ALTER TABLE `phieunhap` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.quyen
@@ -128,15 +137,20 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
   PRIMARY KEY (`masp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table fuelmanagement.sanpham: ~0 rows (approximately)
+-- Dumping data for table fuelmanagement.sanpham: ~4 rows (approximately)
 /*!40000 ALTER TABLE `sanpham` DISABLE KEYS */;
+INSERT INTO `sanpham` (`masp`, `tensp`, `soluong`) VALUES
+	('A90', 'RON 90', 600),
+	('A95', 'RON 95', 500),
+	('DO005', 'DO 0.05S', 800),
+	('DO025', 'DO 0.25S', 700);
 /*!40000 ALTER TABLE `sanpham` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.taikhoan
 CREATE TABLE IF NOT EXISTS `taikhoan` (
   `tendangnhap` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `manv` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `matkhau` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `matkhau` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `ngaytao` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `trangthai` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`tendangnhap`),
@@ -144,10 +158,11 @@ CREATE TABLE IF NOT EXISTS `taikhoan` (
   CONSTRAINT `FK__nhanvien` FOREIGN KEY (`manv`) REFERENCES `nhanvien` (`manv`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.taikhoan: ~1 rows (approximately)
+-- Dumping data for table fuelmanagement.taikhoan: ~2 rows (approximately)
 /*!40000 ALTER TABLE `taikhoan` DISABLE KEYS */;
 INSERT INTO `taikhoan` (`tendangnhap`, `manv`, `matkhau`, `ngaytao`, `trangthai`) VALUES
-	('nv1', 'nv1', '123456', '2022-04-16 19:52:25', 'Active');
+	('nv1', 'nv1', 'm/DhzEB+/lZlC2M14WjGYQ==$NcUmViMG+PZRXCjSyXpN1jcCzuV2eaJxE90JzD+DRaN52IBQhcR9wmna8S4z2gVu3bWOVHaaYL80B3odpa8HDA==', '19:52:25 16-04-2022', 'Active'),
+	('nv2', 'nv2', 'lIu5RaFr21dlCQ9kfVOZDQ==$9Hoyx8iKK2F18FjZnJj4qEVACrrZrLk8/Azj0SXbZAUEjkX43eo87Df4EhDIFLMUMpiLp5jzMxsQE63gXSI9YQ==', '19:52:25 16-04-2022', 'Active');
 /*!40000 ALTER TABLE `taikhoan` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.taikhoan_quyen
@@ -161,12 +176,14 @@ CREATE TABLE IF NOT EXISTS `taikhoan_quyen` (
   KEY `FK__quyen` (`maquyen`),
   CONSTRAINT `FK__quyen` FOREIGN KEY (`maquyen`) REFERENCES `quyen` (`maquyen`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK__taikhoan` FOREIGN KEY (`tendangnhap`) REFERENCES `taikhoan` (`tendangnhap`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table fuelmanagement.taikhoan_quyen: ~1 rows (approximately)
+-- Dumping data for table fuelmanagement.taikhoan_quyen: ~3 rows (approximately)
 /*!40000 ALTER TABLE `taikhoan_quyen` DISABLE KEYS */;
 INSERT INTO `taikhoan_quyen` (`id`, `tendangnhap`, `maquyen`, `ngaysua`) VALUES
-	(1, 'nv1', 'q2', '2022-04-16 19:52:25');
+	(1, 'nv1', 'q2', '19:52:25 16-04-2022'),
+	(2, 'nv1', 'q4', '19:52:25 16-04-2022'),
+	(3, 'nv2', 'q3', '19:52:25 16-04-2022');
 /*!40000 ALTER TABLE `taikhoan_quyen` ENABLE KEYS */;
 
 -- Dumping structure for table fuelmanagement.trubom
