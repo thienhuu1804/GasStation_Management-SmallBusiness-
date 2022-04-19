@@ -32,7 +32,7 @@ public class QuanLyTaiKhoan_BUS {
     }
     
     public ArrayList<TaiKhoan> timKiemTheoTrangThai(String tenDangNhap) {
-        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTenDangNhap(tenDangNhap);
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTrangThai(tenDangNhap);
         return result;
     }
     
@@ -43,6 +43,10 @@ public class QuanLyTaiKhoan_BUS {
     
     public boolean addTaiKhoan(TaiKhoan tk){
         return quanLyTaiKhoan_DAO.addTaiKhoan(tk);
+    }
+    
+    public boolean updateTaiKhoan(TaiKhoan tk){
+        return quanLyTaiKhoan_DAO.updateTaiKhoan(tk);
     }
 
     public String getHashedPwd(String inputPwd) {
@@ -70,7 +74,6 @@ public class QuanLyTaiKhoan_BUS {
     public boolean verifyPwd(String inputPwd, String hashedPwd) {
         byte[] salt = Base64.getDecoder().decode(hashedPwd.split("\\$")[0].getBytes());
         String hashedInput = getHashedPwd(inputPwd, salt);
-        System.out.println(hashedInput);
         return hashedInput.equalsIgnoreCase(hashedPwd);
     }
 }

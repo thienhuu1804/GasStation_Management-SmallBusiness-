@@ -85,7 +85,8 @@ public class QuanLyTaiKhoan_DAO {
         dstk = result;
         return result;
     }
-        public ArrayList<TaiKhoan> timKiemTheoTrangThai(String trangThai) {
+
+    public ArrayList<TaiKhoan> timKiemTheoTrangThai(String trangThai) {
         db.setupConnection();
         ArrayList<TaiKhoan> result = new ArrayList<>();
         try {
@@ -123,6 +124,26 @@ public class QuanLyTaiKhoan_DAO {
             stm.setString(3, tk.getMatKhau());
             stm.setString(4, tk.getNgayTao().toString());
             stm.setString(5, tk.getTrangThai());
+            return db.sqlUpdate(stm);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            db.closeConnection();
+        }
+    }
+
+    public boolean updateTaiKhoan(TaiKhoan tk) {
+        db.setupConnection();
+        try {
+            String sql = "update taikhoan set manv=?, matkhau=?, ngaytao=?, trangthai=? where tendangnhap=?";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+
+            stm.setString(1, tk.getMaNV());
+            stm.setString(2, tk.getMatKhau());
+            stm.setString(3, tk.getNgayTao().format(DATETIME_FORMATTER));
+            stm.setString(4, tk.getTrangThai());
+            stm.setString(5, tk.getTenDangNhap());
             return db.sqlUpdate(stm);
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
