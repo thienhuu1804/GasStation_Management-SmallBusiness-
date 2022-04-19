@@ -25,28 +25,21 @@ import java.util.Vector;
  * @author nguye
  */
 public class QuanLyQuyenTaiKhoan_BUS {
-//    ArrayList<QuyenTaiKhoan> danhSachTaiKhoan = new ArrayList<>();
-//    QuanLyQuyenTaiKhoan_DAO quanLyTaiKhoan_DAO = new QuanLyQuyenTaiKhoan_DAO();
-//    
-//    public ArrayList<QuyenTaiKhoan> getDanhSachQuyenTaiKhoan(){
-//        return quanLyTaiKhoan_DAO.getDanhSachQuyenTaiKhoan();
-//    }
-    
      QuanLyQuyenTaiKhoan_DAO quanLyQuyenTaiKhoan_DAO = new QuanLyQuyenTaiKhoan_DAO();
         ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
         ArrayList<Quyen> danhSachQuyen = new ArrayList<>();
         QuanLyTaiKhoan_DAO quanlytaikhoan_Dao = new QuanLyTaiKhoan_DAO();
         QuanLyQuyen_DAO quanLyQuyen = new QuanLyQuyen_DAO();
    public QuanLyQuyenTaiKhoan_BUS()
-    {
-        
-        
-    }
-    public void DisplayAccountCheckBox(int selectedRow) {
-        
-        
+    {     
         
     }
+
+    public ArrayList<QuyenTaiKhoan> getDanhSachQuyenTaiKhoan(){
+        return quanLyQuyenTaiKhoan_DAO.getDanhSachQuyenTaiKhoan();
+    }
+    
+    
     
     public ArrayList getDanhSanhtaiKhoanDaCongQuyen(int selected,String getTextOftxtTimKiem){
         ArrayList<QuyenTaiKhoan> danhSachQuyenTaiKhoan = new ArrayList<>();
@@ -71,7 +64,7 @@ public class QuanLyQuyenTaiKhoan_BUS {
             for (QuyenTaiKhoan quyen : danhSachQuyenTaiKhoan) {
                 if (taiKhoan.getTenDangNhap().equalsIgnoreCase(quyen.getTenDangNhap())) {
                     dsQuyen.add(quyen.getMaQuyen());  // Lấy được danh sách mã quyền của một tài khoản
-                    ngaySuaGanNhat = quyen.getNgaySua();
+                    ngaySuaGanNhat = quyen.getNgaySua().format(DATETIME_FORMATTER);
                 }
             }
             for (String x : dsQuyen) {
@@ -131,7 +124,7 @@ public class QuanLyQuyenTaiKhoan_BUS {
            quyen.setId(i+1+lastId);
            quyen.setMaQuyen(maquyen);
            quyen.setTenDangNhap(accountName);
-           quyen.setNgaySua(ngaysua);
+           quyen.setNgaySua(LocalDateTime.parse(ngaysua, DATETIME_FORMATTER));
           
            quanLyQuyenTaiKhoan_DAO.addQuyenTaiKhoan(quyen);
        }

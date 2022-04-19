@@ -12,11 +12,11 @@ import gasstation_management.DTO.Quyen;
 import gasstation_management.DTO.QuyenTaiKhoan;
 import gasstation_management.DTO.TaiKhoan;
 import gasstation_management.DataTable;
-import static gasstation_management.Main.DATETIME_FORMATTER;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -47,6 +47,7 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setTableData();
+                txtTiemKiem.setBorder(new TitledBorder(cbLoaiTimKiem.getSelectedItem().toString()));
             }
         });
         txtTiemKiem.getDocument().addDocumentListener(new DocumentListener() {
@@ -87,6 +88,12 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
           table.addRow((Vector) dataList.get(i));
       }
       }
+    public void DefaultCheckBox()
+    {
+      jCheckBox1.setSelected(false);
+      jCheckBox2.setSelected(false);
+      jCheckBox3.setSelected(false);
+    }
     public void timTheoTenDangNhap() {
 
     }
@@ -110,6 +117,10 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jCheckBox4 = new javax.swing.JCheckBox();
+        saveButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(710, 546));
@@ -131,6 +142,8 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
         cbLoaiTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbLoaiTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder("Loại tìm kiếm"));
 
+        modifypanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         accountName.setText("jLabel1");
 
         jCheckBox1.setText("jCheckBox1");
@@ -141,9 +154,26 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
 
         jCheckBox4.setText("jCheckBox4");
 
+        saveButton.setBackground(new java.awt.Color(255, 51, 51));
+        saveButton.setText("Lưu kết quả");
+        saveButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jLabel1.setText("Bảng Chỉnh Quyền");
+
+        jLabel2.setText("Tên tài khoản :");
+        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel3.setText("Quyền:");
+
         jButton1.setBackground(new java.awt.Color(255, 51, 51));
-        jButton1.setText("Lưu kết quả");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setText("Quay lại");
+        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -154,43 +184,67 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
         modifypanel.setLayout(modifypanelLayout);
         modifypanelLayout.setHorizontalGroup(
             modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(modifypanelLayout.createSequentialGroup()
-                .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modifypanelLayout.createSequentialGroup()
+                .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(modifypanelLayout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(accountName))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
                     .addGroup(modifypanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, modifypanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(modifypanelLayout.createSequentialGroup()
-                                .addComponent(jCheckBox3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCheckBox4))
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel3)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(modifypanelLayout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addGap(43, 43, 43)
-                                .addComponent(jCheckBox2))))
-                    .addGroup(modifypanelLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jCheckBox1)
+                                    .addComponent(jCheckBox3)
+                                    .addGroup(modifypanelLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(accountName)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBox4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                .addGap(61, 61, 61))
         );
         modifypanelLayout.setVerticalGroup(
             modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modifypanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(accountName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modifypanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCheckBox2)
+                            .addComponent(jCheckBox1))
+                        .addGap(23, 23, 23))
+                    .addGroup(modifypanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(accountName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)))
                 .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox3)
                     .addComponent(jCheckBox4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(modifypanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveButton)
+                    .addComponent(jButton1))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -205,11 +259,11 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
                 .addComponent(cbLoaiTimKiem, 0, 149, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(modifypanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
-                        .addComponent(btnSuaQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSuaQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(modifypanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
@@ -239,22 +293,80 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
     private void btnSuaQuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaQuyenActionPerformed
         // TODO add your handling code here:
         modifypanel.setVisible(true);
-//               accountName.setText("Vuong");
-        DisplayAccountCheckBox(table.getIndexRow());
+        DefaultCheckBox();
+        DisplayAccountCheckBox(table.getSelectedRow());
     }//GEN-LAST:event_btnSuaQuyenActionPerformed
 
+    // Hiển thị bảng chỉnh sữa quyền
     public void DisplayAccountCheckBox(int indexRow) {
-        ArrayList list = new ArrayList();
-        jCheckBox1.setText("deptrai");
-        jCheckBox2.setText("hathay");
-        jCheckBox3.setText("dagioi");
-        String[] power = {"deptrai", "hathay",};
-        list = quanLyQuyenTaiKhoan_Bus.PrivilegeListAccountSelected(indexRow);  // Đã lấy được các quyền của tài khoản được chọn
+        ArrayList privilegeList = new ArrayList();
+        String name;
+        jCheckBox1.setText("Tài khoản và quyền");
+        jCheckBox2.setText("Bán hàng");
+        jCheckBox3.setText("Kho hàng");
+        jCheckBox4.setText("Thống kế báo cáo");
+        name = quanLyQuyenTaiKhoan_Bus.getAccountName(indexRow) ; // Đã lấy được tên của tài khoản được chọn
+        accountName.setText(name);  // đặt tên tài khoản được chọn vào jlable (accountName)
+        scrollTable.setVisible(false);
+        
+        privilegeList = quanLyQuyenTaiKhoan_Bus.getPrivilegeListOfAccount(accountName.getText());  // Đã lấy được các quyền của tài khoản được chọn
         // Hiển thị đã chọn trên các nút checkbox
+//       String account_name = qlb.getLoginName(indexRow);
+//       accountName.setText(account_name);  // Đặt tên tài khoản tại lable tài khoản
+        System.out.println(privilegeList);
+        for(int i=0;i<privilegeList.size();i++)
+        {
+             if(privilegeList.get(i).equals("tài khoản và quyền"))
+                     {
+                         jCheckBox1.setSelected(true);
+                     }
+         if(privilegeList.get(i).equals("bán hàng"))
+                     {
+                         jCheckBox2.setSelected(true);
+                     }
+        if(privilegeList.get(i).equals("kho hàng"))
+                     {
+                         jCheckBox3.setSelected(true);
+                     }
+        if(privilegeList.get(i).equals("thống kê báo cáo"))
+                     {
+                         jCheckBox3.setSelected(true);
+                     }
+                     
+               
+        }
+
     }
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // TODO add your handling code here:
+        ArrayList<String> result = new ArrayList(); // Mảng lưu danh sách quyền của một tài khoản sau khi chỉnh sửa
+        if(jCheckBox1.isSelected()==true)
+        {
+            result.add(jCheckBox1.getText());
+        }  
+         if(jCheckBox2.isSelected()==true)
+        {
+            result.add(jCheckBox2.getText());
+        }
+         if(jCheckBox3.isSelected()==true)
+        {
+            result.add(jCheckBox3.getText());
+        }
+         System.out.println("pri");
+         quanLyQuyenTaiKhoan_Bus.updatePrivilegeOfAccount_Bus(result,accountName.getText());
+         setTableData();
+         scrollTable.setVisible(true);
+         modifypanel.setVisible(false);
+         
+         // cập nhập lại quyền của tài khoản
+         
+    }//GEN-LAST:event_saveButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        modifypanel.setVisible(false);
+        scrollTable.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -267,7 +379,11 @@ public class PrivilegeManagementPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel modifypanel;
+    private javax.swing.JButton saveButton;
     private java.awt.ScrollPane scrollTable;
     private javax.swing.JTextField txtTiemKiem;
     // End of variables declaration//GEN-END:variables

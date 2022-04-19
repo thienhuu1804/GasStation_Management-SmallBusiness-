@@ -38,13 +38,12 @@ public class QuanLyQuyenTaiKhoan_DAO {
                     temp.setId(rs.getInt(1));
                     temp.setTenDangNhap(rs.getString(2));
                     temp.setMaQuyen(rs.getString(3));
-                    temp.setNgaySua(rs.getString(4));
+                    temp.setNgaySua((LocalDateTime.parse(rs.getString(4), DATETIME_FORMATTER)));
                     result.add(temp);
                 }
             }
         } catch (SQLException ex) {
 //            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("quyentaikhoan_Dao|getDanhsach");
         }finally{
             db.closeConnection();
         }
@@ -56,7 +55,8 @@ public class QuanLyQuyenTaiKhoan_DAO {
     ArrayList<String> result = new ArrayList<>();
         db.setupConnection();
         try {
-            PreparedStatement stm = db.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhoan_quyen.maquyen=quyen.maquyen and taikhoan_quyen.tendangnhap ='"+accountName+"'");
+            PreparedStatement stm = db.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhoan_quyen.maquyen=quyen.maquyen and taikhoan_quyen.tendangnhap =");
+            stm.setString(1,accountName);
             rs =  stm.executeQuery();
                 while (rs.next()) {
                      result.add(rs.getString("motaquyen"));
@@ -77,12 +77,11 @@ public class QuanLyQuyenTaiKhoan_DAO {
             stm.setInt(1, quyen.getId());
             stm.setString(2, quyen.getTenDangNhap());
             stm.setString(3, quyen.getMaQuyen());
-            stm.setString(4, quyen.getNgaySua());
+            stm.setString(4, quyen.getNgaySua().format(DATETIME_FORMATTER));
             success = db.sqlUpdate(stm);
 
         } catch (SQLException ex) {
 //            Logger.getLogger(QuanLyQuyenTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("quyentaikhoan_Dao|addquyentaikhoan");
         }finally{
             db.closeConnection();
         }

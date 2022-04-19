@@ -76,7 +76,6 @@ public class DBConnect {
         try {
             String url = "jdbc:mysql://" + server + "/" + dbName;
             conn = DriverManager.getConnection(url, userName, pass);
-
             return conn.isValid(1000);
 //            JOptionPane.showMessageDialog(null, "Ket noi database " + dbName + " thanh cong");
 

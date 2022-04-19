@@ -52,7 +52,8 @@ public String getMaQuyen(String privilegeName)
 {
     String name = null;
          try {
-            PreparedStatement stm = conn.getConnection().prepareStatement("select maquyen from quyen where motaquyen='"+privilegeName+"'");
+            PreparedStatement stm = conn.getConnection().prepareStatement("select maquyen from quyen where motaquyen=?");
+            stm.setString(1,privilegeName);
             rs =  stm.executeQuery();
                 while (rs.next()) {
                       name= rs.getString("maquyen");
