@@ -38,31 +38,50 @@ public class QuanLyQuyenTaiKhoan_DAO {
                     temp.setId(rs.getInt(1));
                     temp.setTenDangNhap(rs.getString(2));
                     temp.setMaQuyen(rs.getString(3));
-                    temp.setNgaySua(LocalDateTime.parse(rs.getString(4), DATETIME_FORMATTER));
+                    temp.setNgaySua((LocalDateTime.parse(rs.getString(4), DATETIME_FORMATTER)));
                     result.add(temp);
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             db.closeConnection();
         }
         return result;
     }
-
+    // Lấy tất cã quyền của một tài khoản
+    public ArrayList getQuyenCuaMotTaiKhoan(String accountName)
+    {
+    ArrayList<String> result = new ArrayList<>();
+        db.setupConnection();
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhoan_quyen.maquyen=quyen.maquyen and taikhoan_quyen.tendangnhap =");
+            stm.setString(1,accountName);
+            rs =  stm.executeQuery();
+                while (rs.next()) {
+                     result.add(rs.getString("motaquyen"));
+                }
+            return result;
+        }catch (SQLException ex) {
+            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }finally{
+            db.closeConnection();
+        }
+}
     public boolean addQuyenTaiKhoan(QuyenTaiKhoan quyen) {
         boolean success = false;
         db.setupConnection();
         try {
-            PreparedStatement stm = db.getConnection().prepareStatement("insert into taikhoan_quyen (?,?,?,?,?)");
-            stm.setInt(1, 0);
+            PreparedStatement stm = db.getConnection().prepareStatement("insert into taikhoan_quyen values (?,?,?,?)");
+            stm.setInt(1, quyen.getId());
             stm.setString(2, quyen.getTenDangNhap());
             stm.setString(3, quyen.getMaQuyen());
             stm.setString(4, quyen.getNgaySua().format(DATETIME_FORMATTER));
             success = db.sqlUpdate(stm);
 
         } catch (SQLException ex) {
-            Logger.getLogger(QuanLyQuyenTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(QuanLyQuyenTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             db.closeConnection();
         }
@@ -80,7 +99,7 @@ public class QuanLyQuyenTaiKhoan_DAO {
         boolean success = false;
         db.setupConnection();
         try {
-            PreparedStatement stm = db.getConnection().prepareStatement("delete * from taikhoan_quyen where tendangnhap=?");
+            PreparedStatement stm = db.getConnection().prepareStatement("delete from taikhoan_quyen where tendangnhap=?");
             stm.setString(1, tenDangNhap);
             success = db.sqlUpdate(stm);
         } catch (SQLException ex) {
@@ -90,4 +109,6 @@ public class QuanLyQuyenTaiKhoan_DAO {
         }
         return success;
     }
+
+   
 }

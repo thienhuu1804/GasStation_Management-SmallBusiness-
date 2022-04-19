@@ -38,7 +38,7 @@ public class AccountPower_management extends javax.swing.JFrame {
     public AccountPower_management() throws SQLException {
         initComponents();
         String[] powerList = {"tendangnhap","maquyen"};  // Hiển thị thông tin bản quyền của các tài khoản
-        setTable(qlb.ShowListAccount(),powerList);
+//        setTable(qlb.ShowListAccount(),powerList);
         jCheckBox1.setVisible(false);
         jCheckBox2.setVisible(false);
         jCheckBox3.setVisible(false);
@@ -240,7 +240,7 @@ public class AccountPower_management extends javax.swing.JFrame {
          System.out.println(result);
 //                 NonDisplayCheckBox();  // ẩn các nút chọn quyền
         
-        qlb.UpdateAccountPower_Bus(result,accountName.getText());// Hàm cập nhật lại quyền của tài khoản
+//        qlb.UpdateAccountPower_Bus(result,accountName.getText());// Hàm cập nhật lại quyền của tài khoản
     }//GEN-LAST:event_saveButtonActionPerformed
 
     public void setTable(String[][] dataRow,String[] dataCol)
@@ -279,10 +279,10 @@ public class AccountPower_management extends javax.swing.JFrame {
         jCheckBox2.setText("hathay");
         jCheckBox3.setText("dagioi");
         String[] power = {"deptrai","hathay",};
-        list = qlb.PowerListAccountSelected(indexRow);  // Đã lấy được các quyền của tài khoản được chọn
+//        list = qlb.PowerListAccountSelected(indexRow);  // Đã lấy được các quyền của tài khoản được chọn
         // Hiển thị đã chọn trên các nút checkbox
-       String account_name = qlb.getLoginName(indexRow);
-       accountName.setText(account_name);  // Đặt tên tài khoản tại lable tài khoản
+//       String account_name = qlb.getLoginName(indexRow);
+//       accountName.setText(account_name);  // Đặt tên tài khoản tại lable tài khoản
          System.out.println(list);
         for(int i=0;i<list.size();i++)
         {
