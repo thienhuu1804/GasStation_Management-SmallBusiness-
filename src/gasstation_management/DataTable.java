@@ -58,7 +58,7 @@ public class DataTable extends JPanel {
     public JTable getTable() {
         return tb;
     }
-   public int getIndexRow()
+   public int getSelectedRow()
     {
         return tb.getSelectedRow();
     }
