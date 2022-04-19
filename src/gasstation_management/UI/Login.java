@@ -4,7 +4,9 @@
  */
 package gasstation_management.UI;
 
-import gasstation_management.DAO.TaiKhoan_DAO;
+import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
+import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
+import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DBConnect;
 import gasstation_management.DTO.TaiKhoan;
 import gasstation_management.UI.Shared.MainPanel;
@@ -38,7 +40,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txUsername = new javax.swing.JTextField();
-        txPassword = new javax.swing.JTextField();
+        txPassword = new javax.swing.JPasswordField();
         btExit = new javax.swing.JButton();
         btLogin = new javax.swing.JButton();
 
@@ -114,14 +116,14 @@ public class Login extends javax.swing.JFrame {
 
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
         String userName = txUsername.getText();
-        String passWord = txPassword.getText();
+        String passWord = String.valueOf(txPassword.getPassword());
         
         if(userName.equals("") || passWord.equals(""))
             JOptionPane.showMessageDialog(rootPane, "Bạn chưa nhập đủ tài khoản và mật khẩu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         else {
             try {
-                TaiKhoan_DAO dao = new TaiKhoan_DAO();
-                TaiKhoan account = dao.checkLogin(userName, passWord);
+                QuanLyTaiKhoan_BUS bus = new QuanLyTaiKhoan_BUS();
+                TaiKhoan account = bus.checkLogin(userName, passWord);
                 if(account == null)  {
                     JOptionPane.showMessageDialog(rootPane, "Tên đăng nhập hoặc mật khẩu sai", "Lỗi đăng nhập", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -195,7 +197,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txPassword;
+    private javax.swing.JPasswordField txPassword;
     private javax.swing.JTextField txUsername;
     // End of variables declaration//GEN-END:variables
 }
