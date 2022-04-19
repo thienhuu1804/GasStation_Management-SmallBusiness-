@@ -14,6 +14,8 @@ import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 
 import static gasstation_management.Main.DATETIME_FORMATTER;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 //import gasstation_management.DTO.QuyenTaiKhoan;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -34,6 +36,7 @@ public class QuanLyQuyenTaiKhoan_BUS {
         ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
         ArrayList<Quyen> danhSachQuyen = new ArrayList<>();
         QuanLyTaiKhoan_DAO quanlytaikhoan_Dao = new QuanLyTaiKhoan_DAO();
+        QuanLyQuyen_DAO quanLyQuyen = new QuanLyQuyen_DAO();
    public QuanLyQuyenTaiKhoan_BUS()
     {
         
@@ -60,15 +63,15 @@ public class QuanLyQuyenTaiKhoan_BUS {
             danhSachTaiKhoan = quanlytaikhoan_Dao.timKiemTheoTrangThai(getTextOftxtTimKiem);
         }
          // Setdata vào table
-         ArrayList arrlist = new ArrayList<>();
+         ArrayList<Vector> arrlist = new ArrayList<>();
         for (TaiKhoan taiKhoan : danhSachTaiKhoan) {
             ArrayList<String> dsQuyen = new ArrayList<>();
             String chuoiQuyen = "";
             String ngaySuaGanNhat = "";
             for (QuyenTaiKhoan quyen : danhSachQuyenTaiKhoan) {
                 if (taiKhoan.getTenDangNhap().equalsIgnoreCase(quyen.getTenDangNhap())) {
-                    dsQuyen.add(quyen.getMaQuyen());
-                    ngaySuaGanNhat = quyen.getNgaySua().format(DATETIME_FORMATTER);
+                    dsQuyen.add(quyen.getMaQuyen());  // Lấy được danh sách mã quyền của một tài khoản
+                    ngaySuaGanNhat = quyen.getNgaySua();
                 }
             }
             for (String x : dsQuyen) {
@@ -78,7 +81,10 @@ public class QuanLyQuyenTaiKhoan_BUS {
                     }
                 }
             }
-            chuoiQuyen = chuoiQuyen.substring(0, chuoiQuyen.length() - 2);
+            if(chuoiQuyen.length()!=0)
+            {
+                chuoiQuyen = chuoiQuyen.substring(0, chuoiQuyen.length() - 1);
+            }
             Vector data = new Vector();
                 data.add(taiKhoan.getTenDangNhap());
                 data.add(chuoiQuyen);
@@ -89,8 +95,46 @@ public class QuanLyQuyenTaiKhoan_BUS {
         return arrlist;
     }
 
-    // lấy tên tài khoản dựa vào dòng được chọn từ bản
-    public ArrayList PrivilegeListAccountSelected(int indexRow) {
-           return null;
+    // lấy tên tài khoản dựa vào dòng được chọn từ bảng
+    public String getAccountName(int indexRow) {
+            ArrayList list = new ArrayList();
+            Vector account = new Vector<>();
+            list = getDanhSanhtaiKhoanDaCongQuyen(0,null);
+            account = (Vector) list.get(indexRow);
+            
+           return (String) account.get(0);
     }
+   // Lấy danh sách quyền của tài khoản được chọn
+    public ArrayList getPrivilegeListOfAccount(String accountName){
+         ArrayList list = new ArrayList<>();
+            list = quanLyQuyenTaiKhoan_DAO.getQuyenCuaMotTaiKhoan(accountName);
+        return list;
+    }
+   // cập nhật lại quyền tài khoản
+    public void updatePrivilegeOfAccount_Bus(ArrayList privilegeList,String accountName) {
+        ArrayList  list = new ArrayList();
+        int lastId;
+         String maquyen;
+        quanLyQuyenTaiKhoan_DAO.removeAllQuyenTaiKhoan(accountName);
+        // dannh sách tai khoản và quyền đang có trong database
+       list = quanLyQuyenTaiKhoan_DAO.getDanhSachQuyenTaiKhoan();
+      QuyenTaiKhoan quyen1 = new QuyenTaiKhoan();
+       quyen1 = (QuyenTaiKhoan) list.get(list.size()-1);
+       lastId = quyen1.getId(); // lấy chỉ số id cuối cùng trong bảng
+           LocalDateTime now = LocalDateTime.now();
+           String ngaysua= now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+       for(int i=0;i<privilegeList.size();i++)
+       {
+                      QuyenTaiKhoan quyen = new QuyenTaiKhoan();
+           maquyen = quanLyQuyen.getMaQuyen((String) privilegeList.get(i));
+           
+           quyen.setId(i+1+lastId);
+           quyen.setMaQuyen(maquyen);
+           quyen.setTenDangNhap(accountName);
+           quyen.setNgaySua(ngaysua);
+          
+           quanLyQuyenTaiKhoan_DAO.addQuyenTaiKhoan(quyen);
+       }
+
+       }
 }
