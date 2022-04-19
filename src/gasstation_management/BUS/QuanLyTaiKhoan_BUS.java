@@ -76,4 +76,18 @@ public class QuanLyTaiKhoan_BUS {
         String hashedInput = getHashedPwd(inputPwd, salt);
         return hashedInput.equalsIgnoreCase(hashedPwd);
     }
+    
+    public TaiKhoan checkLogin (String username, String password)  {
+        ArrayList<TaiKhoan> account = new ArrayList<>();
+        try {
+            QuanLyTaiKhoan_DAO dao = new QuanLyTaiKhoan_DAO();
+            account = dao.timKiemTheoTenDangNhap(username);
+            boolean match = verifyPwd(password, account.get(0).getMatKhau());
+            if(match) 
+                return account.get(0);
+        } catch (Exception ex) {
+            Logger.getLogger(QuanLyTaiKhoan_BUS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
