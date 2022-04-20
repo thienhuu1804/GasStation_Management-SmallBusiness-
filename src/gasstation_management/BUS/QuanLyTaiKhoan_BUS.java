@@ -82,9 +82,14 @@ public class QuanLyTaiKhoan_BUS {
         try {
             QuanLyTaiKhoan_DAO dao = new QuanLyTaiKhoan_DAO();
             account = dao.timKiemTheoTenDangNhap(username);
+            if(!account.isEmpty())
+            {
             boolean match = verifyPwd(password, account.get(0).getMatKhau());
             if(match) 
+            {
                 return account.get(0);
+            }
+            }
         } catch (Exception ex) {
             Logger.getLogger(QuanLyTaiKhoan_BUS.class.getName()).log(Level.SEVERE, null, ex);
         }
