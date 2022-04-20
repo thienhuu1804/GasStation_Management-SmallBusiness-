@@ -152,4 +152,27 @@ public class QuanLyTaiKhoan_DAO {
             db.closeConnection();
         }
     }
+
+    public TaiKhoan checkLogin(String tenDangNhap) throws Exception {
+        db.setupConnection();
+        String sql = "select tendangnhap from taikhoan where tendangnhap = ?";
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1, tenDangNhap);
+
+            rs = db.sqlQry(stm);
+            if (rs.next()) {
+                TaiKhoan account = new TaiKhoan();
+                account.setTenDangNhap(tenDangNhap);
+                return account;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.closeConnection();
+        }
+        return null;
+    }
+
 }

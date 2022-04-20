@@ -4,7 +4,12 @@
  */
 package gasstation_management.UI;
 
+import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
+import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
+import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DBConnect;
+import gasstation_management.DTO.TaiKhoan;
+import gasstation_management.UI.Shared.MainPanel;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -13,12 +18,12 @@ import javax.swing.JOptionPane;
  *
  * @author Utech
  */
-public class LoginGUI extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public LoginGUI() {
+    public Login() {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -35,7 +40,7 @@ public class LoginGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txUsername = new javax.swing.JTextField();
-        txPassword = new javax.swing.JTextField();
+        txPassword = new javax.swing.JPasswordField();
         btExit = new javax.swing.JButton();
         btLogin = new javax.swing.JButton();
 
@@ -111,20 +116,27 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
         String userName = txUsername.getText();
-        String passWord = txPassword.getText();
+        String passWord = String.valueOf(txPassword.getPassword());
         
         if(userName.equals("") || passWord.equals(""))
             JOptionPane.showMessageDialog(rootPane, "Bạn chưa nhập đủ tài khoản và mật khẩu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         else {
-            Statement st = null;
-            DBConnect conn = new DBConnect();
             try {
-                conn.setupConnection();
-                
+                QuanLyTaiKhoan_BUS bus = new QuanLyTaiKhoan_BUS();
+                TaiKhoan account = bus.checkLogin(userName, passWord);
+                if(account == null)  {
+                    JOptionPane.showMessageDialog(rootPane, "Tên đăng nhập hoặc mật khẩu sai", "Lỗi đăng nhập", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    this.dispose();
+                    MainPanel panel = new MainPanel();
+                    panel.setVisible(true);
+                }
                 
             } catch (Exception e) {
                 e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
+            
         }
         
         
@@ -147,14 +159,22 @@ public class LoginGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -167,7 +187,7 @@ public class LoginGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginGUI().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
@@ -177,7 +197,7 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JButton btLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txPassword;
+    private javax.swing.JPasswordField txPassword;
     private javax.swing.JTextField txUsername;
     // End of variables declaration//GEN-END:variables
 }
