@@ -13,6 +13,7 @@ import gasstation_management.UI.Shared.MainPanel;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
  *
@@ -128,8 +129,9 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(rootPane, "Tên đăng nhập hoặc mật khẩu sai", "Lỗi đăng nhập", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     this.dispose();
-                    MainPanel panel = new MainPanel();
-                    panel.setVisible(true);
+//                    gọi hàm ở đây
+//                    MainPanel panel = new MainPanel();
+//                    panel.setVisible(true);
                 }
                 
             } catch (Exception e) {
