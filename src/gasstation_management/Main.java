@@ -10,6 +10,7 @@ import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
 import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
 import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DTO.TaiKhoan;
+import gasstation_management.UI.Login;
 import gasstation_management.UI.MainContentPanels.DanhSachQuyen_GUI;
 import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyTaiKhoan;
@@ -30,10 +31,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
-    
+
     public static void main(String[] args) {
 
+        new Login().setVisible(true);
         // Create mainframe
+<<<<<<< HEAD
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -55,10 +58,13 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);
         frame.setVisible(true);
+=======
+
+>>>>>>> 7941e521bc19848e21dd7863e386a7757384ef04
 //        System.out.println(LocalDateTime.now().format(DATETIME_FORMATTER));
 //        QuanLyQuyenTaiKhoan_BUS qltk = new QuanLyQuyenTaiKhoan_BUS();
 //        QuanLyTaiKhoan_BUS qultkbus = new QuanLyTaiKhoan_BUS();
 //        System.out.println(qultkbus.timKiemTheoTenDangNhap("nv1"));
     }
-    
+
 }

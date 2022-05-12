@@ -30,22 +30,22 @@ public class QuanLyTaiKhoan_BUS {
         ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTenDangNhap(tenDangNhap);
         return result;
     }
-    
+
     public ArrayList<TaiKhoan> timKiemTheoTrangThai(String tenDangNhap) {
         ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTrangThai(tenDangNhap);
         return result;
     }
-    
+
     public ArrayList<TaiKhoan> getDanhSachTaiKhoan() {
         ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.getDanhSachTaiKhoan();
         return result;
     }
-    
-    public boolean addTaiKhoan(TaiKhoan tk){
+
+    public boolean addTaiKhoan(TaiKhoan tk) {
         return quanLyTaiKhoan_DAO.addTaiKhoan(tk);
     }
-    
-    public boolean updateTaiKhoan(TaiKhoan tk){
+
+    public boolean updateTaiKhoan(TaiKhoan tk) {
         return quanLyTaiKhoan_DAO.updateTaiKhoan(tk);
     }
 
@@ -76,20 +76,19 @@ public class QuanLyTaiKhoan_BUS {
         String hashedInput = getHashedPwd(inputPwd, salt);
         return hashedInput.equalsIgnoreCase(hashedPwd);
     }
-    
-    public TaiKhoan checkLogin (String username, String password)  {
+
+    public TaiKhoan checkLogin(String username, String password) {
         ArrayList<TaiKhoan> account = new ArrayList<>();
         try {
             QuanLyTaiKhoan_DAO dao = new QuanLyTaiKhoan_DAO();
             account = dao.timKiemTheoTenDangNhap(username);
-            if(!account.isEmpty())
-            {
-            boolean match = verifyPwd(password, account.get(0).getMatKhau());
-            if(match) 
-            {
-                return account.get(0);
+            if (!account.isEmpty()) {
+                boolean match = verifyPwd(password, account.get(0).getMatKhau());
+                if (match) {
+                    return account.get(0);
+                }
             }
-            }
+
         } catch (Exception ex) {
             Logger.getLogger(QuanLyTaiKhoan_BUS.class.getName()).log(Level.SEVERE, null, ex);
         }
