@@ -36,7 +36,6 @@ public class Main {
 
         new Login().setVisible(true);
         // Create mainframe
-<<<<<<< HEAD
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -58,9 +57,7 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);
         frame.setVisible(true);
-=======
 
->>>>>>> 7941e521bc19848e21dd7863e386a7757384ef04
 //        System.out.println(LocalDateTime.now().format(DATETIME_FORMATTER));
 //        QuanLyQuyenTaiKhoan_BUS qltk = new QuanLyQuyenTaiKhoan_BUS();
 //        QuanLyTaiKhoan_BUS qultkbus = new QuanLyTaiKhoan_BUS();
