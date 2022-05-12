@@ -34,7 +34,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        new Login().setVisible(true);
+//        new Login().setVisible(true);
         // Create mainframe
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
