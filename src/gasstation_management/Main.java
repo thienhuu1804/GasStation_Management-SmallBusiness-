@@ -46,9 +46,10 @@ public class Main {
 //        privPanel.setSize(privPanel.getPreferredSize());
 //        DanhSachQuyen_GUI test = new DanhSachQuyen_GUI();
 //        test.setSize(test.getPreferredSize());
+
         QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
         ui_qltk.setSize(ui_qltk.getPreferredSize());
-          
+//          
         pnlMain.getPnlMainContent().add(ui_qltk);
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
