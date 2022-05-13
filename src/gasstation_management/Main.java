@@ -14,6 +14,7 @@ import gasstation_management.UI.Login;
 import gasstation_management.UI.MainContentPanels.DanhSachQuyen_GUI;
 import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyTaiKhoan;
+import gasstation_management.UI.MainContentPanels.QuanLyNhanVien;
 import gasstation_management.UI.Shared.MainPanel;
 import java.awt.BorderLayout;
 import java.time.LocalDateTime;
@@ -44,15 +45,18 @@ public class Main {
 //        pnlMain.setLayout(new BorderLayout());
         pnlMain.setVisible(true);
         //Làm gì thì add giao diện đó vào pnlMain
-//        PrivilegeManagementPanel privPanel = new PrivilegeManagementPanel();
-//        privPanel.setSize(privPanel.getPreferredSize());
+        PrivilegeManagementPanel privPanel = new PrivilegeManagementPanel();
+        privPanel.setSize(privPanel.getPreferredSize());
 //        DanhSachQuyen_GUI test = new DanhSachQuyen_GUI();
 //        test.setSize(test.getPreferredSize());
 
-        QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
-        ui_qltk.setSize(ui_qltk.getPreferredSize());
+//        QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
+//        ui_qltk.setSize(ui_qltk.getPreferredSize());
 //          
-        pnlMain.getPnlMainContent().add(ui_qltk);
+        QuanLyNhanVien qlpn = new QuanLyNhanVien();
+        qlpn.setSize(qlpn.getPreferredSize());
+        
+        pnlMain.getPnlMainContent().add(qlpn);
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);
