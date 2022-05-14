@@ -51,12 +51,12 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     DataTable table = new DataTable();
     public QuanLyNhanVien() {
         initComponents();
-        table.setHeaders(new String[]{"Mã nhân viên", "Tên nhân viên", "Số điện thoại", "Địa chỉ","Chứng minh nhân dân","Trạng thái"});
+        table.setHeaders(new String[]{"Mã nhân viên", "Họ và tên", "SDT", "Địa chỉ","CMND","Trạng thái"});
         table.setSize(table.getPreferredSize());
 
         setTableData();
         // Dòng này chỉnh tỉ lệ các cột
-        table.setJTableColumnsWidth(table.getWidth(), new double[]{1,2,2,5,3,1});
+        table.setJTableColumnsWidth(table.getWidth(), new double[]{1,3,2,4,2,1});
         scrollPane1.add(table);
 
     }
@@ -77,13 +77,10 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 //      jCheckBox2.setSelected(false);
 //      jCheckBox3.setSelected(false);
 //    }
-    public void timTheoTenDangNhap() {
-
-    }
-    public JDialog showChangePwdFrame(NhanVien nv) {
+    public JDialog showAddFrame(NhanVien nv) {
         Window win = SwingUtilities.getWindowAncestor(this);
         JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
-        changePwdDialog.setUndecorated(true);
+//        changePwdDialog.setUndecorated(true);
 
         changePwdDialog.setLayout(new BorderLayout());
         changePwdDialog.setBackground(Color.yellow);
@@ -92,6 +89,23 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         pnlThemNhanVien.setupThongTin(nv);
         changePwdDialog.setSize(pnlThemNhanVien.getSize());
         changePwdDialog.add(pnlThemNhanVien);
+        changePwdDialog.setLocationRelativeTo(this);
+
+        changePwdDialog.setVisible(true);
+        return changePwdDialog;
+    }
+     public JDialog showChangePwdFrame(NhanVien nv,int indexRow) {
+        Window win = SwingUtilities.getWindowAncestor(this);
+        JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
+//        changePwdDialog.setUndecorated(true);
+
+        changePwdDialog.setLayout(new BorderLayout());
+        changePwdDialog.setBackground(Color.yellow);
+
+        SuaNhanVien pnlSuaNhanVien = new SuaNhanVien(changePwdDialog);
+        pnlSuaNhanVien.setupThongTin(nv,indexRow);
+        changePwdDialog.setSize(pnlSuaNhanVien.getSize());
+        changePwdDialog.add(pnlSuaNhanVien);
         changePwdDialog.setLocationRelativeTo(this);
 
         changePwdDialog.setVisible(true);
@@ -119,6 +133,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         });
 
         bntSuaNhanVien.setText("Sửa nhân viên");
+        bntSuaNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntSuaNhanVienActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -127,14 +146,14 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 657, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(207, 207, 207)
                         .addComponent(btnThemNhanVien)
                         .addGap(56, 56, 56)
-                        .addComponent(bntSuaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(bntSuaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,27 +168,39 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
-        // TODO add your handling code here:
-         int selectedRow = table.getTable().getSelectedRow();
-        if (table.getTable().getSelectedRow() >= 0) {
-            NhanVien nv = new NhanVien();
-            nv.setManv(table.getTable().getValueAt(selectedRow, 0).toString());
-            nv.setTennv(table.getTable().getValueAt(selectedRow, 1).toString());
-            nv.setSdt((table.getTable().getValueAt(selectedRow, 2).toString()));
-            nv.setDiachi(table.getTable().getValueAt(selectedRow, 3).toString());
-            nv.setCmnd((table.getTable().getValueAt(selectedRow, 4).toString()));
 
-            nv.setTrangthai(table.getTable().getValueAt(selectedRow, 5).toString());
-            JDialog dl = showChangePwdFrame(nv);
+            NhanVien nv = new NhanVien();
+            JDialog dl = showAddFrame(nv);
             dl.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     setTableData();
                 }
-            });
-    }            
+            });           
     }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
+    private void bntSuaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuaNhanVienActionPerformed
+        // TODO add your handling code here:
+        
+         int indexRow = table.getTable().getSelectedRow();
+        if (table.getTable().getSelectedRow() >= 0) {
+            NhanVien nv = new NhanVien();
+            nv.setManv(table.getTable().getValueAt(indexRow, 0).toString());
+            nv.setTennv(table.getTable().getValueAt(indexRow, 1).toString());
+            nv.setDiachi(table.getTable().getValueAt(indexRow, 2).toString());
+
+            nv.setSdt(table.getTable().getValueAt(indexRow, 3).toString());
+            nv.setCmnd((table.getTable().getValueAt(indexRow, 4).toString()));
+          nv.setTrangthai(table.getTable().getValueAt(indexRow, 5).toString());
+           JDialog dl = showChangePwdFrame(nv,indexRow);
+            dl.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    setTableData();
+                }
+            });  
+    }//GEN-LAST:event_bntSuaNhanVienActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSuaNhanVien;

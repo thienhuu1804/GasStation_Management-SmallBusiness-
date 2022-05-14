@@ -23,12 +23,12 @@ import java.util.Vector;
  */
 public class QuanLyNhanVien_BUS {
 
-     QuanLyNhanVien_DAO quanLyNhanVien_Dao = new QuanLyNhanVien_DAO();
+     QuanLyNhanVien_DAO quanLyNhanVien_DAO = new QuanLyNhanVien_DAO();
     public ArrayList getDanhSanhNhanVien() {
         
         ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
         ArrayList<Vector> arrlist = new ArrayList<>();
-        danhSachNhanVien = quanLyNhanVien_Dao.getDanhNhanVien();
+        danhSachNhanVien = quanLyNhanVien_DAO.getDanhNhanVien();
         for (NhanVien nhanvien : danhSachNhanVien) {
             Vector data = new Vector();
                 data.add(nhanvien.getManv());
@@ -42,4 +42,53 @@ public class QuanLyNhanVien_BUS {
         return arrlist;
     
 }
+    // check mã nhân viên
+    public Boolean checkManv_Them(String manv) {
+        ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
+        danhSachNhanVien = quanLyNhanVien_DAO.getDanhNhanVien();
+        Boolean flag = true;
+        for(NhanVien nhanvien:danhSachNhanVien)
+        {
+         if(nhanvien.getManv().equalsIgnoreCase(manv))
+         {
+         flag = false;
+         }
+        }
+        return flag;
+    }
+    
+    // Hàm thêm một nhân viên
+    public void addNhanVien_Bus(NhanVien nhanvien) {
+        quanLyNhanVien_DAO.addNhanVien_Dao(nhanvien);
+    }
+    // Kiểm tra mã nhân viên có trùng không
+    public Boolean checkManv_Sua(String manv, int selectedRow) {
+        ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
+        danhSachNhanVien = quanLyNhanVien_DAO.getDanhNhanVien();
+        Boolean flag = true;
+        int count=0;
+        for(NhanVien nhanvien:danhSachNhanVien)
+        {
+         if(nhanvien.getManv().equalsIgnoreCase(manv) && count!=selectedRow)
+         {
+         flag = false;
+         }
+                     count++;
+        }
+         return flag ;
+        
+    }
+
+    // Sửa thông tin nhân viên
+    public void SuaNhanVien_Bus(NhanVien nhanvien,String manvCu) {
+        
+        quanLyNhanVien_DAO.updateNhanVien(nhanvien,manvCu);
+    }
+   // xử lý lấy mã nhân viên được chọn để sửa
+    public String getMaNhanViencu(int indexRow) {
+        
+        ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
+        danhSachNhanVien = quanLyNhanVien_DAO.getDanhNhanVien();
+        return danhSachNhanVien.get(indexRow).getManv();
+    }
 }
