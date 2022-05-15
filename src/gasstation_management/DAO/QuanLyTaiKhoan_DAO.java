@@ -114,8 +114,9 @@ public class QuanLyTaiKhoan_DAO {
         return result;
     }
 
-    public boolean addTaiKhoan(TaiKhoan tk) {
+    public void addTaiKhoan(TaiKhoan tk) {
         db.setupConnection();
+        
         try {
             String sql = "insert into taikhoan (?,?,?,?,?)";
             PreparedStatement stm = db.getConnection().prepareStatement(sql);
@@ -124,10 +125,11 @@ public class QuanLyTaiKhoan_DAO {
             stm.setString(3, tk.getMatKhau());
             stm.setString(4, tk.getNgayTao().toString());
             stm.setString(5, tk.getTrangThai());
-            return db.sqlUpdate(stm);
+            System.out.println(stm);
+            db.sqlUpdate(stm);
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return;
         } finally {
             db.closeConnection();
         }
@@ -151,6 +153,33 @@ public class QuanLyTaiKhoan_DAO {
         } finally {
             db.closeConnection();
         }
+    }
+    public void KhoaTaiKhoan(String tenTK){
+        db.setupConnection();
+        try{
+            String sql = "update taikhoan set trangthai = ? where tendangnhap =? ";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1,"Unactive");
+            stm.setString(2, tenTK);
+            db.sqlUpdate(stm);
+    }catch(SQLException ex){
+        Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        return;
+    }finally{db.closeConnection();}
+    }
+    
+    public void MoTaiKhoan(String tenTK){
+        db.setupConnection();
+        try{
+            String sql = "update taikhoan set trangthai = ? where tendangnhap =? ";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setString(1,"Active");
+            stm.setString(2, tenTK);
+            db.sqlUpdate(stm);
+    }catch(SQLException ex){
+        Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        return;
+    }finally{db.closeConnection();}
     }
 
     public TaiKhoan checkLogin(String tenDangNhap) throws Exception {
