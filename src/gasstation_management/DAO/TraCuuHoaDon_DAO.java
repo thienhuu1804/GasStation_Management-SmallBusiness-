@@ -19,8 +19,40 @@ import java.util.ArrayList;
  * @author Vuong
  */
 public class TraCuuHoaDon_DAO {
-    DBConnect db = new DBConnect();
+   DBConnect db = new DBConnect();
     ResultSet rs = null;
+    
+    
+    public ArrayList getDetailHoaDon_DAO(String mahd) {
+        ArrayList result = new ArrayList<>();
+        db.setupConnection();
+        
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement("select mahd, hoadon.matrubom, sanpham.masp, nhanvien.tennv, sanpham.tensp, hoadon.ngaytao, hoadon.soluong, hoadon.tongtien from hoadon, trubom, sanpham, nhanvien where hoadon.matrubom=trubom.matrubom and hoadon.masp=sanpham.masp and trubom.manv=nhanvien.manv and hoadon.mahd=?");
+            stm.setString(1,mahd);
+            rs = db.sqlQry(stm);
+                                System.out.println(rs);
+            if (rs != null) {
+                while (rs.next()) {
+                    result.add(rs.getString(1));
+                    result.add(rs.getString(2));
+                    result.add(rs.getString(3));
+                    result.add(rs.getString(4));
+                    result.add(rs.getString(5));
+                    result.add(rs.getString(6));
+                    result.add(rs.getString(7));
+                    result.add(rs.getString(8));
+                }
+            }
+        } catch (SQLException ex) {
+//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+System.out.println("Lỗi");
+        }finally{
+            db.closeConnection();
+        }
+        return result;
+    }
+ 
     public ArrayList<HoaDon> getDanhSachHoaDon() {
         ArrayList<HoaDon> result = new ArrayList<>();
         db.setupConnection();

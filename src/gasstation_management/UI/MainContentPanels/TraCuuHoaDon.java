@@ -8,12 +8,20 @@ import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
 import gasstation_management.BUS.QuanLyQuyen_BUS;
 import gasstation_management.BUS.TraCuuHoaDon_BUS;
 import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
+import gasstation_management.DTO.HoaDon;
+import gasstation_management.DTO.NhanVien;
 import gasstation_management.DTO.Quyen;
 import gasstation_management.DTO.QuyenTaiKhoan;
 import gasstation_management.DTO.TaiKhoan;
 import gasstation_management.DataTable;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JScrollPane;
@@ -24,6 +32,9 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
+import javax.swing.JDialog;
+import javax.swing.SwingUtilities;
+import gasstation_management.UI.MainContentPanels.DetailHoaDon;
 
 /**
  *
@@ -74,12 +85,14 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         cbbTimkiem.addItem("Tất cả");
         cbbTimkiem.addItem("Theo mã hóa đơn ");
         cbbTimkiem.addItem("Theo mã sản phẩm");
-        table.setHeaders(new String[]{"Mã hd", "Mã tb", "Mã sp", "Ngay Tạo","Số lượng","Tổng tiền"});
+        table.setHeaders(new String[]{"STT","Mã hd", "Mã tb", "Mã sp", "Ngay Tạo","Số lượng","Tổng tiền"});
         table.setSize(table.getPreferredSize());
+        table.getTable().setAutoCreateRowSorter(true);
+
 
         setTableData();
         // Dòng này chỉnh tỉ lệ các cột
-        table.setJTableColumnsWidth(table.getWidth(), new double[]{1,1,1,2,1,2});
+        table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5,1,1,1,2,1,2});
         scrollTable.add(table);
     }
  public void setTableData()
@@ -104,10 +117,27 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         ArrayList dataList = new ArrayList<>();
       dataList=traCuuHoaDon_BUS.getDanhSanhHoaDon(selected,txtTimkiem.getText(),dateStart.getDate(),dateEnd.getDate());
       for(int i=0;i<dataList.size();i++)
-      {
+      { 
           table.addRow((Vector) dataList.get(i));
       }
       }
+ public JDialog showChangePwdFrame(String mahd) {
+        Window win = SwingUtilities.getWindowAncestor(this);
+        JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
+//        changePwdDialog.setUndecorated(true);
+
+        changePwdDialog.setLayout(new BorderLayout());
+        changePwdDialog.setBackground(Color.yellow);
+       System.out.println(mahd);
+        DetailHoaDon pnlXemChiTietHoaDon = new DetailHoaDon(changePwdDialog,mahd);
+        changePwdDialog.setSize(pnlXemChiTietHoaDon.getSize());
+        changePwdDialog.add(pnlXemChiTietHoaDon);
+        changePwdDialog.setLocationRelativeTo(this);
+
+        changePwdDialog.setVisible(true);
+        return changePwdDialog;
+    }
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,6 +166,11 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         txtTimkiem.setBorder(javax.swing.BorderFactory.createTitledBorder("Tất cã"));
 
         btnXemChiTiet.setText("Xem chi tiết");
+        btnXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXemChiTietActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Reset");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,11 +198,10 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
                         .addComponent(cbbTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -179,7 +213,7 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
                                 .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 44, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnXemChiTiet)))))
@@ -201,9 +235,8 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cbbTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(20, 20, 20)
+                .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -231,6 +264,26 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
        setTableData();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
+        // TODO add your handling code here:
+        
+        
+         HoaDon hd = new HoaDon();
+         
+         
+         
+         int indexRow = table.getTable().getSelectedRow();
+         hd.setMahd(table.getTable().getValueAt(indexRow, 1).toString());
+
+            JDialog dl = showChangePwdFrame(hd.getMahd());
+            dl.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    setTableData();
+                }
+            }); 
+        
+    }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnXemChiTiet;

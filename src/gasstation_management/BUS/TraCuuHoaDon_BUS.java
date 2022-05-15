@@ -98,18 +98,21 @@ public class TraCuuHoaDon_BUS {
         }
         
 //        
+       int stt =1;
         ArrayList arrlist = new ArrayList();
             for(HoaDon hd : danhSachHoaDon)
             {
             Vector data = new Vector();
+                data.add(stt);
                 data.add(hd.getMahd());
                 data.add(hd.getMatrubom());
                 data.add(hd.getMasp());
-                data.add(hd.getNgaytao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+                data.add(hd.getNgaytao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm:ss")));
                 data.add(hd.getSoluong());
                 data.add(hd.getTongtien());
                 arrlist.add(data);
-             }
+                stt++;
+            }
         return arrlist;
     }
     public Boolean compareDate(LocalDateTime localdatetime,Date dateStart,Date dateEnd)
@@ -123,5 +126,9 @@ public class TraCuuHoaDon_BUS {
         }
         return flag;
         
+    }
+
+    public ArrayList getDetailHoaDon_BUS(String mahd) {
+        return traCuuHoaDon_DAO.getDetailHoaDon_DAO(mahd);
     }
 }
