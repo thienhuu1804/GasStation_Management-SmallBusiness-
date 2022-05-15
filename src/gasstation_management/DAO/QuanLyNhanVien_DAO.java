@@ -121,4 +121,18 @@ public class QuanLyNhanVien_DAO {
             db.closeConnection();
         }
     }
- }
+
+    public void deleteNhanVien_DAO(String manv) {
+        
+        db.setupConnection();
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement("delete from nhanvien where manv=?");
+            stm.setString(1, manv);
+            db.sqlUpdate(stm);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyQuyenTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            db.closeConnection();
+        }
+    }
+    }

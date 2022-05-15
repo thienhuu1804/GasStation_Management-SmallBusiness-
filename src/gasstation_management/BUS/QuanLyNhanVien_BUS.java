@@ -91,4 +91,9 @@ public class QuanLyNhanVien_BUS {
         danhSachNhanVien = quanLyNhanVien_DAO.getDanhNhanVien();
         return danhSachNhanVien.get(indexRow).getManv();
     }
+
+    public void deleleNhanVien(String manv) {
+        
+        quanLyNhanVien_DAO.deleteNhanVien_DAO(manv);
+    }
 }
