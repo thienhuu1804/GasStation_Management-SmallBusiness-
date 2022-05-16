@@ -131,4 +131,26 @@ public class TraCuuHoaDon_BUS {
     public ArrayList getDetailHoaDon_BUS(String mahd) {
         return traCuuHoaDon_DAO.getDetailHoaDon_DAO(mahd);
     }
+
+    public ArrayList getDetailAllHoaDon_BUS(Vector indexMahd) {
+                ArrayList list = new ArrayList();
+                     list=   traCuuHoaDon_DAO.getDetailALLHoaDon_DAO();
+                     ArrayList result = new ArrayList();
+                  for (int j=0;j<list.size();j++)
+                  {
+                        Vector<String> x = new Vector<>();
+                             x = (Vector) list.get(j);
+                      for(int i=0;i<indexMahd.size();i++)
+                       {
+                                                 System.out.println(indexMahd.get(i));
+                          String y=              (String) indexMahd.get(i);
+                          if(x.get(0).equals(y)==true)
+                           {
+                               System.out.println("Vuong");
+                             result.add(x);
+                           }
+                       }
+              }
+        return result;
+    }
 }

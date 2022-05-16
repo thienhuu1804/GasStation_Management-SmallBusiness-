@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  *
@@ -52,7 +53,37 @@ System.out.println("Lỗi");
         }
         return result;
     }
- 
+    // Lấy danh sách chi tiết của tất cã hóa đơn.
+     public ArrayList getDetailALLHoaDon_DAO() {
+        ArrayList result = new ArrayList<>();
+        db.setupConnection();
+        
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement("select mahd, hoadon.matrubom, sanpham.masp, nhanvien.tennv, sanpham.tensp, hoadon.ngaytao, hoadon.soluong, hoadon.tongtien from hoadon, trubom, sanpham, nhanvien where hoadon.matrubom=trubom.matrubom and hoadon.masp=sanpham.masp and trubom.manv=nhanvien.manv");
+            rs = db.sqlQry(stm);
+            if (rs != null) {
+                while (rs.next()) {
+                    Vector arr = new Vector();
+                    arr.add(rs.getString(1));
+                    arr.add(rs.getString(2));
+                    arr.add(rs.getString(3));
+                    arr.add(rs.getString(4));
+                    arr.add(rs.getString(5));
+                    arr.add(rs.getString(6));
+                    arr.add(rs.getString(7));
+                    arr.add(rs.getString(8));
+                    result.add(arr);
+                }
+            }
+        } catch (SQLException ex) {
+//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+System.out.println("Lỗi");
+        }finally{
+            db.closeConnection();
+        }
+        return result;
+    }
+ // Lấy danh sách hóa đơn
     public ArrayList<HoaDon> getDanhSachHoaDon() {
         ArrayList<HoaDon> result = new ArrayList<>();
         db.setupConnection();
