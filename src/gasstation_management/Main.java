@@ -16,6 +16,8 @@ import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyTaiKhoan;
 import gasstation_management.UI.MainContentPanels.QuanLyNhanVien;
 import gasstation_management.UI.MainContentPanels.TraCuuHoaDon;
+import gasstation_management.UI.MainContentPanels.ThongKeBaoCao;
+
 
 import gasstation_management.UI.Shared.MainPanel;
 import java.awt.BorderLayout;
@@ -52,15 +54,17 @@ public class Main {
 //        DanhSachQuyen_GUI test = new DanhSachQuyen_GUI();
 //        test.setSize(test.getPreferredSize());
 
-//        QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
-//        ui_qltk.setSize(ui_qltk.getPreferredSize());
+        QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
+        ui_qltk.setSize(ui_qltk.getPreferredSize());
 //          
         QuanLyNhanVien qlpn = new QuanLyNhanVien();
         qlpn.setSize(qlpn.getPreferredSize());
         TraCuuHoaDon tchd = new TraCuuHoaDon();
         tchd.setSize(tchd.getPreferredSize());
+        ThongKeBaoCao tkbc = new ThongKeBaoCao();
+        tkbc.setSize(tkbc.getPreferredSize());
 
-        pnlMain.getPnlMainContent().add(tchd);
+        pnlMain.getPnlMainContent().add(tkbc);
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);
