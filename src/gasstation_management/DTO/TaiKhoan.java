@@ -59,15 +59,4 @@ public class TaiKhoan {
         this.trangThai = trangThai;
     }
 
-    public TaiKhoan(String tenDangNhap, String maNV, String matKhau, LocalDateTime ngayTao, String trangThai) {
-        this.tenDangNhap = tenDangNhap;
-        this.maNV = maNV;
-        this.matKhau = matKhau;
-        this.ngayTao = ngayTao;
-        this.trangThai = trangThai;
-    }
-    public TaiKhoan(){
-        
-    }
-
 }
