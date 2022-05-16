@@ -23,32 +23,30 @@ import java.util.logging.Logger;
  */
 public class QuanLyTaiKhoan_BUS {
 
-    ArrayList<TaiKhoan>  dstk = new ArrayList<>();
-    QuanLyTaiKhoan_DAO qltkDAO = new QuanLyTaiKhoan_DAO();
-    
-    
+    ArrayList<TaiKhoan> danhSachTaiKhoan = new ArrayList<>();
+    QuanLyTaiKhoan_DAO quanLyTaiKhoan_DAO = new QuanLyTaiKhoan_DAO();
+
     public ArrayList<TaiKhoan> timKiemTheoTenDangNhap(String tenDangNhap) {
-        ArrayList<TaiKhoan> result = qltkDAO.timKiemTheoTenDangNhap(tenDangNhap);
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTenDangNhap(tenDangNhap);
         return result;
     }
 
     public ArrayList<TaiKhoan> timKiemTheoTrangThai(String tenDangNhap) {
-        ArrayList<TaiKhoan> result = qltkDAO.timKiemTheoTrangThai(tenDangNhap);
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.timKiemTheoTrangThai(tenDangNhap);
         return result;
     }
 
     public ArrayList<TaiKhoan> getDanhSachTaiKhoan() {
-        ArrayList<TaiKhoan> result = qltkDAO.getDanhSachTaiKhoan();
+        ArrayList<TaiKhoan> result = quanLyTaiKhoan_DAO.getDanhSachTaiKhoan();
         return result;
     }
 
-    public void addTaiKhoan(TaiKhoan tk) {
-        qltkDAO = new QuanLyTaiKhoan_DAO();
-        qltkDAO.addTaiKhoan(tk);
+    public boolean addTaiKhoan(TaiKhoan tk) {
+        return quanLyTaiKhoan_DAO.addTaiKhoan(tk);
     }
 
     public boolean updateTaiKhoan(TaiKhoan tk) {
-        return qltkDAO.updateTaiKhoan(tk);
+        return quanLyTaiKhoan_DAO.updateTaiKhoan(tk);
     }
 
     public String getHashedPwd(String inputPwd) {
@@ -95,19 +93,5 @@ public class QuanLyTaiKhoan_BUS {
             Logger.getLogger(QuanLyTaiKhoan_BUS.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-    public boolean checkTenDN (String tenDN)
-    {
-        for (TaiKhoan tk: dstk)
-            if(tk.getTenDangNhap().equals(tenDN))
-                return true;
-        return false;
-    }
-    public boolean checkMaNV (String maNV)
-    {
-        for (TaiKhoan tk: dstk)
-            if(tk.getMaNV().equals(maNV))
-                return true;
-        return false;
     }
 }
