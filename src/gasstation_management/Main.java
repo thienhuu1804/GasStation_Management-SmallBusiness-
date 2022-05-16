@@ -14,6 +14,9 @@ import gasstation_management.UI.Login;
 import gasstation_management.UI.MainContentPanels.DanhSachQuyen_GUI;
 import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyTaiKhoan;
+import gasstation_management.UI.MainContentPanels.QuanLyNhanVien;
+import gasstation_management.UI.MainContentPanels.TraCuuHoaDon;
+
 import gasstation_management.UI.Shared.MainPanel;
 import java.awt.BorderLayout;
 import java.time.LocalDateTime;
@@ -34,8 +37,34 @@ public class Main {
 
     public static void main(String[] args) {
 
-        new Login().setVisible(true);
+//        new Login().setVisible(true);
         // Create mainframe
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        
+        MainPanel pnlMain = new MainPanel();
+//        pnlMain.setLayout(new BorderLayout());
+        pnlMain.setVisible(true);
+        //Làm gì thì add giao diện đó vào pnlMain
+        PrivilegeManagementPanel privPanel = new PrivilegeManagementPanel();
+        privPanel.setSize(privPanel.getPreferredSize());
+//        DanhSachQuyen_GUI test = new DanhSachQuyen_GUI();
+//        test.setSize(test.getPreferredSize());
+
+//        QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
+//        ui_qltk.setSize(ui_qltk.getPreferredSize());
+//          
+        QuanLyNhanVien qlpn = new QuanLyNhanVien();
+        qlpn.setSize(qlpn.getPreferredSize());
+        TraCuuHoaDon tchd = new TraCuuHoaDon();
+        tchd.setSize(tchd.getPreferredSize());
+
+        pnlMain.getPnlMainContent().add(tchd);
+        frame.setSize(pnlMain.getPreferredSize());
+        frame.setLocationRelativeTo(null);
+        frame.add(pnlMain);
+        frame.setVisible(true);
 
 //        System.out.println(LocalDateTime.now().format(DATETIME_FORMATTER));
 //        QuanLyQuyenTaiKhoan_BUS qltk = new QuanLyQuyenTaiKhoan_BUS();
