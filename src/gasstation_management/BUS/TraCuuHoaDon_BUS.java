@@ -61,7 +61,7 @@ public class TraCuuHoaDon_BUS {
  
             for(HoaDon hd : danhSachHoaDonTimKiemAndThoiGian)
             {
-                if(hd.getMahd().contains(key) && compareDate(hd.getNgaytao(), dateStart, dateEnd)==true )
+                if(hd.getMahd().contains(key) && compareDate(LocalDateTime.parse(hd.getNgaytao()), dateStart, dateEnd)==true )
                 {
                     danhSachHoaDon.add(hd);
                 }
@@ -89,7 +89,7 @@ public class TraCuuHoaDon_BUS {
  
             for(HoaDon hd : danhSachHoaDonTimKiemAndThoiGian)
             {
-                if(hd.getMasp().contains(key) && compareDate(hd.getNgaytao(), dateStart, dateEnd)==true )
+                if(hd.getMasp().contains(key) && compareDate(LocalDateTime.parse(hd.getNgaytao()), dateStart, dateEnd)==true )
                 {
                     danhSachHoaDon.add(hd);
                 }
@@ -107,7 +107,7 @@ public class TraCuuHoaDon_BUS {
                 data.add(hd.getMahd());
                 data.add(hd.getMatrubom());
                 data.add(hd.getMasp());
-                data.add(hd.getNgaytao().format(DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm:ss")));
+                data.add(hd.getNgaytao());
                 data.add(hd.getSoluong());
                 data.add(hd.getTongtien());
                 arrlist.add(data);
