@@ -51,6 +51,13 @@ public class QuanLyTaiKhoan_BUS {
         return qltkDAO.updateTaiKhoan(tk);
     }
 
+   public void toggleTaiKhoan(String tk, String status){
+       qltkDAO = new QuanLyTaiKhoan_DAO();
+       if(status.equals("Active"))
+            qltkDAO.KhoaTaiKhoan(tk);
+       if(status.equals("Unactive"))
+            qltkDAO.MoTaiKhoan(tk);
+   }
     public String getHashedPwd(String inputPwd) {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
