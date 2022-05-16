@@ -116,7 +116,7 @@ public class QuanLyTaiKhoan extends javax.swing.JPanel {
             }
         });
         
-        scrl.add(table);
+        scrollTable.add(table);
     }
     
 
@@ -200,7 +200,7 @@ public class QuanLyTaiKhoan extends javax.swing.JPanel {
         txtMatKhau = new javax.swing.JTextField();
         txtTenDangNhap = new javax.swing.JTextField();
         txtXacNhanMatKhau = new javax.swing.JTextField();
-        scrl = new javax.swing.JScrollPane();
+        scrollTable = new java.awt.ScrollPane();
 
         setPreferredSize(new java.awt.Dimension(710, 546));
 
@@ -256,7 +256,6 @@ public class QuanLyTaiKhoan extends javax.swing.JPanel {
             }
         });
 
-        txtMaNV.setText("3");
         txtMaNV.setBorder(javax.swing.BorderFactory.createTitledBorder("Mã nhân viên"));
         txtMaNV.setDragEnabled(true);
         txtMaNV.addActionListener(new java.awt.event.ActionListener() {
@@ -300,12 +299,12 @@ public class QuanLyTaiKhoan extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbLoaiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrl, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,12 +330,11 @@ public class QuanLyTaiKhoan extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnKhoaTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(9, 9, 9)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbLoaiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(scrl, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbLoaiTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(94, 94, 94)
+                .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -402,7 +400,7 @@ public class QuanLyTaiKhoan extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbLoaiTimKiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel pnlTimKiem;
-    private javax.swing.JScrollPane scrl;
+    private java.awt.ScrollPane scrollTable;
     private javax.swing.JTextField txtMaNV;
     private javax.swing.JTextField txtMatKhau;
     private javax.swing.JTextField txtTenDangNhap;
