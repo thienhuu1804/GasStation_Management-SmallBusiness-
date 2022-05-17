@@ -29,7 +29,7 @@ public class TaoHoaDon_DAO {
         ArrayList<HoaDon> result = new ArrayList<>();
         db.setupConnection();
         try {
-            PreparedStatement stm = db.getConnection().prepareStatement("select * from nhanvien");
+            PreparedStatement stm = db.getConnection().prepareStatement("select * from hoadon");
             rs = db.sqlQry(stm);
             if (rs != null) {
                 while (rs.next()) {
