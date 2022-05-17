@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gasstation_management.UI.MainContentPanels;
+
 import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
 import gasstation_management.BUS.QuanLyQuyen_BUS;
 import gasstation_management.BUS.TraCuuHoaDon_BUS;
@@ -36,6 +37,7 @@ import javax.swing.SwingUtilities;
 import gasstation_management.UI.MainContentPanels.DetailHoaDon;
 import gasstation_management.XuatExcel;
 import gasstation_management.BUS.ThongKeBaoCao_BUS;
+
 /**
  *
  * @author Vuong
@@ -45,51 +47,47 @@ public class ThongKeBaoCao extends javax.swing.JPanel {
     /**
      * Creates new form ThongKeBaoCao
      */
-    
     ThongKeBaoCao_BUS thongKeBaoCao_BUS = new ThongKeBaoCao_BUS();
     DataTable table = new DataTable();
+
     public ThongKeBaoCao() {
         initComponents();
         cbbHinhThuc.removeAllItems();
         cbbHinhThuc.addItem("Nhập vào");
         cbbHinhThuc.addItem("Bán ra ");
-        table.setHeaders(new String[]{"STT","Mã sp", "Tên sp", "Mã Pn", "NCC","Số lượng","Giá Nhập","Thời Gian","Tổng tiền"});
+        table.setHeaders(new String[]{"STT", "Mã sp", "Tên sp", "Mã Pn", "NCC", "Số lượng", "Giá Nhập", "Thời Gian", "Tổng tiền"});
         table.setSize(table.getPreferredSize());
         table.getTable().setAutoCreateRowSorter(true);
 
-
         setTableData();
         // Dòng này chỉnh tỉ lệ các cột
-        table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5,1,1,1,2,1,2,2,2});
+        table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5, 1, 1, 1, 2, 1, 2, 2, 2});
         scrollTable.add(table);
     }
-public void setTableData()
-    {  
-                table.clear();
-    // Do something with sqldate
-     ArrayList dataList = new ArrayList<>();
 
-        if(cbbHinhThuc.getSelectedIndex()==0)
-        {
-            dataList = thongKeBaoCao_BUS.getThongkeNhapVao_BUS(cbbHinhThuc.getSelectedIndex(),txtTimKiem.getText(),dateStart.getDate(),dateEnd.getDate());
-          for(int i=0;i<dataList.size();i++)
-           { 
-          table.addRow((Vector) dataList.get(i));
+    public void setTableData() {
+        table.clear();
+        // Do something with sqldate
+        ArrayList dataList = new ArrayList<>();
+
+        if (cbbHinhThuc.getSelectedIndex() == 0) {
+            dataList = thongKeBaoCao_BUS.getThongkeNhapVao_BUS(cbbHinhThuc.getSelectedIndex(), txtTimKiem.getText(), dateStart.getDate(), dateEnd.getDate());
+            for (int i = 0; i < dataList.size(); i++) {
+                table.addRow((Vector) dataList.get(i));
             }
         }
-        if(cbbHinhThuc.getSelectedIndex()==1)
-        {
-            dataList = thongKeBaoCao_BUS.getThongkeBanRa_BUS(cbbHinhThuc.getSelectedIndex(),txtTimKiem.getText(),dateStart.getDate(),dateEnd.getDate());
-          for(int i=0;i<dataList.size();i++)
-           { 
-          table.addRow((Vector) dataList.get(i));
+        if (cbbHinhThuc.getSelectedIndex() == 1) {
+            dataList = thongKeBaoCao_BUS.getThongkeBanRa_BUS(cbbHinhThuc.getSelectedIndex(), txtTimKiem.getText(), dateStart.getDate(), dateEnd.getDate());
+            for (int i = 0; i < dataList.size(); i++) {
+                table.addRow((Vector) dataList.get(i));
             }
         }
 //      for(int i=0;i<dataList.size();i++)
 //      { 
 //          table.addRow((Vector) dataList.get(i));
 //      }
-      }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -214,33 +212,30 @@ public void setTableData()
 
     private void cbbHinhThucItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbHinhThucItemStateChanged
         // TODO add your handling code here:
-        
-        if(cbbHinhThuc.getSelectedIndex()==0)
-        {
-                   table.setHeaders(new String[]{"STT","Mã sp", "Tên sp", "Mã Pn", "NCC","Số lượng","Giá Nhập","Thời Gian","Tổng tiền"});
-                   table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5,1,1,1,2,1,2,2,2});
-                   table.getTable().setAutoCreateRowSorter(true);
 
-
-        setTableData();
-
-        }
-        if(cbbHinhThuc.getSelectedIndex()==1)
-        {
-            table.setHeaders(new String[]{"STT","Mã sp", "Tên sp", "Mã HD","Số lượng","Giá bán","Thời Gian","Tổng tiền"});
-            table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5,1,1,1,2,1,2,2});
+        if (cbbHinhThuc.getSelectedIndex() == 0) {
+            table.setHeaders(new String[]{"STT", "Mã sp", "Tên sp", "Mã Pn", "NCC", "Số lượng", "Giá Nhập", "Thời Gian", "Tổng tiền"});
+            table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5, 1, 1, 1, 2, 1, 2, 2, 2});
             table.getTable().setAutoCreateRowSorter(true);
-       setTableData();
+
+            setTableData();
+
         }
-            
+        if (cbbHinhThuc.getSelectedIndex() == 1) {
+            table.setHeaders(new String[]{"STT", "Mã sp", "Tên sp", "Mã HD", "Số lượng", "Giá bán", "Thời Gian", "Tổng tiền"});
+            table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5, 1, 1, 1, 2, 1, 2, 2});
+            table.getTable().setAutoCreateRowSorter(true);
+            setTableData();
+        }
+
     }//GEN-LAST:event_cbbHinhThucItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         dateStart.setCalendar(null);
-                dateEnd.setCalendar(null);
-         txtTimKiem.setText("");
-         setTableData();
+        dateEnd.setCalendar(null);
+        txtTimKiem.setText("");
+        setTableData();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnThonKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThonKeActionPerformed
