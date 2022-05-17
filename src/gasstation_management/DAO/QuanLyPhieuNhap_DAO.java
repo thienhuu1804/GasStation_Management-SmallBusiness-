@@ -241,6 +241,27 @@ System.out.println("Lỗi");
         }
         return result;
     }
+
+    public Boolean addSoLuongSanpham(String masp,Double soluong) {
+        
+        
+        
+        db.setupConnection();
+        try {
+            String sql = "UPDATE sanpham set soluong=? where masp=?";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+            stm.setFloat(1,soluong.floatValue());
+            stm.setString(2,masp);
+
+            
+            return db.sqlUpdate(stm);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            db.closeConnection();
+        }
+    }
         
         
     }
