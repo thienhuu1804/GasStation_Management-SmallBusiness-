@@ -111,7 +111,7 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         }
         if(selected==2)
         {
-                        txtTimkiem.setEditable(true);
+            txtTimkiem.setEditable(true);
 
         }
         table.clear();
@@ -152,16 +152,21 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         cbbTimkiem = new javax.swing.JComboBox<>();
         txtTimkiem = new javax.swing.JTextField();
         btnXemChiTiet = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         dateStart = new com.toedter.calendar.JDateChooser();
         dateEnd = new com.toedter.calendar.JDateChooser();
-        jButton2 = new javax.swing.JButton();
+        btnXuatExcel = new javax.swing.JButton();
 
         cbbTimkiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbTimkiem.setBorder(javax.swing.BorderFactory.createTitledBorder("Loại Tìm kiếm"));
         cbbTimkiem.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbbTimkiemItemStateChanged(evt);
+            }
+        });
+        cbbTimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbTimkiemActionPerformed(evt);
             }
         });
 
@@ -174,10 +179,10 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Reset");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -195,10 +200,10 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Xuất Excel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXuatExcel.setText("Xuất Excel");
+        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXuatExcelActionPerformed(evt);
             }
         });
 
@@ -221,11 +226,11 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
+                                .addComponent(btnReset)
                                 .addGap(0, 44, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jButton2)
+                                .addComponent(btnXuatExcel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnXemChiTiet)))))
                 .addContainerGap())
@@ -240,13 +245,13 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
                             .addComponent(txtTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jButton1))
+                                .addComponent(btnReset))
                             .addComponent(dateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2)))
+                            .addComponent(btnXuatExcel)))
                     .addComponent(cbbTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -270,12 +275,12 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
        txtTimkiem.setText("");
     }//GEN-LAST:event_cbbTimkiemItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
         dateStart.setCalendar(null);
        dateEnd.setCalendar(null);
        setTableData();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         // TODO add your handling code here:
@@ -298,7 +303,7 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
         // TODO add your handling code here:
         int rowCount =table.getTable().getRowCount();
         XuatExcel xexcel = new XuatExcel();
@@ -309,16 +314,21 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
             indexMahd.add(table.getTable().getValueAt(i, 1).toString());
         }
         xexcel.xuatFileExcelChiTietHoaDon(indexMahd);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnXuatExcelActionPerformed
+
+    private void cbbTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTimkiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbTimkiemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnXemChiTiet;
+    private javax.swing.JButton btnXuatExcel;
     private javax.swing.JComboBox<String> cbbTimkiem;
     private com.toedter.calendar.JDateChooser dateEnd;
     private com.toedter.calendar.JDateChooser dateStart;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private java.awt.ScrollPane scrollTable;
     private javax.swing.JTextField txtTimkiem;
     // End of variables declaration//GEN-END:variables
 }
+

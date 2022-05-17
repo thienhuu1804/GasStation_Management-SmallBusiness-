@@ -142,7 +142,7 @@ public class TraCuuHoaDon_BUS {
                              x = (Vector) list.get(j);
                       for(int i=0;i<indexMahd.size();i++)
                        {
-                                                 System.out.println(indexMahd.get(i));
+                          System.out.println(indexMahd.get(i));
                           String y=              (String) indexMahd.get(i);
                           if(x.get(0).equals(y)==true)
                            {

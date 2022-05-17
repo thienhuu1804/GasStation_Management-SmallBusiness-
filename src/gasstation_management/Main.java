@@ -64,7 +64,7 @@ public class Main {
         ThongKeBaoCao tkbc = new ThongKeBaoCao();
         tkbc.setSize(tkbc.getPreferredSize());
 
-        pnlMain.getPnlMainContent().add(tkbc);
+        pnlMain.getPnlMainContent().add(tchd);
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);
