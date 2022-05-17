@@ -6,6 +6,8 @@ package gasstation_management.BUS;
 
 import java.util.ArrayList;
 import gasstation_management.DAO.QuanLyPhieuNhap_DAO;
+import gasstation_management.DAO.QuanLySanPham_DAO;
+
 import gasstation_management.DTO.PhieuNhap;
 import java.util.Vector;
 
@@ -16,6 +18,7 @@ import java.util.Vector;
 public class QuanLyPhieuNhap_BUS {
 
     QuanLyPhieuNhap_DAO quanLyPhieuNhap_DAO= new QuanLyPhieuNhap_DAO();
+    QuanLySanPham_DAO quanLySanPham_DAO=new QuanLySanPham_DAO();
     // Lấy danh sách phiếu nhập dựa trên điều kiện
     public ArrayList getDanhSanhPhieuNhap(int selected, String text) {
           ArrayList<PhieuNhap> listPhieuNhap = new ArrayList();
@@ -122,9 +125,10 @@ public class QuanLyPhieuNhap_BUS {
 // hàm thêm phiếu nhập
     public void addPhieuNhap_BUS(PhieuNhap pn) {
         quanLyPhieuNhap_DAO.addPhieuNhap(pn);
-        System.out.println(pn.getMancc());
-                System.out.println(pn.getMasp());
-        System.out.println(pn.getManv());
+       ArrayList sanpham = new ArrayList();
+       sanpham=quanLySanPham_DAO.getMotSanPham(pn.getMasp());
+       Double x = Double.parseDouble((String) sanpham.get(2));
+        quanLyPhieuNhap_DAO.addSoLuongSanpham(pn.getMasp(),pn.getSoluong() + x);
 
     }
    // Lấy thông tin của các phiếu nhập để xuất ra excel
