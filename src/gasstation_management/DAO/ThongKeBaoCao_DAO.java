@@ -53,5 +53,34 @@ System.out.println("Lỗi");
         }
         return result;
     }
+
+    public ArrayList<ThongkeBanRa> getThongKeBanRa() {
+        ArrayList<ThongkeBanRa> result = new ArrayList<>();
+        db.setupConnection();
+        
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement("select sanpham.masp,sanpham.tensp,hoadon.mahd,hoadon.soluong,gia.gia,hoadon.ngaytao,hoadon.tongtien from hoadon,sanpham,gia where hoadon.masp=sanpham.masp and sanpham.masp=gia.masp");
+            rs = db.sqlQry(stm);
+            if (rs != null) {
+                while (rs.next()) {
+                    ThongkeBanRa listThongKeBanRa = new ThongkeBanRa();
+                    listThongKeBanRa.setMasp(rs.getString(1));
+                    listThongKeBanRa.setTensp(rs.getString(2));
+                    listThongKeBanRa.setMahd(rs.getString(3));
+                    listThongKeBanRa.setSoluong(rs.getFloat(4));
+                    listThongKeBanRa.setGiaban(Integer.parseInt(rs.getString(5)));
+                    listThongKeBanRa.setThoigian(LocalDateTime.parse(rs.getString(6), DATETIME_FORMATTER));
+                    listThongKeBanRa.setTongtien(Integer.parseInt(rs.getString(7)));
+                    result.add(listThongKeBanRa);
+                }
+            }
+        } catch (SQLException ex) {
+//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+System.out.println("Lỗi");
+        }finally{
+            db.closeConnection();
+        }
+        return result;
+    }
     
 }

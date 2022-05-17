@@ -15,6 +15,7 @@ import gasstation_management.UI.MainContentPanels.DanhSachQuyen_GUI;
 import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyTaiKhoan;
 import gasstation_management.UI.MainContentPanels.QuanLyNhanVien;
+import gasstation_management.UI.MainContentPanels.QuanLyPhieuNhap;
 import gasstation_management.UI.MainContentPanels.TraCuuHoaDon;
 import gasstation_management.UI.MainContentPanels.ThongKeBaoCao;
 
@@ -57,14 +58,17 @@ public class Main {
         QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
         ui_qltk.setSize(ui_qltk.getPreferredSize());
 //          
-        QuanLyNhanVien qlpn = new QuanLyNhanVien();
-        qlpn.setSize(qlpn.getPreferredSize());
+        QuanLyNhanVien qlnv = new QuanLyNhanVien();
+        qlnv.setSize(qlnv.getPreferredSize());
         TraCuuHoaDon tchd = new TraCuuHoaDon();
         tchd.setSize(tchd.getPreferredSize());
         ThongKeBaoCao tkbc = new ThongKeBaoCao();
         tkbc.setSize(tkbc.getPreferredSize());
+          
+        QuanLyPhieuNhap qlpn = new QuanLyPhieuNhap();
+        qlpn.setSize(qlpn.getPreferredSize());
 
-        pnlMain.getPnlMainContent().add(tkbc);
+        pnlMain.getPnlMainContent().add(qlpn);
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);

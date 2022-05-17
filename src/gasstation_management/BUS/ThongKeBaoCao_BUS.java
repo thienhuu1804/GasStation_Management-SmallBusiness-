@@ -31,12 +31,13 @@ public class ThongKeBaoCao_BUS {
     public ArrayList getThongkeNhapVao_BUS(int selectedIndex,String textTimKiem,Date dateStart,Date dateEnd) {
         
         ArrayList<ThongKeNhapVao> listThongke = new ArrayList();
+        
         if (selectedIndex == 0 && (dateStart==null || dateEnd==null) && textTimKiem.equals("")) {
            ArrayList<ThongKeNhapVao>  listThongKeNhapVao  = new ArrayList<>(); 
                     listThongke= thongKeBaoCao_DAO.getThongKeNhapVao();
         }
         
-        if(selectedIndex==0 && (dateStart!=null && dateEnd!=null))
+        if(selectedIndex==0 && (dateStart!=null && dateEnd!=null && textTimKiem.equals("")==true))
         {
          ArrayList<ThongKeNhapVao>  listThongKeNhapVao  = new ArrayList<>(); 
 
@@ -81,6 +82,49 @@ public class ThongKeBaoCao_BUS {
             }
 
         }
+        
+        
+        
+         if(selectedIndex==0 && (dateStart!=null && dateEnd!=null) && textTimKiem.equals("")==false)
+        {
+         ArrayList<ThongKeNhapVao>  listThongKeNhapVao  = new ArrayList<>(); 
+         ArrayList<ThongKeNhapVao> listThongKeNhapVaoTheoThoiGianTimKiem = new ArrayList<>();
+
+           listThongKeNhapVao= thongKeBaoCao_DAO.getThongKeNhapVao();
+ 
+            for(ThongKeNhapVao tknv: listThongKeNhapVao)
+            {
+                if(textTimKiem.equals(tknv.getMasp()))
+                {
+                    listThongKeNhapVaoTheoThoiGianTimKiem.add(tknv);
+                }
+                if(textTimKiem.equals(tknv.getMapn()))
+                {
+                    listThongKeNhapVaoTheoThoiGianTimKiem.add(tknv);
+                }
+                if(textTimKiem.equals(tknv.getTensp()))
+                {
+                    listThongKeNhapVaoTheoThoiGianTimKiem.add(tknv);
+                }
+                if(textTimKiem.equals(tknv.getNcc()))
+                {
+                    listThongKeNhapVaoTheoThoiGianTimKiem.add(tknv);
+                }
+                
+            }
+            for(ThongKeNhapVao tknv: listThongKeNhapVaoTheoThoiGianTimKiem)
+            {
+                if(compareDate(tknv.getThoigian(), dateStart, dateEnd)==true )
+                {
+                   
+                    listThongke.add(tknv);
+                }
+            }
+
+        }
+        
+        
+        
         
         
         // Lấy các mã sản phẩm của phiếu nhập
@@ -156,6 +200,159 @@ public class ThongKeBaoCao_BUS {
         return flag;
         
          }
+    
+    
+    
+    
+    
+    // Hàm thống kê bán ra
+    
+    public ArrayList getThongkeBanRa_BUS(int selectedIndex,String textTimKiem,Date dateStart,Date dateEnd) {
+        
+        ArrayList<ThongkeBanRa> listThongke = new ArrayList();
+        
+        if (selectedIndex == 1 && (dateStart==null || dateEnd==null) && textTimKiem.equals("")) {
+           ArrayList<ThongKeNhapVao>  listThongKeNhapVao  = new ArrayList<>(); 
+                    listThongke= thongKeBaoCao_DAO.getThongKeBanRa();
+        }
+        
+        if(selectedIndex==1 && (dateStart!=null && dateEnd!=null && textTimKiem.equals("")==true))
+        {
+         ArrayList<ThongkeBanRa>  listThongkeBanRa  = new ArrayList<>(); 
+
+           listThongkeBanRa= thongKeBaoCao_DAO.getThongKeBanRa();
+ 
+            for(ThongkeBanRa tkbr: listThongkeBanRa)
+            {
+                if(compareDate(tkbr.getThoigian(), dateStart, dateEnd)==true )
+                {
+                   
+                    listThongke.add(tkbr);
+                }
+            }
+
+        }
+        
+        if(selectedIndex==1 && (dateStart==null || dateEnd==null) && textTimKiem.equals("")==false)
+        {
+         ArrayList<ThongkeBanRa>  listThongkeBanRa  = new ArrayList<>(); 
+
+           listThongkeBanRa= thongKeBaoCao_DAO.getThongKeBanRa();
+ 
+            for(ThongkeBanRa tkbr: listThongkeBanRa)
+            {
+                if(textTimKiem.equals(tkbr.getMasp()))
+                {
+                    listThongke.add(tkbr);
+                }
+                if(textTimKiem.equals(tkbr.getMahd()))
+                {
+                    listThongke.add(tkbr);
+                }
+                if(textTimKiem.equals(tkbr.getTensp()))
+                {
+                    listThongke.add(tkbr);
+                }
+                              
+            }
+
+        }
+        
+        
+        
+         if(selectedIndex==1 && (dateStart!=null && dateEnd!=null) && textTimKiem.equals("")==false)
+        {
+            ArrayList<ThongkeBanRa>  listThongkeBanRa  = new ArrayList<>(); 
+
+           listThongkeBanRa= thongKeBaoCao_DAO.getThongKeBanRa();
+         ArrayList<ThongkeBanRa> listThongKeBanRaTheoThoiGianTimKiem = new ArrayList<>(); 
+            for(ThongkeBanRa tkbr: listThongkeBanRa)
+            {
+                if(textTimKiem.equals(tkbr.getMasp()))
+                {
+                    listThongKeBanRaTheoThoiGianTimKiem.add(tkbr);
+                }
+                if(textTimKiem.equals(tkbr.getMahd()))
+                {
+                    listThongKeBanRaTheoThoiGianTimKiem.add(tkbr);
+                }
+                if(textTimKiem.equals(tkbr.getTensp()))
+                {
+                    listThongKeBanRaTheoThoiGianTimKiem.add(tkbr);
+                }
+                
+            }
+            for(ThongkeBanRa tknv: listThongKeBanRaTheoThoiGianTimKiem)
+            {
+                if(compareDate(tknv.getThoigian(), dateStart, dateEnd)==true )
+                {
+                   
+                    listThongke.add(tknv);
+                }
+            }
+
+        }
+        
+        
+        
+        
+        
+        // Lấy các mã sản phẩm của phiếu nhập
+        ArrayList<String> eleUnique= new ArrayList();
+        for(ThongkeBanRa tknv: listThongke)
+        {
+            eleUnique.add(tknv.getMasp());
+        }
+         // Lấy mã sản phẩm duy nhất
+
+        HashSet<String> uniqueValues = new HashSet<>(eleUnique);
+        int stt=1;
+        int tongtien;
+        ArrayList arrlist = new ArrayList();
+        for(String uniqueEle : uniqueValues)
+           {
+             tongtien = 0;
+            for(ThongkeBanRa tkbr: listThongke)
+            {
+                
+                    if(tkbr.getMasp().equals(uniqueEle))
+                    {
+                Vector data = new Vector();
+                data.add(stt);
+                data.add(tkbr.getMasp());
+                data.add(tkbr.getTensp());
+                data.add(tkbr.getMahd());
+                data.add(tkbr.getSoluong());
+                data.add(tkbr.getGiaban());
+
+                data.add(tkbr.getThoigian().format(DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm:ss")));
+                data.add(tkbr.getTongtien());
+                arrlist.add(data);
+                stt++;
+                tongtien +=tkbr.getTongtien();
+                }
+            }
+           Vector tongTienPhieuBan = new Vector();
+
+            for(int i=0;i<8;i++)
+            {
+                if(i!=7)
+                {
+                                  tongTienPhieuBan.add("");
+
+                }
+                else
+                {
+                    tongTienPhieuBan.add(tongtien);
+                }
+            }
+            arrlist.add(tongTienPhieuBan);
+            stt=1;
+           }
+        return arrlist;
+                
+    }
+    
     
     
     

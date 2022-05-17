@@ -77,6 +77,14 @@ public void setTableData()
           table.addRow((Vector) dataList.get(i));
             }
         }
+        if(cbbHinhThuc.getSelectedIndex()==1)
+        {
+            dataList = thongKeBaoCao_BUS.getThongkeBanRa_BUS(cbbHinhThuc.getSelectedIndex(),txtTimKiem.getText(),dateStart.getDate(),dateEnd.getDate());
+          for(int i=0;i<dataList.size();i++)
+           { 
+          table.addRow((Vector) dataList.get(i));
+            }
+        }
 //      for(int i=0;i<dataList.size();i++)
 //      { 
 //          table.addRow((Vector) dataList.get(i));
