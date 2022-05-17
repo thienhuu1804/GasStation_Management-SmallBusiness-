@@ -9,10 +9,6 @@ package gasstation_management.DTO;
  * @author Vuong
  */
 public class PhieuNhap {
-    
-    PhieuNhap()
-    {
-    }
     public String getMapn() {
         return mapn;
     }
@@ -84,4 +80,14 @@ public class PhieuNhap {
     private String mapn;
     private String masp;
     private String manv;
+    private String trangthai;
+
+    public void setTrangthai(String trangthai) {
+        this.trangthai = trangthai;
+    }
+
+    public String getTrangthai() {
+        return trangthai;
+    }
+    
 }

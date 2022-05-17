@@ -14,7 +14,7 @@ public class ThongkeBanRa {
     private String masp;
     private String tensp;
     private String mahd;
-    private int soluong;
+    private float soluong;
     private int giaban;
     private LocalDateTime thoigian;
     private int tongtien;
@@ -31,7 +31,7 @@ public class ThongkeBanRa {
         this.mahd = mahd;
     }
 
-    public void setSoluong(int soluong) {
+    public void setSoluong(float soluong) {
         this.soluong = soluong;
     }
 
@@ -59,7 +59,7 @@ public class ThongkeBanRa {
         return mahd;
     }
 
-    public int getSoluong() {
+    public float getSoluong() {
         return soluong;
     }
 
