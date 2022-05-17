@@ -18,6 +18,7 @@ import gasstation_management.UI.MainContentPanels.QuanLyNhanVien;
 import gasstation_management.UI.MainContentPanels.QuanLyPhieuNhap;
 import gasstation_management.UI.MainContentPanels.TraCuuHoaDon;
 import gasstation_management.UI.MainContentPanels.ThongKeBaoCao;
+import gasstation_management.UI.MainContentPanels.QuanLyNhaCungCap;
 
 
 import gasstation_management.UI.Shared.MainPanel;
@@ -67,8 +68,10 @@ public class Main {
           
         QuanLyPhieuNhap qlpn = new QuanLyPhieuNhap();
         qlpn.setSize(qlpn.getPreferredSize());
-
-        pnlMain.getPnlMainContent().add(qlpn);
+    
+         QuanLyNhaCungCap qlncc = new QuanLyNhaCungCap();
+         qlncc.setSize(qlncc.getPreferredSize());
+        pnlMain.getPnlMainContent().add(qlncc);
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);

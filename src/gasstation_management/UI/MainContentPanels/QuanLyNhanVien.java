@@ -82,7 +82,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         Window win = SwingUtilities.getWindowAncestor(this);
         JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
 //        changePwdDialog.setUndecorated(true);
-
+        
         changePwdDialog.setLayout(new BorderLayout());
         changePwdDialog.setBackground(Color.yellow);
 
