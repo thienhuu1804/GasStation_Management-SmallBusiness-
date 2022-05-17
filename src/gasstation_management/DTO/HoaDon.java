@@ -14,7 +14,7 @@ public class HoaDon {
     private String mahd;
     private String matrubom;
     private String masp;
-    private LocalDateTime ngaytao;
+    private String ngaytao;
     private float soluong;
     private String tongtien;
 
@@ -30,7 +30,7 @@ public class HoaDon {
         this.masp = masp;
     }
 
-    public void setNgaytao(LocalDateTime ngaytao) {
+    public void setNgaytao(String ngaytao) {
         this.ngaytao = ngaytao;
     }
 
@@ -54,7 +54,7 @@ public class HoaDon {
         return masp;
     }
 
-    public LocalDateTime getNgaytao() {
+    public String getNgaytao() {
         return ngaytao;
     }
 
