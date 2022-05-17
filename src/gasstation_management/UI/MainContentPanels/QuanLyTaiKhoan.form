@@ -99,7 +99,7 @@
                   <Component id="cbLoaiTimKiem" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="txtTiemKiem" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               <Component id="scrollTable" min="-2" pref="357" max="-2" attributes="0"/>
           </Group>
       </Group>

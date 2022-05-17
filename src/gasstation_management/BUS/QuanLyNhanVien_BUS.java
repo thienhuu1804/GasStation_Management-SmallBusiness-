@@ -35,7 +35,6 @@ public class QuanLyNhanVien_BUS {
                 data.add(nhanvien.getTennv());
                 data.add(nhanvien.getSdt());
                 data.add(nhanvien.getDiachi());
-                data.add(nhanvien.getCmnd());
                 data.add(nhanvien.getTrangthai());                         
                 arrlist.add(data);
         }
