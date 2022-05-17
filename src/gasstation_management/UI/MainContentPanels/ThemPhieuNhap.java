@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gasstation_management.UI.MainContentPanels;
+
 import gasstation_management.BUS.QuanLyPhieuNhap_BUS;
 import gasstation_management.DTO.NhanVien;
 import gasstation_management.DTO.PhieuNhap;
@@ -12,9 +13,15 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author Vuong
@@ -25,115 +32,152 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
      * Creates new form ThemPhieuNhap
      */
     QuanLyPhieuNhap_BUS quanLyPhieuNhap_BUS = new QuanLyPhieuNhap_BUS();
-            JDialog owner = null;
+    JDialog owner = null;
 
     public ThemPhieuNhap(JDialog owner) {
         this.owner = owner;
         setSize(new Dimension(700, 400));
         ArrayList<String> listItem = new ArrayList();
-        listItem=        quanLyPhieuNhap_BUS.getManv();
+        listItem = quanLyPhieuNhap_BUS.getManv();
 
-        
         initComponents();
+
+        cbTrangThai.removeAllItems();
+        cbTrangThai.addItem("Đã thanh toán");
+        cbTrangThai.addItem("Chưa thanh toán");
+        txtMapn.setEditable(false);
+        txtTongTien.setEditable(false);
+
         cbbManv.removeAllItems();
-                for(String i:listItem)
-        {
-                            cbbManv.addItem(i);
+        for (String i : listItem) {
+            cbbManv.addItem(i);
         }
-                listItem=quanLyPhieuNhap_BUS.getMasp();
-                cbbMasp.removeAllItems();
-                for(String i:listItem)
-        {
-                            cbbMasp.addItem(i);
+        listItem = quanLyPhieuNhap_BUS.getMasp();
+        cbbMasp.removeAllItems();
+        for (String i : listItem) {
+            cbbMasp.addItem(i);
         }
-                cbbMancc.removeAllItems();
-                listItem=quanLyPhieuNhap_BUS.getMancc();
-                for(String i:listItem)
-        {
-                            cbbMancc.addItem(i);
+        cbbMancc.removeAllItems();
+        listItem = quanLyPhieuNhap_BUS.getMancc();
+        for (String i : listItem) {
+            cbbMancc.addItem(i);
         }
-                 LocalDateTime now = LocalDateTime.now();
-        txtNgayTao.setText(now.format(DateTimeFormatter.ofPattern("kk:mm:ss dd-MM-yyy")));
+        LocalDateTime now = LocalDateTime.now();
+        txtNgayTao.setText(now.format(DateTimeFormatter.ofPattern("hh:mm:ss dd-MM-yyy")));
+        ArrayList<Vector> dspn_temp = quanLyPhieuNhap_BUS.getDanhSanhPhieuNhap(0, "");
+        int newNumb = Integer.parseInt(dspn_temp.get(dspn_temp.size() - 1).get(1).toString().split("PN")[1]) + 1;
+        txtMapn.setText("PN" + newNumb);
+
+        txtGiaNhap.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                autoSum();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                autoSum();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                autoSum();
+            }
+        });
+        txtSL.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                autoSum();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                autoSum();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                autoSum();
+            }
+        });
+    }
+
+    public void CheckInfor() {
+        PhieuNhap pn = new PhieuNhap();
+        String mapn = txtMapn.getText();
+        String masp = (String) cbbMasp.getSelectedItem();
+        String manv = (String) cbbManv.getSelectedItem();
+        String mancc = (String) cbbMancc.getSelectedItem();
+        String ngaytao = txtNgayTao.getText();
+        String trangthai = cbTrangThai.getSelectedItem().toString();
+        String SL = txtSL.getText();
+        String gianhap = txtGiaNhap.getText();
+        String tongtien = txtTongTien.getText();
+        ArrayList<String> arrInput = new ArrayList();
+
+        arrInput.add(mapn);
+        arrInput.add(masp);
+        arrInput.add(manv);
+        arrInput.add(mancc);
+        arrInput.add(ngaytao);
+        arrInput.add(SL);
+        arrInput.add(gianhap);
+        arrInput.add(tongtien);
+        arrInput.add(trangthai);
+
+        Boolean flag = true;
+        // Kiểm tra và hiển thị thông báo nhập sai, lỗi
+        if (mapn.equals("") || masp.equals("") || manv.equals("") || mancc.equals("") || ngaytao.equals("") || trangthai.equals("") || SL.equals("") || gianhap.equals("") || tongtien.equals("")) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            pn.setMapn(mapn);
+            flag = false;
+
+        } else {
+            pn.setMapn(mapn);
+            pn.setMasp(masp);
+            pn.setManv(manv);
+            pn.setMancc(mancc);
+            pn.setNgaytao(ngaytao);
+            pn.setSoluong(Integer.parseInt(SL));
+            pn.setGianhap(Integer.parseInt(gianhap));
+            pn.setTrangthai(trangthai);
+            pn.setTongtien(Integer.toString(Integer.parseInt(SL) * Integer.parseInt(gianhap)));
+            Boolean ma = quanLyPhieuNhap_BUS.checkMapn(mapn);
+
+            //Kiểm tra có trùng mã phiếu nhập có trùng không,  nếu thõa thì lưu vào hệ thống
+            if (flag == true) {
+                if (ma == false) {
+                    JOptionPane.showMessageDialog(null, "Mã phi đã tồn tại");
+                } else {
+                    int result = JOptionPane.showConfirmDialog(null,
+                            "Bạn có muốn thêm không?", "Xác nhận thêm ",
+                            JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.YES_OPTION) {
+
+                        quanLyPhieuNhap_BUS.addPhieuNhap_BUS(pn);
+                        owner.dispose();
+                    } else if (result == JOptionPane.NO_OPTION) {
+//            changePwdDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//             owner.dispose();
+                    }
+                }
+            }
+        }
 
     }
 
-    
-     public void CheckInfor()
-    {
-        PhieuNhap pn = new PhieuNhap();
-       String mapn = txtMapn.getText();
-       String masp = (String) cbbMasp.getSelectedItem();
-       String manv = (String) cbbManv.getSelectedItem();
-       String mancc = (String) cbbMancc.getSelectedItem();
-       String ngaytao = txtNgayTao.getText();
-       String trangthai = txtTrangThai.getText();
-       String SL = txtSL.getText();
-       String gianhap= txtGiaNhap.getText();
-       String tongtien = txtTongTien.getText();
-       ArrayList<String>  arrInput = new ArrayList();
-      
-       arrInput.add(mapn);
-       arrInput.add(masp);
-       arrInput.add(manv);
-       arrInput.add(mancc);
-       arrInput.add(ngaytao);
-       arrInput.add(SL);
-       arrInput.add(gianhap);
-       arrInput.add(trangthai);
-       arrInput.add(tongtien);
+    private boolean autoSum() {
+        try {
+            int soLuong = Integer.parseInt(txtSL.getText());
+            int gia = Integer.parseInt(txtGiaNhap.getText());
+            int sum = soLuong * gia;
+            txtTongTien.setText(String.valueOf(sum));
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
 
-
-       
-       
-       Boolean flag = true;
-       // Kiểm tra và hiển thị thông báo nhập sai, lỗi
-       if(mapn.equals("") || masp.equals("") || manv.equals("") || mancc.equals("") || ngaytao.equals("") || trangthai.equals("") || SL.equals("") || gianhap.equals("") || tongtien.equals(""))
-       {
-                                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
-                                 pn.setMapn(mapn);
-                                        flag = false;
-
-
-       }
-       else
-       {
-           pn.setMapn(mapn);
-           pn.setMasp(masp);
-       pn.setManv(manv);
-       pn.setMancc(mancc);
-       pn.setNgaytao(ngaytao);
-       pn.setSoluong(Integer.parseInt(SL));
-       pn.setGianhap(Integer.parseInt(gianhap));
-       pn.setTrangthai(trangthai);
-       pn.setTongtien(Integer.toString(Integer.parseInt(SL)*Integer.parseInt(gianhap)));
-        Boolean ma = quanLyPhieuNhap_BUS.checkMapn(mapn);
-       
-        //Kiểm tra có trùng mã phiếu nhập có trùng không,  nếu thõa thì lưu vào hệ thống
-       if(flag == true)
-       {
-          if(ma==false)
-            {  
-                      JOptionPane.showMessageDialog(null, "Mã phi đã tồn tại");
-             }
-          else
-          {  
-              int result = JOptionPane.showConfirmDialog(null,
-                "Bạn có muốn thêm không?", "Xác nhận thêm ",
-                JOptionPane.YES_NO_OPTION);
-              if (result == JOptionPane.YES_OPTION) {
-
-                 quanLyPhieuNhap_BUS.addPhieuNhap_BUS(pn);
-                 owner.dispose();
-                 }
-               else if (result == JOptionPane.NO_OPTION) {
-//            changePwdDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-//             owner.dispose();
-                     }
-          }
-       }
-       }
-           
- }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,7 +198,6 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         txtMapn = new javax.swing.JTextField();
         txtNgayTao = new javax.swing.JTextField();
-        txtTrangThai = new javax.swing.JTextField();
         txtSL = new javax.swing.JTextField();
         txtTongTien = new javax.swing.JTextField();
         txtGiaNhap = new javax.swing.JTextField();
@@ -163,6 +206,7 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
         cbbManv = new javax.swing.JComboBox<>();
         cbbMancc = new javax.swing.JComboBox<>();
         addPhieuNhap = new javax.swing.JButton();
+        cbTrangThai = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -202,6 +246,8 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
             }
         });
 
+        cbTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,7 +269,7 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
                             .addComponent(jLabel8))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbbManv, 0, 98, Short.MAX_VALUE)
+                            .addComponent(cbbManv, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbbMancc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -235,22 +281,20 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addGap(36, 36, 36)
                         .addComponent(txtNgayTao))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtSL)
-                            .addComponent(txtGiaNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))))
+                            .addComponent(txtGiaNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                            .addComponent(cbTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(17, 17, 17))
             .addGroup(layout.createSequentialGroup()
                 .addGap(277, 277, 277)
@@ -268,13 +312,13 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(txtMapn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbMasp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(cbbMasp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
@@ -315,6 +359,7 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPhieuNhap;
+    private javax.swing.JComboBox<String> cbTrangThai;
     private javax.swing.JComboBox<String> cbbMancc;
     private javax.swing.JComboBox<String> cbbManv;
     private javax.swing.JComboBox<String> cbbMasp;
@@ -333,6 +378,5 @@ public class ThemPhieuNhap extends javax.swing.JPanel {
     private javax.swing.JTextField txtNgayTao;
     private javax.swing.JTextField txtSL;
     private javax.swing.JTextField txtTongTien;
-    private javax.swing.JTextField txtTrangThai;
     // End of variables declaration//GEN-END:variables
 }

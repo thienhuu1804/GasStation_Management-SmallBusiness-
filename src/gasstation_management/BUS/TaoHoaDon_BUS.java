@@ -21,6 +21,7 @@ public class TaoHoaDon_BUS {
     }
 
     public boolean addHoaDon(HoaDon hd) {
+//        QuanLySanPham_BUS
         return taoHoaDon_DAO.addHoaDon(hd);
     }
 }

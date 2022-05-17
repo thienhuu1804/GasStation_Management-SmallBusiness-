@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gasstation_management.UI.MainContentPanels;
+
 import gasstation_management.BUS.QuanLyNhaCungCap_BUS;
 import gasstation_management.DTO.NhaCungCap;
 import gasstation_management.UI.MainContentPanels.ThemNhaCungCap;
 import gasstation_management.UI.MainContentPanels.SuaNhaCungCap;
-
 
 import gasstation_management.DataTable;
 import java.awt.BorderLayout;
@@ -31,34 +31,34 @@ public class QuanLyNhaCungCap extends javax.swing.JPanel {
      * Creates new form QuanLyNhaCungCap
      */
     QuanLyNhaCungCap_BUS quanLyNhaCungCap_BUS = new QuanLyNhaCungCap_BUS();
-        DataTable table = new DataTable();
+    DataTable table = new DataTable();
 
     public QuanLyNhaCungCap() {
         initComponents();
-        table.setHeaders(new String[]{"STT", "Mã Ncc", "Tên Ncc", "Địa chỉ","SDT"});
+        table.setHeaders(new String[]{"STT", "Mã Ncc", "Tên Ncc", "Địa chỉ", "SDT"});
         table.setSize(table.getPreferredSize());
 
         setTableData();
         // Dòng này chỉnh tỉ lệ các cột
-        table.setJTableColumnsWidth(table.getWidth(), new double[]{1,2,2,4,2,1});
+        table.setJTableColumnsWidth(table.getWidth(), new double[]{1, 2, 2, 4, 2, 1});
         scrollPane1.add(table);
     }
-    public void setTableData()
-    {  
+
+    public void setTableData() {
 //        int selected = cbTimKiem.getSelectedIndex();
         table.clear();
         ArrayList dataList = new ArrayList<>();
-      dataList=quanLyNhaCungCap_BUS.getDanhSachNhaCungCap_BUS();
-     for(int i=0;i<dataList.size();i++)
-     {
-         table.addRow((Vector) dataList.get(i));
-     }
-      }
-public JDialog showAddFrame(NhaCungCap ncc) {
+        dataList = quanLyNhaCungCap_BUS.getDanhSachNhaCungCap_BUS();
+        for (int i = 0; i < dataList.size(); i++) {
+            table.addRow((Vector) dataList.get(i));
+        }
+    }
+
+    public JDialog showAddFrame(NhaCungCap ncc) {
         Window win = SwingUtilities.getWindowAncestor(this);
         JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
 //        changePwdDialog.setUndecorated(true);
-        
+
         changePwdDialog.setLayout(new BorderLayout());
         changePwdDialog.setBackground(Color.yellow);
 
@@ -71,7 +71,8 @@ public JDialog showAddFrame(NhaCungCap ncc) {
         changePwdDialog.setVisible(true);
         return changePwdDialog;
     }
-     public JDialog showChangePwdFrame(NhaCungCap ncc) {
+
+    public JDialog showChangePwdFrame(NhaCungCap ncc) {
         Window win = SwingUtilities.getWindowAncestor(this);
         JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
 //        changePwdDialog.setUndecorated(true);
@@ -88,6 +89,7 @@ public JDialog showAddFrame(NhaCungCap ncc) {
         changePwdDialog.setVisible(true);
         return changePwdDialog;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,18 +162,17 @@ public JDialog showAddFrame(NhaCungCap ncc) {
         // TODO add your handling code here:
         NhaCungCap ncc = new NhaCungCap();
         JDialog dl = showAddFrame(ncc);
-            dl.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    setTableData();
-                }
-            });  
+        dl.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                setTableData();
+            }
+        });
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-        
+
         int indexRow = table.getTable().getSelectedRow();
         if (table.getTable().getSelectedRow() >= 0) {
             NhaCungCap ncc = new NhaCungCap();
@@ -180,14 +181,14 @@ public JDialog showAddFrame(NhaCungCap ncc) {
             ncc.setDiachi(table.getTable().getValueAt(indexRow, 3).toString());
             ncc.setSDT(table.getTable().getValueAt(indexRow, 4).toString());
             System.out.println(ncc.getMancc());
-           JDialog dl = showChangePwdFrame(ncc);
+            JDialog dl = showChangePwdFrame(ncc);
             dl.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     setTableData();
                 }
-            });  
-    }                           
+            });
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

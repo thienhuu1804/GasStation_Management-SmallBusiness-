@@ -32,8 +32,8 @@ public class DBConnect {
 
     String server = "localhost:3306";
     String dbName = "fuelmanagement";
-    String userName = "root";
-    String pass = "123456789lop11b2";
+    String userName = "FuelAdmin";
+    String pass = "";
 
     public DBConnect() {
         checkDriver();

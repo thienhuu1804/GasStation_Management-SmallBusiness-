@@ -123,7 +123,7 @@ public class QuanLyTaiKhoan_DAO {
             stm.setString(1, tk.getTenDangNhap());
             stm.setString(2, tk.getMaNV());
             stm.setString(3, tk.getMatKhau());
-            stm.setString(4, tk.getNgayTao().toString());
+            stm.setString(4, tk.getNgayTao().format(DATETIME_FORMATTER));
             stm.setString(5, tk.getTrangThai());
             System.out.println(stm);
             db.sqlUpdate(stm);

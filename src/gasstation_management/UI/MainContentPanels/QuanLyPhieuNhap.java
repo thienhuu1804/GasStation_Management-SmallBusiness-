@@ -35,7 +35,7 @@ public class QuanLyPhieuNhap extends javax.swing.JPanel {
      * Creates new form QuanLyPhieuNhap
      */
     QuanLyPhieuNhap_BUS quanLyPhieuNhap_BUS = new QuanLyPhieuNhap_BUS();
-        DataTable table = new DataTable();
+    DataTable table = new DataTable();
 
     public QuanLyPhieuNhap() {
         initComponents();
@@ -67,50 +67,46 @@ public class QuanLyPhieuNhap extends javax.swing.JPanel {
         cbbTimKiem.addItem("Theo mã phiếu nhập ");
         cbbTimKiem.addItem("Theo mã sản phẩm");
         cbbTimKiem.addItem("Theo trạng thái");
-        table.setHeaders(new String[]{"STT","Mã PN", "Mã sp", "Số lượng","Ngay Tạo","Trạng thái","Tổng tiền"});
+        table.setHeaders(new String[]{"STT", "Mã PN", "Mã sp", "Số lượng", "Ngay Tạo", "Trạng thái", "Tổng tiền"});
         table.setSize(table.getPreferredSize());
         table.getTable().setAutoCreateRowSorter(true);
 
-
         setTableData();
         // Dòng này chỉnh tỉ lệ các cột
-        table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5,1,1,1,2,1,2});
+        table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5, 1, 1, 1, 2, 1, 2});
         scrollTable.add(table);
     }
-public void setTableData()
-    {  
-    // Do something with sqldate
+
+    public void setTableData() {
+        // Do something with sqldate
 
         int selected = cbbTimKiem.getSelectedIndex();
-        if(selected==0)
-        {
+        if (selected == 0) {
             txtTimKiem.setEditable(false);
         }
-        if(selected==1)
-        {
+        if (selected == 1) {
             txtTimKiem.setEditable(true);
         }
-        if(selected==2)
-        {
-                        txtTimKiem.setEditable(true);
+        if (selected == 2) {
+            txtTimKiem.setEditable(true);
 
         }
         table.clear();
         ArrayList dataList = new ArrayList<>();
-      dataList=quanLyPhieuNhap_BUS.getDanhSanhPhieuNhap(selected,txtTimKiem.getText());
-      for(int i=0;i<dataList.size();i++)
-      { 
-          table.addRow((Vector) dataList.get(i));
-      }
-      }
- public JDialog showChangePwdFrame(String mapn) {
+        dataList = quanLyPhieuNhap_BUS.getDanhSanhPhieuNhap(selected, txtTimKiem.getText());
+        for (int i = 0; i < dataList.size(); i++) {
+            table.addRow((Vector) dataList.get(i));
+        }
+    }
+
+    public JDialog showChangePwdFrame(String mapn) {
         Window win = SwingUtilities.getWindowAncestor(this);
         JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
 //        changePwdDialog.setUndecorated(true);
 
         changePwdDialog.setLayout(new BorderLayout());
         changePwdDialog.setBackground(Color.yellow);
-        DetailPhieuNhap pnlXemChiTietPhieuNhap = new DetailPhieuNhap(changePwdDialog,mapn);
+        DetailPhieuNhap pnlXemChiTietPhieuNhap = new DetailPhieuNhap(changePwdDialog, mapn);
         changePwdDialog.setSize(pnlXemChiTietPhieuNhap.getSize());
         changePwdDialog.add(pnlXemChiTietPhieuNhap);
         changePwdDialog.setLocationRelativeTo(this);
@@ -118,7 +114,8 @@ public void setTableData()
         changePwdDialog.setVisible(true);
         return changePwdDialog;
     }
- public JDialog showAddPNPwdFrame() {
+
+    public JDialog showAddPNPwdFrame() {
         Window win = SwingUtilities.getWindowAncestor(this);
         JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
 //        changePwdDialog.setUndecorated(true);
@@ -133,6 +130,7 @@ public void setTableData()
         changePwdDialog.setVisible(true);
         return changePwdDialog;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -244,10 +242,11 @@ public void setTableData()
 
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         // TODO add your handling code here:
-        
-             int indexRow = table.getTable().getSelectedRow();
-             String mapn = (table.getTable().getValueAt(indexRow, 1).toString());
-             System.out.println(mapn);
+
+        int indexRow = table.getTable().getSelectedRow();
+        if (indexRow >= 0) {
+            String mapn = (table.getTable().getValueAt(indexRow, 1).toString());
+            System.out.println(mapn);
 
             JDialog dl = showChangePwdFrame(mapn);
             dl.addWindowListener(new WindowAdapter() {
@@ -255,31 +254,31 @@ public void setTableData()
                 public void windowClosed(WindowEvent e) {
                     setTableData();
                 }
-            });        
+            });
+        }
+
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     private void btnThemPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPhieuNhapActionPerformed
         // TODO add your handling code here:
-        
 
-            JDialog dl = showAddPNPwdFrame();
-            dl.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    setTableData();
-                }
-            });   
+        JDialog dl = showAddPNPwdFrame();
+        dl.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                setTableData();
+            }
+        });
     }//GEN-LAST:event_btnThemPhieuNhapActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        int rowCount =table.getTable().getRowCount();
+
+        int rowCount = table.getTable().getRowCount();
         XuatExcel xexcel = new XuatExcel();
-        Vector<String> indexMapn= new Vector<>();
+        Vector<String> indexMapn = new Vector<>();
         System.out.println(rowCount);
-        for(int i=0;i<rowCount;i++)
-        {
+        for (int i = 0; i < rowCount; i++) {
             indexMapn.add(table.getTable().getValueAt(i, 1).toString());
         }
         xexcel.xuatFilePhieuNhap(indexMapn);
