@@ -21,8 +21,8 @@ public class QuanLySanPham_BUS {
         return sanPhams;
     }
     
-    public void themSanPham(SanPham sp) {
-        quanLySanPham_DAO.addSanPham(sp);
+    public boolean themSanPham(SanPham sp) {
+        return quanLySanPham_DAO.addSanPham(sp);
     }
     
     public void suaSanPham(SanPham sp, String maspCu) {

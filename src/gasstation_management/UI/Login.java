@@ -31,6 +31,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -134,24 +136,24 @@ public class Login extends javax.swing.JFrame {
                 } else {
                     this.dispose();
                     JFrame frame = new JFrame();
+                    frame.setName("alo");
                     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     frame.setLayout(new BorderLayout());
-
-                    MainPanel pnlMain = new MainPanel();
-//        pnlMain.setLayout(new BorderLayout());
+                    MainPanel pnlMain = new MainPanel(frame);
                     pnlMain.setVisible(true);
                     //Làm gì thì add giao diện đó vào pnlMain
 //        PrivilegeManagementPanel privPanel = new PrivilegeManagementPanel();
 //        privPanel.setSize(privPanel.getPreferredSize());
 //        DanhSachQuyen_GUI test = new DanhSachQuyen_GUI();
 //        test.setSize(test.getPreferredSize());
-                    PrivilegeManagementPanel ui_qltk = new PrivilegeManagementPanel();
-                    ui_qltk.setSize(ui_qltk.getPreferredSize());
-
-                    pnlMain.getPnlMainContent().add(ui_qltk);
+//                    PrivilegeManagementPanel ui_qltk = new PrivilegeManagementPanel();
+//                    ui_qltk.setSize(ui_qltk.getPreferredSize());
+//
+//                    pnlMain.getPnlMainContent().add(ui_qltk);
                     frame.setSize(pnlMain.getPreferredSize());
                     frame.setLocationRelativeTo(null);
                     frame.add(pnlMain);
+                    pnlMain.setSide();
                     frame.setVisible(true);
                 }
 

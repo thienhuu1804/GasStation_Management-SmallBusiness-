@@ -10,6 +10,8 @@ import gasstation_management.DataTable;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -29,17 +31,29 @@ public class QuanLySanPham extends javax.swing.JPanel {
         table.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng"});
         table.setSize(table.getPreferredSize());
         setTableData();
-        
+        table.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
+                    txtMaSP.setText(table.getTable().getValueAt(table.getTable().getSelectedRow(), 0).toString());
+                    txtTenSP.setText(table.getTable().getValueAt(table.getTable().getSelectedRow(), 1).toString());
+                    txtSoLuong.setText(table.getTable().getValueAt(table.getTable().getSelectedRow(), 2).toString());
+                }
+            }
+        });
         tableSP.add(table);
     }
 
     public void setTableData() {
 //        int selected = cbTimKiem.getSelectedIndex();
         table.clear();
-        ArrayList dataList = new ArrayList<>();
+        ArrayList<SanPham> dataList = new ArrayList<>();
         dataList = quanLySanPham_BUS.getDanhSachSanPham();
         for (int i = 0; i < dataList.size(); i++) {
-            table.addRow((Vector) dataList.get(i));
+            Vector row = new Vector();
+            row.add(dataList.get(i).getMaSanPham());
+            row.add(dataList.get(i).getTenSanPham());
+            row.add(dataList.get(i).getSoLuong());
+            table.addRow(row);
         }
     }
 
@@ -184,14 +198,20 @@ public class QuanLySanPham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        SanPham sp = new SanPham();
-        sp.setMaSanPham(txtMaSP.getText());
-        sp.setTenSanPham(txtTenSP.getText());
-        sp.setSoLuong(Float.parseFloat(txtSoLuong.getText()));
-
-        quanLySanPham_BUS.themSanPham(sp);
-        
-        setTableData();
+        if (txtMaSP.getText().isEmpty() || txtTenSP.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Chưa nhập đủ thông tin cần thiết");
+        } else {
+            SanPham sp = new SanPham();
+            sp.setMaSanPham(txtMaSP.getText());
+            sp.setTenSanPham(txtTenSP.getText());
+            sp.setSoLuong(0);
+            if (quanLySanPham_BUS.themSanPham(sp)) {
+                JOptionPane.showMessageDialog(null, "Thêm thành công");
+            } else {
+                JOptionPane.showMessageDialog(null, "Thêm thất bại");
+            }
+            setTableData();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -201,7 +221,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
         int result = JOptionPane.showConfirmDialog(null,
                 "Bạn có muốn xóa không?", "Xác nhận xóa",
                 JOptionPane.YES_NO_OPTION);
-        if(result == JOptionPane.NO_OPTION)
+        if (result == JOptionPane.NO_OPTION)
             return;
         else if (result == JOptionPane.YES_OPTION) {
             quanLySanPham_BUS.xoaSanPham(sp.getMaSanPham());
@@ -213,12 +233,12 @@ public class QuanLySanPham extends javax.swing.JPanel {
         int index = table.getTable().getSelectedRow();
         if (index >= 0) {
             String maspCu = quanLySanPham_BUS.getMaSanPhamcu(index);
-            
+
             SanPham sp = new SanPham();
             sp.setMaSanPham(table.getTable().getValueAt(index, 0).toString());
-            sp.setTenSanPham(table.getTable().getValueAt(index, 0).toString());
-            sp.setSoLuong(Float.parseFloat(table.getTable().getValueAt(index, 0).toString()));
-            
+            sp.setTenSanPham(table.getTable().getValueAt(index, 1).toString());
+            sp.setSoLuong(Float.parseFloat(table.getTable().getValueAt(index, 2).toString()));
+
             quanLySanPham_BUS.suaSanPham(sp, maspCu);
             setTableData();
         }
