@@ -7,6 +7,7 @@ package gasstation_management.DAO;
 import gasstation_management.DBConnect;
 import gasstation_management.DTO.NhaCungCap;
 import gasstation_management.DTO.NhanVien;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -58,6 +59,26 @@ public class QuanLyNhaCungCap_DAO {
             stm.setString(2,ncc.getTenncc());
             stm.setString(3,ncc.getDiachi());
             stm.setString(4,ncc.getSDT());
+            return db.sqlUpdate(stm);
+        } catch (SQLException ex) {
+            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            db.closeConnection();
+        }
+    }
+
+    public Boolean updateInforNhaCungCap(NhaCungCap ncc) {
+        db.setupConnection();
+        try {
+            String sql = "update nhacungcap set tenncc=?, diachi=?, sdt=?  where mancc=?";
+            PreparedStatement stm = db.getConnection().prepareStatement(sql);
+
+            stm.setString(1,ncc.getTenncc());
+            stm.setString(2,ncc.getDiachi());
+           stm.setString(3,ncc.getSDT());
+           stm.setString(4,ncc.getMancc());
+            
             return db.sqlUpdate(stm);
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);

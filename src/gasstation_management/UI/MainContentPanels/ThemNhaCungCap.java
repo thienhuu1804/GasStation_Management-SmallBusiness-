@@ -25,7 +25,7 @@ public class ThemNhaCungCap extends javax.swing.JPanel {
     public ThemNhaCungCap(JDialog owner) {
                  this.owner = owner;
         initComponents();  
-        setSize(new Dimension(600, 400));
+        setSize(new Dimension(500, 400));
         String mancc = quanLyNhaCungCap_BUS.autoAddMancc();
       txtMancc.setText(mancc);
       txtMancc.setEditable(false);

@@ -71,5 +71,12 @@ public class QuanLyNhaCungCap_BUS {
         
         return "NCC".concat(y);
     }
+
+    public void updateNhaCungCap_BUS(NhaCungCap ncc) {
+        
+        
+        
+        quanLyNhaCungCap_DAO.updateInforNhaCungCap(ncc);
+    }
     
 }
