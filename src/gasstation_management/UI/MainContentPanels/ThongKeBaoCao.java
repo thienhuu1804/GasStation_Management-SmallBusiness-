@@ -199,6 +199,24 @@ public void setTableData()
 
     private void exportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportExcelActionPerformed
         // TODO add your handling code here:
+        
+        int rowCount =table.getTable().getRowCount();
+        XuatExcel xexcel = new XuatExcel();
+        Vector<String> indexMahd= new Vector<>();
+        System.out.println(rowCount);
+        for(int i=0;i<rowCount;i++)
+        {
+            indexMahd.add(table.getTable().getValueAt(i, 1).toString());
+        }
+        if(cbbHinhThuc.getSelectedIndex()==0)
+        {
+        xexcel.xuatFileThongKePhieuNhap(cbbHinhThuc.getSelectedIndex(),txtTimKiem.getText(),dateStart.getDate(),dateEnd.getDate());
+        }
+        else
+        {
+                    xexcel.xuatFileThongKeBanRa(cbbHinhThuc.getSelectedIndex(),txtTimKiem.getText(),dateStart.getDate(),dateEnd.getDate());
+
+        }
     }//GEN-LAST:event_exportExcelActionPerformed
 
     private void dateStartPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateStartPropertyChange
