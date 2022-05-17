@@ -9,6 +9,7 @@ import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
 import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DBConnect;
 import gasstation_management.DTO.TaiKhoan;
+import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyTaiKhoan;
 import gasstation_management.UI.Shared.MainPanel;
 import java.awt.BorderLayout;
@@ -144,7 +145,7 @@ public class Login extends javax.swing.JFrame {
 //        privPanel.setSize(privPanel.getPreferredSize());
 //        DanhSachQuyen_GUI test = new DanhSachQuyen_GUI();
 //        test.setSize(test.getPreferredSize());
-                    QuanLyTaiKhoan ui_qltk = new QuanLyTaiKhoan();
+                    PrivilegeManagementPanel ui_qltk = new PrivilegeManagementPanel();
                     ui_qltk.setSize(ui_qltk.getPreferredSize());
 
                     pnlMain.getPnlMainContent().add(ui_qltk);

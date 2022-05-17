@@ -55,7 +55,7 @@ public class QuanLyQuyenTaiKhoan_DAO {
     ArrayList<String> result = new ArrayList<>();
         db.setupConnection();
         try {
-            PreparedStatement stm = db.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhoan_quyen.maquyen=quyen.maquyen and taikhoan_quyen.tendangnhap =");
+            PreparedStatement stm = db.getConnection().prepareStatement("select quyen.motaquyen from taikhoan_quyen,quyen where taikhoan_quyen.maquyen=quyen.maquyen and taikhoan_quyen.tendangnhap =?");
             stm.setString(1,accountName);
             rs =  stm.executeQuery();
                 while (rs.next()) {
