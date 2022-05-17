@@ -40,6 +40,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
         table.setSize(table.getPreferredSize());
         setTableData();
 
+
         table.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting() && table.getSelectedRow() != -1) {
@@ -49,12 +50,14 @@ public class QuanLySanPham extends javax.swing.JPanel {
                 }
             }
         });
+
         tableSP.add(table);
     }
 
     public void setTableData() {
 //        int selected = cbTimKiem.getSelectedIndex();
         table.clear();
+
         ArrayList<SanPham> dataList = new ArrayList<>();
         dataList = quanLySanPham_BUS.getDanhSachSanPham();
         for (int i = 0; i < dataList.size(); i++) {
@@ -63,7 +66,17 @@ public class QuanLySanPham extends javax.swing.JPanel {
             row.add(dataList.get(i).getTenSanPham());
             row.add(dataList.get(i).getSoLuong());
             table.addRow(row);
+
         }
+        
+        if(cbHinhThuc.getSelectedIndex() != 0) {
+            dataList = quanLySanPham_BUS.getDanhSachSanPham(cbHinhThuc.getSelectedIndex(), txtTimKiem.getText());
+            for (int i = 0; i < dataList.size(); i++) {
+                table.addRow((Vector) dataList.get(i));
+            }
+        }
+        
+        
     }
 
     public JDialog showAddFrame(NhaCungCap ncc) {
@@ -100,9 +113,11 @@ public class QuanLySanPham extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
+
         btnLichSuGia = new javax.swing.JButton();
         txtTenSP = new javax.swing.JTextField();
         txtGia = new javax.swing.JTextField();
+
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -136,23 +151,28 @@ public class QuanLySanPham extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLichSuGia, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
                 .addContainerGap(31, Short.MAX_VALUE))
+
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLichSuGia, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(71, Short.MAX_VALUE))
         );
+
 
         txtTenSP.setBorder(javax.swing.BorderFactory.createTitledBorder("Tên sản phẩm"));
 
@@ -162,6 +182,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
                 txtGiaActionPerformed(evt);
             }
         });
+
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,15 +196,18 @@ public class QuanLySanPham extends javax.swing.JPanel {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+
                     .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -197,6 +221,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
                                 .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -225,7 +250,9 @@ public class QuanLySanPham extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tableSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tableSP, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,6 +267,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+
         if (txtMaSP.getText().isEmpty() || txtTenSP.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Chưa nhập đủ thông tin cần thiết");
         } else {
@@ -252,6 +280,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(null, "Thêm thất bại");
             }
+
             setTableData();
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -262,14 +291,17 @@ public class QuanLySanPham extends javax.swing.JPanel {
             String maspCu = quanLySanPham_BUS.getMaSanPhamcu(index);
 
             SanPham sp = new SanPham();
+
             sp.setMaSanPham(txtMaSP.getText());
             sp.setTenSanPham(txtTenSP.getText());
             sp.setSoLuong(Float.parseFloat(txtSoLuong.getText()));
+
 
             quanLySanPham_BUS.suaSanPham(sp, maspCu);
             setTableData();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
+
 
     private void btnLichSuGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLichSuGiaActionPerformed
         // TODO add your handling code here:
@@ -280,10 +312,12 @@ public class QuanLySanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_txtGiaActionPerformed
 
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLichSuGia;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -293,5 +327,6 @@ public class QuanLySanPham extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaSP;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }
