@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class QuanLyPhieuNhap_DAO {
       DBConnect db = new DBConnect();
     ResultSet rs = null;
+    // Lấy thông tin của các phiếu nhập
     public ArrayList getALLPhieuNhap() {
         
         ArrayList result = new ArrayList<>();
@@ -49,7 +50,7 @@ System.out.println("Lỗi");
         }
         return result;
     }
-
+// Lấy thông tin chi tiết của phiếu nhập
     public ArrayList getDetailPhieuNhap(String mapn) {
         
         ArrayList result = new ArrayList<>();
@@ -179,7 +180,7 @@ System.out.println("Lỗi");
         }
         return result;
     }
-
+// Hàm thêm phiếu nhập
     public boolean addPhieuNhap(PhieuNhap pn) {
         
         db.setupConnection();
@@ -205,5 +206,42 @@ System.out.println("Lỗi");
             db.closeConnection();
         }
     }
-    
-}
+   // Lấy thông tin để xuất excel
+    public ArrayList getALLPhieuNhap2() {
+        
+         ArrayList result = new ArrayList<>();
+        db.setupConnection();
+        
+        try {
+            PreparedStatement stm = db.getConnection().prepareStatement("select phieunhap.mapn,sanpham.tensp,nhacungcap.tenncc,nhanvien.tennv,phieunhap.soluong,phieunhap.gianhap,phieunhap.ngaytao,phieunhap.trangthai, phieunhap.tongtien from phieunhap, sanpham,nhanvien,nhacungcap where phieunhap.masp=sanpham.masp and phieunhap.manv=nhanvien.manv and phieunhap.mancc=nhacungcap.mancc");
+            rs = db.sqlQry(stm);
+                                System.out.println(rs);
+            if (rs != null) {
+                while (rs.next()) {
+                   
+                    Vector arr = new Vector();
+                    arr.add(rs.getString(1));
+                    arr.add(rs.getString(2));
+                    arr.add(rs.getString(3));
+                    arr.add(rs.getString(4));
+                    arr.add(Integer.toString(rs.getInt(5)));
+                    arr.add(Integer.toString(rs.getInt(6)));
+                    arr.add(rs.getString(7));
+                    arr.add(rs.getString(8));
+                    arr.add(rs.getString(9));
+
+                    result.add(arr);
+                }
+            }
+        } catch (SQLException ex) {
+//            Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);
+System.out.println("Lỗi");
+        }finally{
+            db.closeConnection();
+        }
+        return result;
+    }
+        
+        
+    }
+   

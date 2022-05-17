@@ -6,9 +6,7 @@ package gasstation_management.BUS;
 
 import java.util.ArrayList;
 import gasstation_management.DAO.QuanLyPhieuNhap_DAO;
-import gasstation_management.DTO.HoaDon;
 import gasstation_management.DTO.PhieuNhap;
-import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
 /**
@@ -18,6 +16,7 @@ import java.util.Vector;
 public class QuanLyPhieuNhap_BUS {
 
     QuanLyPhieuNhap_DAO quanLyPhieuNhap_DAO= new QuanLyPhieuNhap_DAO();
+    // Lấy danh sách phiếu nhập dựa trên điều kiện
     public ArrayList getDanhSanhPhieuNhap(int selected, String text) {
           ArrayList<PhieuNhap> listPhieuNhap = new ArrayList();
           
@@ -84,7 +83,7 @@ public class QuanLyPhieuNhap_BUS {
             }
         return arrlist;
     }
-
+    // Lấy danh sách chi tiết phiếu nhập
     public ArrayList getDetailPhieuNhap_BUS(String mapn) {
         ArrayList listDetailPhieuNhap = new ArrayList();
         
@@ -120,13 +119,36 @@ public class QuanLyPhieuNhap_BUS {
         }
         return true;
     }
-
+// hàm thêm phiếu nhập
     public void addPhieuNhap_BUS(PhieuNhap pn) {
         quanLyPhieuNhap_DAO.addPhieuNhap(pn);
         System.out.println(pn.getMancc());
                 System.out.println(pn.getMasp());
         System.out.println(pn.getManv());
 
+    }
+   // Lấy thông tin của các phiếu nhập để xuất ra excel
+    public ArrayList getPhieuNhap_BUS(Vector indexMapn) {
+        
+        ArrayList list = new ArrayList();
+                     list=   quanLyPhieuNhap_DAO.getALLPhieuNhap2();
+                     ArrayList result = new ArrayList();
+                  for (int j=0;j<list.size();j++)
+                  {
+                        Vector<String> x = new Vector<>();
+                             x = (Vector) list.get(j);
+                      for(int i=0;i<indexMapn.size();i++)
+                       {
+//                                                 System.out.println(indexMapn.get(i));
+                          String y=              (String) indexMapn.get(i);
+                          if(x.get(0).equals(y)==true)
+                           {
+                               System.out.println("Vuong");
+                             result.add(x);
+                           }
+                       }
+              }
+        return result;
     }
     
     

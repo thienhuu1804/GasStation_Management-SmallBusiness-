@@ -23,6 +23,7 @@ import gasstation_management.DTO.NhanVien;
 import gasstation_management.DTO.PhieuNhap;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import gasstation_management.XuatExcel;
 
 /**
  *
@@ -147,6 +148,7 @@ public void setTableData()
         txtTimKiem = new javax.swing.JTextField();
         btnXemChiTiet = new javax.swing.JButton();
         btnThemPhieuNhap = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         cbbTimKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder("Loại tìm kiếm"));
@@ -176,6 +178,13 @@ public void setTableData()
             }
         });
 
+        jButton1.setText("Xuất Excel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,8 +198,14 @@ public void setTableData()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 43, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jButton1)))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnXemChiTiet)
                                     .addComponent(btnThemPhieuNhap))
@@ -215,7 +230,9 @@ public void setTableData()
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnThemPhieuNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
                         .addGap(37, 37, 37)))
                 .addComponent(scrollTable, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -254,11 +271,26 @@ public void setTableData()
             });   
     }//GEN-LAST:event_btnThemPhieuNhapActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        int rowCount =table.getTable().getRowCount();
+        XuatExcel xexcel = new XuatExcel();
+        Vector<String> indexMapn= new Vector<>();
+        System.out.println(rowCount);
+        for(int i=0;i<rowCount;i++)
+        {
+            indexMapn.add(table.getTable().getValueAt(i, 1).toString());
+        }
+        xexcel.xuatFilePhieuNhap(indexMapn);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThemPhieuNhap;
     private javax.swing.JButton btnXemChiTiet;
     private javax.swing.JComboBox<String> cbbTimKiem;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private java.awt.ScrollPane scrollTable;
     private javax.swing.JTextField txtTimKiem;
