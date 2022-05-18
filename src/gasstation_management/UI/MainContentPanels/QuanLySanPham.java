@@ -59,7 +59,7 @@ public class QuanLySanPham extends javax.swing.JPanel {
         table.clear();
 
         ArrayList<SanPham> dataList = new ArrayList<>();
-        dataList = quanLySanPham_BUS.getDanhSachSanPham();
+        dataList = quanLySanPham_BUS.getDanhSachSanPham(0,"");
         for (int i = 0; i < dataList.size(); i++) {
             Vector row = new Vector();
             row.add(dataList.get(i).getMaSanPham());
@@ -69,12 +69,12 @@ public class QuanLySanPham extends javax.swing.JPanel {
 
         }
         
-        if(cbHinhThuc.getSelectedIndex() != 0) {
-            dataList = quanLySanPham_BUS.getDanhSachSanPham(cbHinhThuc.getSelectedIndex(), txtTimKiem.getText());
-            for (int i = 0; i < dataList.size(); i++) {
-                table.addRow((Vector) dataList.get(i));
-            }
-        }
+//        if(cbHinhThuc.getSelectedIndex() != 0) {
+//            dataList = quanLySanPham_BUS.getDanhSachSanPham(cbHinhThuc.getSelectedIndex(), txtTimKiem.getText());
+//            for (int i = 0; i < dataList.size(); i++) {
+//                table.addRow((Vector) dataList.get(i));
+//            }
+//        }
         
         
     }
