@@ -9,6 +9,7 @@ import gasstation_management.BUS.QuanLyTaiKhoan_BUS;
 import gasstation_management.DAO.QuanLyTaiKhoan_DAO;
 import gasstation_management.DBConnect;
 import gasstation_management.DTO.TaiKhoan;
+import gasstation_management.Main;
 import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyTaiKhoan;
 import gasstation_management.UI.Shared.MainPanel;
@@ -18,6 +19,7 @@ import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
+import static gasstation_management.Main.TenDangNhap;
 
 /**
  *
@@ -33,6 +35,7 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+        
     }
 
     /**
@@ -134,9 +137,11 @@ public class Login extends javax.swing.JFrame {
                 if (account == null) {
                     JOptionPane.showMessageDialog(rootPane, "Tên đăng nhập hoặc mật khẩu sai", "Lỗi đăng nhập", JOptionPane.INFORMATION_MESSAGE);
                 } else {
+                    
                     this.dispose();
+                    Main.TenDangNhap = txUsername.getText();
                     JFrame frame = new JFrame();
-                    frame.setName("alo");
+//                    frame.setName("alo");
                     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     frame.setLayout(new BorderLayout());
                     MainPanel pnlMain = new MainPanel(frame);

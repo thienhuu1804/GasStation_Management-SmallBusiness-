@@ -38,6 +38,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+     public static String TenDangNhap ; 
 
     public static void main(String[] args) {
 Login lg = new Login();

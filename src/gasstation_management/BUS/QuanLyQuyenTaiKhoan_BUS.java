@@ -99,7 +99,7 @@ public class QuanLyQuyenTaiKhoan_BUS {
     }
    // Lấy danh sách quyền của tài khoản được chọn
     public ArrayList getPrivilegeListOfAccount(String accountName){
-         ArrayList list = new ArrayList<>();
+         ArrayList<String> list = new ArrayList<>();
             list = quanLyQuyenTaiKhoan_DAO.getQuyenCuaMotTaiKhoan(accountName);
         return list;
     }
