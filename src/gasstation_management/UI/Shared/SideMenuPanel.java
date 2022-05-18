@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static gasstation_management.Main.TenDangNhap;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -60,7 +61,7 @@ public class SideMenuPanel extends javax.swing.JPanel {
         this.pnlContent = pnlContent;
         createMenuButtons();
         setColorBack();
-        enableAllBtn();
+//        enableAllBtn();
     }
 
     public void addItem(JButton item, boolean fullWidth) {
