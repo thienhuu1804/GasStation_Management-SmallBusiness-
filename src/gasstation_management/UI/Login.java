@@ -158,7 +158,7 @@ public class Login extends javax.swing.JFrame {
                     frame.setSize(pnlMain.getPreferredSize());
                     frame.setLocationRelativeTo(null);
                     frame.add(pnlMain);
-                    pnlMain.setSide();
+//                    pnlMain.setSide();
                     frame.setVisible(true);
                 }
 

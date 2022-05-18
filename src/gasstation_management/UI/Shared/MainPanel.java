@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import gasstation_management.UI.Login;
 import static gasstation_management.Main.TenDangNhap;
 import java.awt.Color;
+import java.awt.ScrollPane;
 
 public class MainPanel extends javax.swing.JPanel {
 
@@ -25,6 +26,7 @@ public class MainPanel extends javax.swing.JPanel {
         pnlAccountInfo.setBackground(Color.BLACK);
         this.frame = frame;
         lbTenDangNhap.setText(TenDangNhap);
+        setSide();
         
     }
 
@@ -40,7 +42,7 @@ public class MainPanel extends javax.swing.JPanel {
         return pnlAccountInfo;
     }
 
-    public JScrollPane getPnlSideMenu() {
+    public ScrollPane getPnlSideMenu() {
         return pnlSideMenu;
     }
 
@@ -57,7 +59,7 @@ public class MainPanel extends javax.swing.JPanel {
         lbTenDangNhap = new javax.swing.JLabel();
         btnDangXuat = new javax.swing.JButton();
         pnlMainContent = new javax.swing.JPanel();
-        pnlSideMenu = new javax.swing.JScrollPane();
+        pnlSideMenu = new java.awt.ScrollPane();
 
         setMinimumSize(new java.awt.Dimension(893, 546));
         setName(""); // NOI18N
@@ -92,41 +94,38 @@ public class MainPanel extends javax.swing.JPanel {
                 .addComponent(lbTenDangNhap)
                 .addGap(18, 18, 18)
                 .addComponent(btnDangXuat)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlMainContentLayout = new javax.swing.GroupLayout(pnlMainContent);
         pnlMainContent.setLayout(pnlMainContentLayout);
         pnlMainContentLayout.setHorizontalGroup(
             pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 710, Short.MAX_VALUE)
+            .addGap(0, 706, Short.MAX_VALUE)
         );
         pnlMainContentLayout.setVerticalGroup(
             pnlMainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        pnlSideMenu.setBackground(new java.awt.Color(255, 255, 255));
-        pnlSideMenu.setAutoscrolls(true);
-        pnlSideMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlAccountInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlSideMenu))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlAccountInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlSideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlMainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlAccountInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlSideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
+                .addComponent(pnlSideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addComponent(pnlMainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -144,6 +143,6 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lbTenDangNhap;
     private javax.swing.JPanel pnlAccountInfo;
     private javax.swing.JPanel pnlMainContent;
-    private javax.swing.JScrollPane pnlSideMenu;
+    private java.awt.ScrollPane pnlSideMenu;
     // End of variables declaration//GEN-END:variables
 }
