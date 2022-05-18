@@ -66,6 +66,25 @@ Login lg = new Login();
 //        ThongKeBaoCao tkbc = new ThongKeBaoCao();
 //        tkbc.setSize(tkbc.getPreferredSize());
 //          
+//<<<<<<< HEAD
+//        QuanLyNhanVien qlnv = new QuanLyNhanVien();
+//        qlnv.setSize(qlnv.getPreferredSize());
+//        TraCuuHoaDon tchd = new TraCuuHoaDon();
+//        tchd.setSize(tchd.getPreferredSize());
+//        ThongKeBaoCao tkbc = new ThongKeBaoCao();
+//        tkbc.setSize(tkbc.getPreferredSize());
+//          
+//        QuanLyPhieuNhap qlpn = new QuanLyPhieuNhap();
+//        qlpn.setSize(qlpn.getPreferredSize());
+//    
+//         QuanLyNhaCungCap qlncc = new QuanLyNhaCungCap();
+//         qlncc.setSize(qlncc.getPreferredSize());
+//        pnlMain.getPnlMainContent().add(qlpn);
+//        frame.setSize(pnlMain.getPreferredSize());
+//        frame.setLocationRelativeTo(null);
+//        frame.add(pnlMain);
+//        frame.setVisible(true);
+//=======
 //        QuanLyPhieuNhap qlpn = new QuanLyPhieuNhap();
 //        qlpn.setSize(qlpn.getPreferredSize());
 //    
@@ -76,6 +95,7 @@ Login lg = new Login();
 //        frame.setLocationRelativeTo(null);
 //        frame.add(pnlMain);
 //        frame.setVisible(true);
+//>>>>>>> master
 
 //        System.out.println(LocalDateTime.now().format(DATETIME_FORMATTER));
 //        QuanLyQuyenTaiKhoan_BUS qltk = new QuanLyQuyenTaiKhoan_BUS();
