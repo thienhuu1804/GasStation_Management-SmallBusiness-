@@ -9,20 +9,23 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import gasstation_management.UI.Login;
+import static gasstation_management.Main.TenDangNhap;
+import java.awt.Color;
 
-/**
- *
- * @author nguye
- */
 public class MainPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form SideMenuPanel
      */
     JFrame frame;
+    Login lb = new Login();
     public MainPanel(JFrame frame) {
         initComponents();
+        pnlAccountInfo.setBackground(Color.BLACK);
         this.frame = frame;
+        lbTenDangNhap.setText(TenDangNhap);
+        
     }
 
     public void setSide() {
@@ -51,21 +54,45 @@ public class MainPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlAccountInfo = new javax.swing.JPanel();
+        lbTenDangNhap = new javax.swing.JLabel();
+        btnDangXuat = new javax.swing.JButton();
         pnlMainContent = new javax.swing.JPanel();
         pnlSideMenu = new javax.swing.JScrollPane();
 
         setMinimumSize(new java.awt.Dimension(893, 546));
         setName(""); // NOI18N
 
+        lbTenDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbTenDangNhap.setForeground(new java.awt.Color(255, 255, 255));
+        lbTenDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTenDangNhap.setText("Tên đăng nhập");
+
+        btnDangXuat.setText("Đăng xuất");
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAccountInfoLayout = new javax.swing.GroupLayout(pnlAccountInfo);
         pnlAccountInfo.setLayout(pnlAccountInfoLayout);
         pnlAccountInfoLayout.setHorizontalGroup(
             pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnlAccountInfoLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbTenDangNhap)
+                    .addComponent(btnDangXuat))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlAccountInfoLayout.setVerticalGroup(
             pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 103, Short.MAX_VALUE)
+            .addGroup(pnlAccountInfoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(lbTenDangNhap)
+                .addGap(18, 18, 18)
+                .addComponent(btnDangXuat)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlMainContentLayout = new javax.swing.GroupLayout(pnlMainContent);
@@ -90,7 +117,7 @@ public class MainPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlAccountInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlSideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+                    .addComponent(pnlSideMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlMainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -104,8 +131,17 @@ public class MainPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        // TODO add your handling code here:
+        TenDangNhap="";
+        frame.dispose();
+        new Login();
+    }//GEN-LAST:event_btnDangXuatActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDangXuat;
+    private javax.swing.JLabel lbTenDangNhap;
     private javax.swing.JPanel pnlAccountInfo;
     private javax.swing.JPanel pnlMainContent;
     private javax.swing.JScrollPane pnlSideMenu;

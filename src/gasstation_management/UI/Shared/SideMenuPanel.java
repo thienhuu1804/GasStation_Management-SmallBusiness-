@@ -5,6 +5,7 @@
  */
 package gasstation_management.UI.Shared;
 
+import gasstation_management.BUS.QuanLyQuyenTaiKhoan_BUS;
 import gasstation_management.UI.MainContentPanels.PrivilegeManagementPanel;
 import gasstation_management.UI.MainContentPanels.QuanLyNhaCungCap;
 import gasstation_management.UI.MainContentPanels.QuanLyNhanVien;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static gasstation_management.Main.TenDangNhap;
 
 /**
  *
@@ -40,6 +42,14 @@ public class SideMenuPanel extends javax.swing.JPanel {
     JPanel showingPanel;
     JPanel pnlContent;
     JFrame mainFrame;
+        JButton btnHoaDon = new JButton("Hoá Đơn");
+        JButton btnPhieuNhap = new JButton("Phiếu nhập");
+        JButton btnSanPham = new JButton("Sản phẩm");
+        JButton btnTaiKhoan = new JButton("Tài khoản");
+        JButton btnPhanQuyen = new JButton("Phân quyền");
+        JButton btnNhanVien = new JButton("Nhân viên");
+        JButton btnThongKe = new JButton("Thống kê");
+        JButton btnNhaCungCap = new JButton("Nhà cung cấp");
 
     public SideMenuPanel( JFrame frame, JPanel pnlContent) {
         initComponents();
@@ -49,6 +59,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
         this.mainFrame = frame;
         this.pnlContent = pnlContent;
         createMenuButtons();
+        setColorBack();
+        enableAllBtn();
     }
 
     public void addItem(JButton item, boolean fullWidth) {
@@ -64,7 +76,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
     }
 
     private void createMenuButtons() {
-        JButton btnHoaDon = new JButton("Hoá Đơn");
+        
+        
         btnHoaDon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +86,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setVisible(true);
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel); 
+                setColorBack();
+                btnHoaDon.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
 //                mainFrame.pack();
@@ -80,7 +95,6 @@ public class SideMenuPanel extends javax.swing.JPanel {
             }
         });
         
-        JButton btnPhieuNhap = new JButton("Phiếu nhập");
         btnPhieuNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,11 +102,12 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setSize(showingPanel.getPreferredSize());
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel);
+                setColorBack();
+                btnPhieuNhap.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
             }
         });
-        JButton btnSanPham = new JButton("Sản phẩm");
         btnSanPham.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,11 +115,12 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setSize(showingPanel.getPreferredSize());
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel);
+                setColorBack();
+                btnSanPham.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
             }
         });
-        JButton btnTaiKhoan = new JButton("Tài khoản");
         btnTaiKhoan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,11 +128,12 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setSize(showingPanel.getPreferredSize());
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel);
+                setColorBack();
+                btnTaiKhoan.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
             }
         });
-        JButton btnPhanQuyen = new JButton("Phân quyền");
         btnPhanQuyen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,12 +141,13 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setSize(showingPanel.getPreferredSize());
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel);
+                setColorBack();
+                btnPhanQuyen.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
             }
         });
         
-        JButton btnNhanVien = new JButton("Nhân viên");
         btnNhanVien.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,11 +155,12 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setSize(showingPanel.getPreferredSize());
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel);
+                setColorBack();
+                btnNhanVien.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
             }
         });
-        JButton btnNhaCungCap = new JButton("Nhà cung cấp");
         btnNhaCungCap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -149,12 +168,13 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setSize(showingPanel.getPreferredSize());
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel);
+                setColorBack();
+                btnNhaCungCap.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
             }
         });
         
-        JButton btnThongKe = new JButton("Thống kê");
         btnThongKe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,6 +182,8 @@ public class SideMenuPanel extends javax.swing.JPanel {
                 showingPanel.setSize(showingPanel.getPreferredSize());
                 pnlContent.removeAll();
                 pnlContent.add(showingPanel);
+                setColorBack();
+                btnThongKe.setBackground(Color.red);
                 mainFrame.revalidate();
                 mainFrame.repaint();
             }
@@ -179,7 +201,97 @@ public class SideMenuPanel extends javax.swing.JPanel {
         addItem(btnPhanQuyen, true);
         addItem(btnThongKe, true);
     }
+    public void enableAllBtn()
+    {
+        btnHoaDon.setEnabled(false);
+        btnNhaCungCap.setEnabled(false);
+        btnNhanVien.setEnabled(false);
+        btnPhanQuyen.setEnabled(false);
+        btnPhieuNhap.setEnabled(false);
+        btnSanPham.setEnabled(false);
+        btnTaiKhoan.setEnabled(false);
+        btnThongKe.setEnabled(false);
+        
+        QuanLyQuyenTaiKhoan_BUS quanLyQuyenTaiKhoan_BUS = new QuanLyQuyenTaiKhoan_BUS();
+       ArrayList<String> list = quanLyQuyenTaiKhoan_BUS.getPrivilegeListOfAccount(TenDangNhap);
+       for(String i: list)
+       {
+           if(i.equalsIgnoreCase("quản lý tài khoản"))
+           {
+               btnTaiKhoan.setEnabled(true);
+           }
+            if(i.equalsIgnoreCase("quản lý nhà cung cấp"))
+           {
+               btnNhaCungCap.setEnabled(true);
+           } if(i.equalsIgnoreCase("quản lý sản phẩm"))
+           {
+               btnSanPham.setEnabled(true);
+           } if(i.equalsIgnoreCase("thống kê báo cáo"))
+           {
+               btnThongKe.setEnabled(true);
+           } if(i.equalsIgnoreCase("quản lý nhân viên"))
+           {
+               btnNhanVien.setEnabled(true);
+           } if(i.equalsIgnoreCase("quản lý phiếu nhập"))
+           {
+               btnPhieuNhap.setEnabled(true);
+           } if(i.equalsIgnoreCase("tra cứu hoá đơn"))
+           {
+               btnHoaDon.setEnabled(true);
+           }
+           if(i.equalsIgnoreCase("quản lý quyền"))
+           {
+               btnPhanQuyen.setEnabled(true);
+           }
+           
+       }
+//quản lý nhà cung 
+//quản lý sản phẩm
+//thống kê báo cáo
+//quản lý nhân viên
+//quản lý phiếu nhập
+//tra cứu hoá đơn
+//quản lý quyền
 
+    }
+  public void setColorBack()
+  {
+      btnHoaDon.setBackground(Color.BLACK);
+        btnHoaDon.setForeground(Color.WHITE);
+        btnHoaDon.setOpaque(true);
+        
+        
+         btnNhaCungCap.setBackground(Color.BLACK);
+        btnNhaCungCap.setForeground(Color.WHITE);
+        btnNhaCungCap.setOpaque(true);
+        
+         btnNhanVien.setBackground(Color.BLACK);
+        btnNhanVien.setForeground(Color.WHITE);
+        btnNhanVien.setOpaque(true);
+        
+         btnPhanQuyen.setBackground(Color.BLACK);
+        btnPhanQuyen.setForeground(Color.WHITE);
+        btnPhanQuyen.setOpaque(true);
+        
+         btnPhieuNhap.setBackground(Color.BLACK);
+        btnPhieuNhap.setForeground(Color.WHITE);
+        btnPhieuNhap.setOpaque(true);
+        
+         btnSanPham.setBackground(Color.BLACK);
+        btnSanPham.setForeground(Color.WHITE);
+        btnSanPham.setOpaque(true);
+        
+         btnTaiKhoan.setBackground(Color.BLACK);
+        btnTaiKhoan.setForeground(Color.WHITE);
+        btnTaiKhoan.setOpaque(true);
+        
+         btnThongKe.setBackground(Color.BLACK);
+        btnThongKe.setForeground(Color.WHITE);
+        btnThongKe.setOpaque(true);
+        
+    
+        
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
