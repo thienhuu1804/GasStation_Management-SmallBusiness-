@@ -36,7 +36,6 @@ public class TaoHoaDon extends javax.swing.JPanel {
 
         scrollTable = new java.awt.ScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        txtMaTruBom = new javax.swing.JTextField();
         txtMaHD = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtMaSP1 = new javax.swing.JTextField();
@@ -45,8 +44,6 @@ public class TaoHoaDon extends javax.swing.JPanel {
         txtTongTien = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
-
-        txtMaTruBom.setBorder(javax.swing.BorderFactory.createTitledBorder("Mã trụ bơm"));
 
         txtMaHD.setBorder(javax.swing.BorderFactory.createTitledBorder("Mã hóa đơn"));
 
@@ -75,7 +72,6 @@ public class TaoHoaDon extends javax.swing.JPanel {
                         .addGap(169, 169, 169)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addComponent(txtMaTruBom)
                     .addComponent(dateNgay, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                     .addComponent(txtTongTien))
                 .addGap(99, 99, 99))
@@ -84,9 +80,7 @@ public class TaoHoaDon extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtMaHD)
-                    .addComponent(txtMaTruBom))
+                .addComponent(txtMaHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -154,7 +148,6 @@ public class TaoHoaDon extends javax.swing.JPanel {
         HoaDon hd = new HoaDon();
         hd.setMahd(txtMaHD.getText());
         hd.setMasp(txtMaSP1.getText());
-        hd.setMatrubom(txtMaTruBom.getText());
         hd.setNgaytao(dateNgay.getDateFormatString());
         hd.setTongtien(txtTongTien.getText());
         if (taoHoaDon_BUS.addHoaDon(hd))
@@ -174,7 +167,6 @@ public class TaoHoaDon extends javax.swing.JPanel {
     private java.awt.ScrollPane scrollTable;
     private javax.swing.JTextField txtMaHD;
     private javax.swing.JTextField txtMaSP1;
-    private javax.swing.JTextField txtMaTruBom;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables

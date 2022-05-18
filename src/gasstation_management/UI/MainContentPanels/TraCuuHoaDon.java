@@ -56,6 +56,7 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
     TraCuuHoaDon_BUS traCuuHoaDon_BUS = new TraCuuHoaDon_BUS();
 
     DataTable table = new DataTable();
+
     public TraCuuHoaDon() {
         initComponents();
 //        modifypanel.setVisible(false);
@@ -86,51 +87,47 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         cbbTimkiem.addItem("Tất cả");
         cbbTimkiem.addItem("Theo mã hóa đơn ");
         cbbTimkiem.addItem("Theo mã sản phẩm");
-        table.setHeaders(new String[]{"STT","Mã hd", "Mã tb", "Mã sp", "Ngay Tạo","Số lượng","Tổng tiền"});
+        table.setHeaders(new String[]{"STT", "Mã hd", "Mã sp", "Ngay Tạo", "Số lượng", "Tổng tiền"});
         table.setSize(table.getPreferredSize());
         table.getTable().setAutoCreateRowSorter(true);
 
-
         setTableData();
         // Dòng này chỉnh tỉ lệ các cột
-        table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5,1,1,1,2,1,2});
+        table.setJTableColumnsWidth(table.getWidth(), new double[]{0.5, 1, 1, 1, 2, 1, 2});
         scrollTable.add(table);
     }
- public void setTableData()
-    {  
-    // Do something with sqldate
+
+    public void setTableData() {
+        // Do something with sqldate
 
         int selected = cbbTimkiem.getSelectedIndex();
-        if(selected==0)
-        {
+        if (selected == 0) {
             txtTimkiem.setEditable(false);
         }
-        if(selected==1)
-        {
+        if (selected == 1) {
             txtTimkiem.setEditable(true);
         }
-        if(selected==2)
-        {
-                        txtTimkiem.setEditable(true);
+        if (selected == 2) {
+            txtTimkiem.setEditable(true);
 
         }
         table.clear();
         ArrayList dataList = new ArrayList<>();
-      dataList=traCuuHoaDon_BUS.getDanhSanhHoaDon(selected,txtTimkiem.getText(),dateStart.getDate(),dateEnd.getDate());
-      for(int i=0;i<dataList.size();i++)
-      { 
-          table.addRow((Vector) dataList.get(i));
-      }
-      }
- public JDialog showChangePwdFrame(String mahd) {
+        dataList = traCuuHoaDon_BUS.getDanhSanhHoaDon(selected, txtTimkiem.getText(), dateStart.getDate(), dateEnd.getDate());
+        for (int i = 0; i < dataList.size(); i++) {
+            table.addRow((Vector) dataList.get(i));
+        }
+    }
+
+    public JDialog showChangePwdFrame(String mahd) {
         Window win = SwingUtilities.getWindowAncestor(this);
         JDialog changePwdDialog = new JDialog(win, Dialog.ModalityType.APPLICATION_MODAL);
 //        changePwdDialog.setUndecorated(true);
 
         changePwdDialog.setLayout(new BorderLayout());
         changePwdDialog.setBackground(Color.yellow);
-       System.out.println(mahd);
-        DetailHoaDon pnlXemChiTietHoaDon = new DetailHoaDon(changePwdDialog,mahd);
+        System.out.println(mahd);
+        DetailHoaDon pnlXemChiTietHoaDon = new DetailHoaDon(changePwdDialog, mahd);
         changePwdDialog.setSize(pnlXemChiTietHoaDon.getSize());
         changePwdDialog.add(pnlXemChiTietHoaDon);
         changePwdDialog.setLocationRelativeTo(this);
@@ -138,7 +135,7 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
         changePwdDialog.setVisible(true);
         return changePwdDialog;
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -256,56 +253,52 @@ public class TraCuuHoaDon extends javax.swing.JPanel {
     private void dateStartPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateStartPropertyChange
         // TODO add your handling code here:
         setTableData();
-    
+
     }//GEN-LAST:event_dateStartPropertyChange
 
     private void dateEndPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateEndPropertyChange
-     setTableData();
+        setTableData();
     }//GEN-LAST:event_dateEndPropertyChange
 
     private void cbbTimkiemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbTimkiemItemStateChanged
         // TODO add your handling code here:
-       dateStart.setCalendar(null);
-       dateEnd.setCalendar(null);
-       txtTimkiem.setText("");
+        dateStart.setCalendar(null);
+        dateEnd.setCalendar(null);
+        txtTimkiem.setText("");
     }//GEN-LAST:event_cbbTimkiemItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         dateStart.setCalendar(null);
-       dateEnd.setCalendar(null);
-       setTableData();
+        dateEnd.setCalendar(null);
+        setTableData();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         // TODO add your handling code here:
-        
-        
-         HoaDon hd = new HoaDon();
-         
-         
-         
-         int indexRow = table.getTable().getSelectedRow();
-         hd.setMahd(table.getTable().getValueAt(indexRow, 1).toString());
 
+        HoaDon hd = new HoaDon();
+
+        int indexRow = table.getTable().getSelectedRow();
+        if (indexRow >= 0) {
+            hd.setMahd(table.getTable().getValueAt(indexRow, 1).toString());
             JDialog dl = showChangePwdFrame(hd.getMahd());
             dl.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     setTableData();
                 }
-            }); 
-        
+            });
+        }
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        int rowCount =table.getTable().getRowCount();
+        int rowCount = table.getTable().getRowCount();
         XuatExcel xexcel = new XuatExcel();
-        Vector<String> indexMahd= new Vector<>();
+        Vector<String> indexMahd = new Vector<>();
         System.out.println(rowCount);
-        for(int i=0;i<rowCount;i++)
-        {
+        for (int i = 0; i < rowCount; i++) {
             indexMahd.add(table.getTable().getValueAt(i, 1).toString());
         }
         xexcel.xuatFileExcelChiTietHoaDon(indexMahd);

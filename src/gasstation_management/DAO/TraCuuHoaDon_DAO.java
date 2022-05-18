@@ -29,7 +29,7 @@ public class TraCuuHoaDon_DAO {
         db.setupConnection();
         
         try {
-            PreparedStatement stm = db.getConnection().prepareStatement("select mahd, hoadon.matrubom, sanpham.masp, nhanvien.tennv, sanpham.tensp, hoadon.ngaytao, hoadon.soluong, hoadon.tongtien from hoadon, trubom, sanpham, nhanvien where hoadon.matrubom=trubom.matrubom and hoadon.masp=sanpham.masp and trubom.manv=nhanvien.manv and hoadon.mahd=?");
+            PreparedStatement stm = db.getConnection().prepareStatement("select mahd, sanpham.masp, nhanvien.tennv, sanpham.tensp, hoadon.ngaytao, hoadon.soluong, hoadon.tongtien from hoadon, sanpham, nhanvien where hoadon.masp=sanpham.masp and hoadon.mahd=?");
             stm.setString(1,mahd);
             rs = db.sqlQry(stm);
                                 System.out.println(rs);
@@ -42,7 +42,6 @@ public class TraCuuHoaDon_DAO {
                     result.add(rs.getString(5));
                     result.add(rs.getString(6));
                     result.add(rs.getString(7));
-                    result.add(rs.getString(8));
                 }
             }
         } catch (SQLException ex) {
@@ -59,7 +58,7 @@ System.out.println("Lỗi");
         db.setupConnection();
         
         try {
-            PreparedStatement stm = db.getConnection().prepareStatement("select mahd, hoadon.matrubom, sanpham.masp, nhanvien.tennv, sanpham.tensp, hoadon.ngaytao, hoadon.soluong, hoadon.tongtien from hoadon, trubom, sanpham, nhanvien where hoadon.matrubom=trubom.matrubom and hoadon.masp=sanpham.masp and trubom.manv=nhanvien.manv");
+            PreparedStatement stm = db.getConnection().prepareStatement("select mahd, sanpham.masp, nhanvien.tennv, sanpham.tensp, hoadon.ngaytao, hoadon.soluong, hoadon.tongtien from hoadon, trubom, sanpham, nhanvien where hoadon.matrubom=trubom.matrubom and hoadon.masp=sanpham.masp and trubom.manv=nhanvien.manv");
             rs = db.sqlQry(stm);
             if (rs != null) {
                 while (rs.next()) {
@@ -71,7 +70,6 @@ System.out.println("Lỗi");
                     arr.add(rs.getString(5));
                     arr.add(rs.getString(6));
                     arr.add(rs.getString(7));
-                    arr.add(rs.getString(8));
                     result.add(arr);
                 }
             }
@@ -95,11 +93,10 @@ System.out.println("Lỗi");
                 while (rs.next()) {
                     HoaDon temp = new HoaDon();
                     temp.setMahd(rs.getString(1));
-                    temp.setMatrubom(rs.getString(2));
-                    temp.setMasp(rs.getString(3));
-                    temp.setNgaytao(rs.getString(4));
-                    temp.setSoluong(rs.getFloat(5));
-                    temp.setTongtien(rs.getString(6));
+                    temp.setMasp(rs.getString(2));
+                    temp.setNgaytao(rs.getString(3));
+                    temp.setSoluong(rs.getFloat(4));
+                    temp.setTongtien(rs.getString(5));
                     result.add(temp);
                 }
             }
@@ -122,11 +119,10 @@ System.out.println("Lỗi");
                 while (rs.next()) {
                     HoaDon temp = new HoaDon();
                     temp.setMahd(rs.getString(1));
-                    temp.setMatrubom(rs.getString(2));
-                    temp.setMasp(rs.getString(3));
-                    temp.setNgaytao(rs.getString(4));
-                    temp.setSoluong(rs.getFloat(5));
-                    temp.setTongtien(rs.getString(6));
+                    temp.setMasp(rs.getString(2));
+                    temp.setNgaytao(rs.getString(3));
+                    temp.setSoluong(rs.getFloat(4));
+                    temp.setTongtien(rs.getString(5));
                     result.add(temp);
                 }
             }

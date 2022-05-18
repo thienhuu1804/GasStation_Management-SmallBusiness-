@@ -5,6 +5,8 @@
  */
 package gasstation_management.UI.Shared;
 
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -17,8 +19,14 @@ public class MainPanel extends javax.swing.JPanel {
     /**
      * Creates new form SideMenuPanel
      */
-    public MainPanel() {
+    JFrame frame;
+    public MainPanel(JFrame frame) {
         initComponents();
+        this.frame = frame;
+    }
+
+    public void setSide() {
+        pnlSideMenu.add(new SideMenuPanel(frame, getPnlMainContent()));
     }
 
     public JPanel getPnlMainContent() {
@@ -49,8 +57,6 @@ public class MainPanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(893, 546));
         setName(""); // NOI18N
 
-        pnlAccountInfo.setBackground(new java.awt.Color(153, 204, 255));
-
         javax.swing.GroupLayout pnlAccountInfoLayout = new javax.swing.GroupLayout(pnlAccountInfo);
         pnlAccountInfo.setLayout(pnlAccountInfoLayout);
         pnlAccountInfoLayout.setHorizontalGroup(
@@ -61,8 +67,6 @@ public class MainPanel extends javax.swing.JPanel {
             pnlAccountInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 103, Short.MAX_VALUE)
         );
-
-        pnlMainContent.setBackground(new java.awt.Color(255, 204, 204));
 
         javax.swing.GroupLayout pnlMainContentLayout = new javax.swing.GroupLayout(pnlMainContent);
         pnlMainContent.setLayout(pnlMainContentLayout);

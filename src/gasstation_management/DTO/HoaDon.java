@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
  */
 public class HoaDon {
     private String mahd;
-    private String matrubom;
     private String masp;
     private String ngaytao;
     private float soluong;
@@ -20,10 +19,6 @@ public class HoaDon {
 
     public void setMahd(String mahd) {
         this.mahd = mahd;
-    }
-
-    public void setMatrubom(String matrubom) {
-        this.matrubom = matrubom;
     }
 
     public void setMasp(String masp) {
@@ -44,10 +39,6 @@ public class HoaDon {
 
     public String getMahd() {
         return mahd;
-    }
-
-    public String getMatrubom() {
-        return matrubom;
     }
 
     public String getMasp() {

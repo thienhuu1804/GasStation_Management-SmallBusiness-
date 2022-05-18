@@ -35,11 +35,10 @@ public class TaoHoaDon_DAO {
                 while (rs.next()) {
                     HoaDon temp = new HoaDon();
                     temp.setMahd(rs.getString(1));
-                    temp.setMatrubom(rs.getString(2));
-                    temp.setMasp(rs.getString(3));
-                    temp.setNgaytao(rs.getString(4));
-                    temp.setSoluong(Float.parseFloat(rs.getString(5)));
-                    temp.setTongtien(rs.getString(6));
+                    temp.setMasp(rs.getString(2));
+                    temp.setNgaytao(rs.getString(3));
+                    temp.setSoluong(Float.parseFloat(rs.getString(4)));
+                    temp.setTongtien(rs.getString(5));
                     result.add(temp);
                 }
             }
@@ -55,14 +54,13 @@ public class TaoHoaDon_DAO {
         
         db.setupConnection();
         try {
-            String sql = "insert into hoadon values (?,?,?,?,?,?)";
+            String sql = "insert into hoadon values (?,?,?,?,?)";
             PreparedStatement stm = db.getConnection().prepareStatement(sql);
             stm.setString(1, hd.getMahd());
-            stm.setString(2, hd.getMatrubom());
-            stm.setString(3, hd.getMasp());
-            stm.setObject(4, hd.getNgaytao());
-            stm.setFloat(5, hd.getSoluong());
-            stm.setString(6, hd.getTongtien());
+            stm.setString(2, hd.getMasp());
+            stm.setObject(3, hd.getNgaytao());
+            stm.setFloat(4, hd.getSoluong());
+            stm.setString(5, hd.getTongtien());
             return db.sqlUpdate(stm);
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyTaiKhoan_DAO.class.getName()).log(Level.SEVERE, null, ex);

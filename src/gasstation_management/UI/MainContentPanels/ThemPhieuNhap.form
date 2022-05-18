@@ -36,7 +36,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cbbManv" pref="98" max="32767" attributes="0"/>
+                          <Component id="cbbManv" max="32767" attributes="0"/>
                           <Component id="cbbMancc" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -53,25 +53,22 @@
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="txtNgayTao" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="36" max="32767" attributes="0"/>
-                      <Component id="txtTrangThai" min="-2" pref="174" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Component id="txtTongTien" min="-2" pref="174" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="36" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtSL" max="32767" attributes="0"/>
                           <Component id="txtGiaNhap" pref="174" max="32767" attributes="0"/>
+                          <Component id="cbTrangThai" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -96,14 +93,14 @@
                   <Component id="txtMapn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtNgayTao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtTrangThai" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbbMasp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbTrangThai" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -198,8 +195,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtNgayTao">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTrangThai">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtSL">
     </Component>
     <Component class="javax.swing.JTextField" name="txtTongTien">
@@ -271,6 +266,21 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPhieuNhapActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbTrangThai">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

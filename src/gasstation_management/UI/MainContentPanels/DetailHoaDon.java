@@ -40,12 +40,11 @@ public class DetailHoaDon extends javax.swing.JPanel {
         System.out.println(detailHoaDon);
       txtMahd.setText(mahd);
       txtMasp.setText((String) detailHoaDon.get(1));
-      txtMatb.setText((String) detailHoaDon.get(2));
-      txtTennv.setText((String) detailHoaDon.get(3));
-      txtTensp.setText((String) detailHoaDon.get(4));
-      txtNgaytao.setText((String) detailHoaDon.get(5));
-      txtSL.setText((String) detailHoaDon.get(6));
-      txtTongtien.setText((String) detailHoaDon.get(7));
+      txtTennv.setText((String) detailHoaDon.get(2));
+      txtTensp.setText((String) detailHoaDon.get(3));
+      txtNgaytao.setText((String) detailHoaDon.get(4));
+      txtSL.setText((String) detailHoaDon.get(5));
+      txtTongtien.setText((String) detailHoaDon.get(6));
   
     }
 
@@ -62,7 +61,6 @@ public class DetailHoaDon extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -70,7 +68,6 @@ public class DetailHoaDon extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         txtMahd = new javax.swing.JTextField();
         txtMasp = new javax.swing.JTextField();
-        txtMatb = new javax.swing.JTextField();
         txtTennv = new javax.swing.JTextField();
         txtTensp = new javax.swing.JTextField();
         txtNgaytao = new javax.swing.JTextField();
@@ -88,9 +85,6 @@ public class DetailHoaDon extends javax.swing.JPanel {
         jLabel3.setText("Mã sản phẩm:");
 
         jLabel4.setText("jLabel4");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel5.setText("Mã trụ bơm:");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Tên sản phẩm:");
@@ -141,13 +135,10 @@ public class DetailHoaDon extends javax.swing.JPanel {
                                 .addGap(138, 138, 138)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(116, 116, 116)
+                                        .addGap(186, 186, 186)
                                         .addComponent(jLabel4))
                                     .addComponent(jLabel8)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtNgaytao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                        .addComponent(txtMatb, javax.swing.GroupLayout.Alignment.LEADING))))))
+                                    .addComponent(txtNgaytao, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(204, 204, 204)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -162,13 +153,11 @@ public class DetailHoaDon extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMahd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMasp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMatb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMasp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -202,14 +191,12 @@ public class DetailHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtMahd;
     private javax.swing.JTextField txtMasp;
-    private javax.swing.JTextField txtMatb;
     private javax.swing.JTextField txtNgaytao;
     private javax.swing.JTextField txtSL;
     private javax.swing.JTextField txtTennv;

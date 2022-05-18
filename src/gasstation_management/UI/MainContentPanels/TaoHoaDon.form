@@ -64,7 +64,6 @@
                   </Group>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaTruBom" alignment="0" max="32767" attributes="0"/>
                       <Component id="dateNgay" alignment="0" pref="170" max="32767" attributes="0"/>
                       <Component id="txtTongTien" max="32767" attributes="0"/>
                   </Group>
@@ -76,10 +75,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtMaHD" max="32767" attributes="0"/>
-                      <Component id="txtMaTruBom" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="txtMaHD" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -103,15 +99,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="txtMaTruBom">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="M&#xe3; tr&#x1ee5; b&#x1a1;m"/>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="txtMaHD">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
