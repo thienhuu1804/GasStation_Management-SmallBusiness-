@@ -71,7 +71,7 @@ public class Main {
     
          QuanLyNhaCungCap qlncc = new QuanLyNhaCungCap();
          qlncc.setSize(qlncc.getPreferredSize());
-        pnlMain.getPnlMainContent().add(qlncc);
+        pnlMain.getPnlMainContent().add(qlpn);
         frame.setSize(pnlMain.getPreferredSize());
         frame.setLocationRelativeTo(null);
         frame.add(pnlMain);
